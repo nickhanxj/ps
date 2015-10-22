@@ -15,8 +15,8 @@
 	</a>
 	<div class="foot vertically">
 		<div align="center">Copyright-2015</div>
-		<div align="center">Author: Nick</div>
-		<div align="center">All rights deserved to designer</div>
+		<div align="center">All rights deserved</div>
+		<div align="center" id="curTime">Author: Nick</div>
 		<div align="center">Current version: v1.0</div>
 		<div align="center">
 			Quick Links:
@@ -27,4 +27,11 @@
 		</div>
 	</div>
 </body>
+<script type="text/javascript">
+	$(function(){
+		setInterval(function(){
+			$("#curTime").html(new Date());
+		},1000);
+	});
+</script>
 </html>
