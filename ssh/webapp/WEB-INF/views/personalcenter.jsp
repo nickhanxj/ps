@@ -12,6 +12,7 @@
 <style type="text/css">
 	.tabHead{
 		font-weight: bold;
+		text-align: right;
 	}
 </style>
 </head>
@@ -32,22 +33,22 @@
 				  <li role="presentation" onclick="activeItem(this)"><a href="#">My Musics</a></li>
 				  <li role="presentation" onclick="activeItem(this)"><a href="#">My Videos</a></li>
 				</ul>
-				<div style="text-align: center; padding-top: 5px;">
+				<div style="text-align: center;" padding-top: 5px;">
 					<table class="table table-condensed" style="width: 50%; margin-left: auto; margin-right: auto;">
 						<tr>
-							<td class="tabHead">Name</td>
+							<td class="tabHead">Name:</td>
 							<td>${selectedUser.userName}</td>
 						</tr>
 						<tr>
-							<td class="tabHead">Email</td>
+							<td class="tabHead">Email:</td>
 							<td>${selectedUser.email}</td>
 						</tr>
 						<tr>
-							<td class="tabHead">PhoneNumber</td>
+							<td class="tabHead">PhoneNumber:</td>
 							<td>${selectedUser.phoneNumber}</td>
 						</tr>
 						<tr>
-							<td class="tabHead">Sex</td>
+							<td class="tabHead">Sex:</td>
 							<td>
 								<s:if test="#selectedUser.sex == 1">
 									Male
@@ -58,34 +59,34 @@
 							</td>
 						</tr>
 						<tr>
-							<td class="tabHead">Status</td>
+							<td class="tabHead">Status:</td>
 							<td>
 								<s:if test="#selectedUser.status == 1">
 									Normal
 								</s:if>
 								<s:else>
-									<font color="red">Abnormal</font>
+									<font color="red">Abnormal:</font>
 								</s:else>
 							</td>
 						</tr>
 						<tr>
-							<td class="tabHead">RegisterDate</td>
+							<td class="tabHead">RegisterDate:</td>
 							<td>${selectedUser.registerDate}</td>
 						</tr>
 						<tr>
-							<td class="tabHead">CurrentLoginDate</td>
+							<td class="tabHead">CurrentLoginDate:</td>
 							<td>${selectedUser.curLoginDate}</td>
 						</tr>
 						<tr>
-							<td class="tabHead">CurrentLoginIp</td>
+							<td class="tabHead">CurrentLoginIp:</td>
 							<td>${selectedUser.curLoginIp}</td>
 						</tr>
 						<tr>
-							<td class="tabHead">LastLoginDate</td>
+							<td class="tabHead">LastLoginDate:</td>
 							<td>${selectedUser.lastLoginDate}</td>
 						</tr>
 						<tr>
-							<td class="tabHead">LastLoginIp</td>
+							<td class="tabHead">LastLoginIp:</td>
 							<td>${selectedUser.lastLoginIp}</td>
 						</tr>
 					</table>
