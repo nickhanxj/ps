@@ -26,5 +26,9 @@
 			<result name="personalCenter">/WEB-INF/views/personalcenter.jsp</result>
 			<result name="loginSuccess">/WEB-INF/views/homepage.jsp</result>
 		</action>
+		
+		<action name="resourceAction_*" class="com.demo.ssh.action.ResourceAction" method="{1}">
+			<result name="{1}">/WEB-INF/views/{1}.jsp</result>
+		</action>
 	</package>
 </struts>

@@ -16,15 +16,15 @@
 					Personal Space
 				</a>
 			</div>
-			<div class="header-vertically header-content">
-				<a href="" class="ele"><span class="glyphicon glyphicon-paperclip">&ensp;Blog</span></a>
-				<a href="" class="ele"><span class="glyphicon glyphicon-picture">&ensp;Photo</span></a>
-				<a href="" class="ele"><span class="glyphicon glyphicon-music">&ensp;Music</span></a>
-				<a href="" class="ele"><span class="glyphicon glyphicon-film">&ensp;Video</span></a>
+			<div style="margin-left: 100px;" class="header-vertically header-content">
+				<a href="/resourceAction_blog" class="ele"><span class="glyphicon glyphicon-paperclip">&ensp;Blog</span></a>
+				<a href="/resourceAction_photo" class="ele"><span class="glyphicon glyphicon-picture">&ensp;Photo</span></a>
+				<a href="/resourceAction_music" class="ele"><span class="glyphicon glyphicon-music">&ensp;Music</span></a>
+				<a href="/resourceAction_video" class="ele"><span class="glyphicon glyphicon-film">&ensp;Video</span></a>
 			</div>
-			<div style="float: right; margin-right: 100px;" class="header-content vertically" >
+			<div style="float: right; margin-right: 100px;font-size: 14px; font-family: monospace;" class="header-content vertically" >
 				<a href="/userAction_personalCenter?id=${authUser.id}" title="Detail Infomation!"><span class="glyphicon glyphicon-user" style="color: white;">&ensp;${authUser.userName}</span></a>&ensp;|
-				<a href="/userAction_logout" title="Logout" style="color: white; font-size: x-small;"><span class="glyphicon glyphicon-off">&ensp;Logout</span></a>
+				<a href="/userAction_logout" title="Logout" style="color: white; "><span class="glyphicon glyphicon-off">&ensp;Logout</span></a>
 			</div>
 	</div>
 <%-- 	<s:debug></s:debug> --%>

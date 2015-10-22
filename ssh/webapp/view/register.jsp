@@ -6,11 +6,13 @@
 <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <jsp:include page="/view/context.jsp" />
+<link href="/css/homepage.css" rel="stylesheet">
  <%@taglib prefix="s" uri="/struts-tags"%> 
 <title>注册</title>
 </head>
-<body background="/images/dc54564e9258d109e7edcc52d058ccbf6d814dc7.jpg">
-	<div style="width: 30%; margin-left: auto; margin-right: auto; margin-top: 100px; border: 10px solid lightgray;background: white;">
+<body>
+	<img alt="" src="/images/login-left.jpg" class="back-img">
+	<div style="width: 30%; margin-left: auto; margin-right: auto; margin-top: 100px; border: 10px solid lightgray;background: rgba(255,255,255, 0.5);">
 	<div style="padding: 15px;">
 	<s:form action="/userAction_register" theme="simple">
 		<div class="form-group">

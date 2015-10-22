@@ -16,9 +16,9 @@
 		<div class="body-head">
 			<h1 class="body-head-title">Personal Space</h1>  
 			<p class="body-head-text">
-			Personal space is a place where you can place your personal files here and manage your resources,
-			and also you can take record your daily mood here and also some interesting things. It's a harbour
-			of your heart and a time capsule of your experience!
+			Personal space is a place where you can place your personal files(videos, photos, musics etc) and manage your resources,
+			and also you can take record your daily mood here and some interesting things of your daily life. It's a harbour
+			of your heart and a time capsule of your experience. Just retain wonderful moment !
 			</p>
 		</div>
 		<div class="body-container">

@@ -26,11 +26,11 @@
 		<div class="body-container" >
 			<div style="border: 1px solid silver; width: 100%; clear: both;">
 				<ul class="nav nav-tabs">
-				  <li class="active" role="presentation"><a href="#">Basic Info</a></li>
-				  <li role="presentation"><a href="#">My Blogs</a></li>
-				  <li role="presentation"><a href="#">My Photos</a></li>
-				  <li role="presentation"><a href="#">My Musics</a></li>
-				  <li role="presentation"><a href="#">My Videos</a></li>
+				  <li class="active" role="presentation" onclick="activeItem(this)"><a href="#">Basic Info</a></li>
+				  <li role="presentation" onclick="activeItem(this)"><a href="#">My Blogs</a></li>
+				  <li role="presentation" onclick="activeItem(this)"><a href="#">My Photos</a></li>
+				  <li role="presentation" onclick="activeItem(this)"><a href="#">My Musics</a></li>
+				  <li role="presentation" onclick="activeItem(this)"><a href="#">My Videos</a></li>
 				</ul>
 				<div style="text-align: center; padding-top: 5px;">
 					<table class="table table-condensed" style="width: 50%; margin-left: auto; margin-right: auto;">
@@ -95,4 +95,13 @@
 	</div>
 	<s:include value="/view/footer.jsp" />
 </body>
+<script type="text/javascript">
+	function activeItem(t){
+		var lis = $("li");
+		for(var i = 0; i < lis.length; i++){
+			$(lis[i]).removeClass("active");
+		}
+		$(t).addClass("active");
+	}
+</script>
 </html>
