@@ -15,7 +15,8 @@
 	<div style="width: 30%; margin-left: auto; margin-right: auto; margin-top: 100px; border: 10px solid lightgray;background: rgba(255,255,255, 0.5);">
 	<div style="padding: 15px;">
 	<s:form action="/userAction_register" theme="simple">
-		<div class="form-group">
+	<div style="font-size: 20px; font-family: cursive; font-weight: bold; border: 1px dashed gray; padding-bottom: 15px; padding-top: 10px; text-align: center;">新用户注册</div>
+		<div class="form-group" style="margin-top: 15px;">
 			<label for="name">用户名:</label> 
 			<s:textfield name="user.userName"  cssClass="form-control" placeholder="请输入名称"></s:textfield>
 		</div>
