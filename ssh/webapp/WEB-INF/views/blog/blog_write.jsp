@@ -8,7 +8,7 @@
 <jsp:include page="/view/context.jsp"/>
 <link href="/css/homepage.css" rel="stylesheet">
 <%@taglib prefix="s" uri="/struts-tags"%>
-<title>Blog</title>
+<title>Write</title>
 </head>
 <body>
 	<s:include value="/view/header.jsp"/>

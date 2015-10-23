@@ -109,9 +109,39 @@
 	font-size: medium;
 }
 
-.items{
-	width: 30%; 
-	margin-top: 50px; 
-	height: 250px; 
-	display: inline-block !important;
+.homepage-items{
+	width: 40%; 
+	float: left;
+	display: block;
+	margin: 4%;
+	height: 300px;
+}
+
+#navbox{
+	width: 45px;
+	height: 80.8%;
+	background-color: #2d3134;
+	position: fixed;
+	left: 0;
+	z-index: 999;
+	overflow: hidden;
+	padding-top: 0px;
+}
+
+#navbox ul{
+	list-style: none;
+    display: block;
+    list-style-type: disc;
+    -webkit-margin-before: 1em;
+    -webkit-margin-after: 1em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    -webkit-padding-start: 40px;
+}
+
+/*
+	about blog
+*/
+.toolbar{
+	
 }

@@ -33,7 +33,7 @@
 				  <li role="presentation" onclick="activeItem(this)"><a href="#">My Musics</a></li>
 				  <li role="presentation" onclick="activeItem(this)"><a href="#">My Videos</a></li>
 				</ul>
-				<div style="text-align: center;" padding-top: 5px;">
+				<div style="text-align: center; padding-top: 5px;">
 					<table class="table table-condensed" style="width: 50%; margin-left: auto; margin-right: auto;">
 						<tr>
 							<td class="tabHead">Name:</td>

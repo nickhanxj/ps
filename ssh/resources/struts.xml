@@ -30,5 +30,9 @@
 		<action name="resourceAction_*" class="com.demo.ssh.action.ResourceAction" method="{1}">
 			<result name="{1}">/WEB-INF/views/{1}.jsp</result>
 		</action>
+		
+		<action name="blogAction_*" class="com.demo.ssh.action.BlogAction" method="{1}">
+			<result name="write">/WEB-INF/views/blog/blog_write.jsp</result>
+		</action>
 	</package>
 </struts>

@@ -22,11 +22,13 @@
 				<div class="form-group" style="margin-top: 40px;">
 					<s:password required="true" name="user.password"  cssClass="form-control glyphicon lock" placeholder="请输入密码"/>
 				</div>
-				<div align="center" style="margin-top: 100px;">
-					<s:submit value="登录" cssClass="btn btn-default"/>
+				<div align="center" style="margin-top: 70px;">
+					<s:submit value="安全登录" cssClass="btn btn-default"/>
 				</div>
-				<div align="right" style="font-size: x-small;">
-					<a href="/view/register.jsp">马上注册</a>
+				<div align="right" style="font-size: x-small; margin-top: 30px;">
+					<a href="/view/register.jsp">忘记密码</a>&ensp;|
+					<a href="/view/register.jsp">马上注册</a>&ensp;|
+					<a href="/view/register.jsp">联系我们</a>
 				</div>
 				<div style="color: red;" align="center">
 					<s:actionerror/>

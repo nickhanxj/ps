@@ -11,6 +11,7 @@ import org.apache.struts2.ServletActionContext;
 
 import com.demo.ssh.entity.User;
 import com.demo.ssh.service.UserService;
+import com.demo.ssh.util.LoggerManager;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -23,6 +24,7 @@ public class UserAction extends ActionSupport {
 	private String id;
 
 	public String register() {
+		LoggerManager.info("新用户注册...");
 		if (StringUtils.isBlank(user.getUserName())
 				|| StringUtils.isBlank(user.getPassword())) {
 			addActionError("用户名或者密码不能为空！");
@@ -37,9 +39,11 @@ public class UserAction extends ActionSupport {
 					user.setPassword(md5Hex);
 					userService.addUser(user);
 					addActionMessage("注册成功！");
+					LoggerManager.info("新用户注册成功：【"+user.getUserName()+"--"+user.getEmail()+"】");
 				} catch (Exception e) {
 					addActionError(e.getMessage());
 					e.printStackTrace();
+					LoggerManager.error("新用户【"+user.getUserName()+"】注册失败："+e.getMessage());
 					return "failure";
 				}
 			}
@@ -53,12 +57,14 @@ public class UserAction extends ActionSupport {
 		if (StringUtils.isBlank(user.getUserName())
 				|| StringUtils.isBlank(user.getPassword())) {
 			addActionError("用户名或者密码不能为空！");
+			LoggerManager.error("用户【"+user.getUserName()+"】登录失败（"+new Date()+"）。原因：登录信息不完整。");
 			return "authFailed";
 		}
 		User authUser = userService.authUser(user);
 		if (authUser == null) {
 			addActionError("用户名或密码错误！");
 			// user = authUser;
+			LoggerManager.error("用户【"+user.getUserName()+"】登录失败（"+new Date()+"）。原因：用户名与密码不匹配。");
 			return "authFailed";
 		}
 		ActionContext.getContext().getSession().put("authUser", authUser);
@@ -68,6 +74,7 @@ public class UserAction extends ActionSupport {
 		authUser.setLastLoginIp(authUser.getCurLoginIp());
 		authUser.setCurLoginIp(request.getRemoteAddr());
 		userService.updateUser(authUser);
+		LoggerManager.info("用户【"+user.getUserName()+"】登录成功("+new Date()+")！");
 		return "loginSuccess";
 	}
 
