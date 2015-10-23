@@ -3,6 +3,8 @@ package com.demo.ssh.action;
 import com.demo.ssh.base.BaseAction;
 
 public class ResourceAction extends BaseAction{
+	private static final long serialVersionUID = 1L;
+
 	/**
 	 * 
 	 * @return

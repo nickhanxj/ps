@@ -17,14 +17,27 @@
     <!-- 默认后缀名 -->    
 <!--     <constant name="struts.action.extension" value="action" />       -->
 	<package name="default" extends="struts-default" namespace="/">
+	
+		<!-- 权限拦截器配置 -->
+		<interceptors>
+			<interceptor name="authInterceptor" class="com.demo.ssh.interceptor.AuthInterceptor"/>
+			<interceptor-stack name="authStack">
+				<interceptor-ref name="defaultStack"/>
+				<interceptor-ref name="authInterceptor"/>
+			</interceptor-stack>
+		</interceptors>
+		<!-- 配置默认拦截器栈 -->
+		<default-interceptor-ref name="authStack"/>
+		
 		<global-results>
 			<result name="error">/view/error.jsp</result>
+			<result name="login">/view/login.jsp</result>
 		</global-results>
+		
 		<action name="userAction_*" class="com.demo.ssh.action.UserAction" method="{1}">
-			<result name="success">/view/register.jsp</result>
-			<result name="authFailed">/view/login.jsp</result>
+			<result name="register">/view/register.jsp</result>
 			<result name="personalCenter">/WEB-INF/views/personalcenter.jsp</result>
-			<result name="loginSuccess">/WEB-INF/views/homepage.jsp</result>
+			<result name="success">/WEB-INF/views/homepage.jsp</result>
 		</action>
 		
 		<action name="resourceAction_*" class="com.demo.ssh.action.ResourceAction" method="{1}">

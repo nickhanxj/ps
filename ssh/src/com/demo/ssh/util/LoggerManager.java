@@ -15,4 +15,8 @@ public class LoggerManager {
 	public static void error(String error) {
 		logger.error(error);
 	}
+	
+	public static void warn(String warn){
+		logger.warn(warn);
+	}
 }

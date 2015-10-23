@@ -5,7 +5,12 @@ import javax.annotation.Resource;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-public class BaseAction {
+import com.opensymphony.xwork2.ActionSupport;
+
+public class BaseAction extends ActionSupport {
+	private static final long serialVersionUID = 1L;
+	
+	public static final String REGISTER = "register";
 	@Resource
 	private SessionFactory sessionFactory;
 	
