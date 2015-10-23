@@ -38,6 +38,9 @@
 			<result name="register">/view/register.jsp</result>
 			<result name="personalCenter">/WEB-INF/views/personalcenter.jsp</result>
 			<result name="success">/WEB-INF/views/homepage.jsp</result>
+			<result name="forgetPassword">/WEB-INF/views/forgetPassword.jsp</result>
+			<result name="editProfile">/WEB-INF/views/profile/edit_profile.jsp</result>
+			<result name="reloadInfo" type="redirectAction">/userAction_personalCenter</result>
 		</action>
 		
 		<action name="resourceAction_*" class="com.demo.ssh.action.ResourceAction" method="{1}">

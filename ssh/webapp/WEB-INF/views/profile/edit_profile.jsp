@@ -27,33 +27,30 @@
 		<div class="body-container" >
 			<div style="border: 1px solid silver; width: 100%; clear: both;">
 				<ul class="nav nav-tabs">
-				  <li class="active" role="presentation" onclick="activeItem(this)"><a href="/user/personalCenter.html?id=${authUser.id}">Basic Info</a></li>
-				  <li role="presentation" onclick="activeItem(this)"><a href="/user/editProfile.html?id=${authUser.id}">Edit Profile</a></li>
+				  <li role="presentation" onclick="activeItem(this)"><a href="/userAction_personalCenter?id=${authUser.id}">Basic Info</a></li>
+				  <li class="active" role="presentation" onclick="activeItem(this)"><a href="/userAction_editProfile?id=${authUser.id}">Edit Profile</a></li>
 				  <li role="presentation" onclick="activeItem(this)"><a href="#">Contact Method</a></li>
 				</ul>
 				<div style="text-align: center; padding-top: 5px;">
+					<s:form theme="simple" action="/userAction_updateUser">
+						<s:hidden name="id" value="%{#selectedUser.id}"/>
 					<table class="table table-condensed" style="width: 50%; margin-left: auto; margin-right: auto;">
 						<tr>
 							<td class="tabHead">Name:</td>
-							<td>${selectedUser.userName}</td>
+							<td><s:textfield name="user.userName" value="%{#selectedUser.userName}"/></td>
 						</tr>
 						<tr>
 							<td class="tabHead">Email:</td>
-							<td>${selectedUser.email}</td>
+							<td><s:textfield name="user.email" value="%{#selectedUser.email}"/></td>
 						</tr>
 						<tr>
 							<td class="tabHead">PhoneNumber:</td>
-							<td>${selectedUser.phoneNumber}</td>
+							<td><s:textfield name="user.phoneNumber" value="%{#selectedUser.phoneNumber}"/></td>
 						</tr>
 						<tr>
 							<td class="tabHead">Sex:</td>
 							<td>
-								<s:if test="#selectedUser.sex == 1">
-									Male
-								</s:if>
-								<s:else>
-									Female
-								</s:else>
+								<s:radio name="user.sex" list="%{#{'1':'Male','2':'Female'}}" value="%{#selectedUser.sex}"></s:radio>
 							</td>
 						</tr>
 						<tr>
@@ -63,7 +60,7 @@
 									Normal
 								</s:if>
 								<s:else>
-									<font color="red">Abnormal:</font>
+									<font color="red">Abnormal</font>
 								</s:else>
 							</td>
 						</tr>
@@ -88,6 +85,11 @@
 							<td>${selectedUser.lastLoginIp}</td>
 						</tr>
 					</table>
+					<div style="margin-bottom: 15px;">
+						<s:submit value="Save" cssClass="btn btn-success"/>
+						<a href="/userAction_personalCenter?id=${authUser.id}" class="btn btn-warning">Cancel</a>
+					</div>
+					</s:form>
 				</div>
 			</div>
 		</div>

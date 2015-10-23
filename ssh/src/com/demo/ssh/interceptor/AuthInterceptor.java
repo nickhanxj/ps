@@ -28,7 +28,18 @@ public class AuthInterceptor extends AbstractInterceptor{
 		// TODO Auto-generated method stub
 		Action action = (Action) invocation.getAction();
 		if(action instanceof UserAction){//如果是userAction则直接放行
-			return invocation.invoke();
+			String method = invocation.getProxy().getMethod();
+			if("register".equals(method) || "login".equals(method)){
+				return invocation.invoke();
+			}else{
+				Map<String, Object> session = invocation.getInvocationContext().getSession();
+				User user = (User) session.get(authUser);
+				if(user == null){
+					HttpServletRequest request = (HttpServletRequest) invocation.getInvocationContext().get(ServletActionContext.HTTP_REQUEST);
+					LoggerManager.warn("警告：["+request.getRemoteAddr()+"] 在未登录状态尝试访问资源：["+invocation.getProxy().getActionName()+":"+invocation.getProxy().getMethod()+"] >>> 失败！");
+					return Action.LOGIN;
+				}
+			}
 		}else{
 			Map<String, Object> session = invocation.getInvocationContext().getSession();
 			User user = (User) session.get(authUser);

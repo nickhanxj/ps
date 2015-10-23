@@ -84,13 +84,35 @@ public class UserAction extends BaseAction {
 		ActionContext.getContext().getSession().put("authUser", null);
 		return LOGIN;
 	}
+	
+	public String updateUser(){
+		User selectedUser = userService.getUserByid(id);
+		selectedUser.setUserName(user.getUserName());
+		selectedUser.setEmail(user.getEmail());
+		selectedUser.setPhoneNumber(user.getPhoneNumber());
+		selectedUser.setSex(user.getSex());
+		userService.updateUser(selectedUser);
+		LoggerManager.info("用户【"+user.getUserName()+"】更新个人信息成功("+new Date()+")！");
+		return "reloadInfo";
+	}
+	
+	public String forgetPassword(){
+		return "forgetPassword";
+	}
+	
+	public String editProfile(){
+		User selectedUser = userService.getUserByid(id);
+		ActionContext.getContext().put("selectedUser", selectedUser);
+		return "editProfile";
+	}
 
 	public String homePage() {
 		return null;
 	}
 
 	public String personalCenter() {
-		User selectedUser = userService.getUserByid(id);
+		User auser = (User)ActionContext.getContext().getSession().get("authUser");
+		User selectedUser = userService.getUserByid(auser.getId()+"");
 		ActionContext.getContext().put("selectedUser", selectedUser);
 		return "personalCenter";
 	}

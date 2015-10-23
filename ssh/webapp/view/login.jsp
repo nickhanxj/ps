@@ -12,7 +12,7 @@
 </head>
 <body style="clear: both;">
 	<img alt="" src="/images/login-left.jpg" class="back-img">
-	<s:form action="/userAction_login" theme="simple">
+	<s:form action="/user/login.html" theme="simple">
 		<div style="display:inline-block; float:right; width: 20%; height:400px; margin-right: 200px;  margin-top: 150px; border: 10px solid white;background: rgba(255,255,255, 0.5);">
 			<div style="padding: 15px;">
 				<div style="font-size: 20px; font-family: cursive; font-weight: bold; border-bottom: 1px dotted gray; padding-bottom: 15px; padding-top: 10px;">帐号登录</div>
@@ -26,9 +26,9 @@
 					<s:submit value="安全登录" cssClass="btn btn-default"/>
 				</div>
 				<div align="right" style="font-size: x-small; margin-top: 30px;">
-					<a href="/view/register.jsp">忘记密码</a>&ensp;|
+					<a href="#">忘记密码</a>&ensp;|
 					<a href="/view/register.jsp">马上注册</a>&ensp;|
-					<a href="/view/register.jsp">联系我们</a>
+					<a href="#">联系我们</a>
 				</div>
 				<div style="color: red;" align="center">
 					<s:actionerror/>
