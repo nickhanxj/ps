@@ -28,10 +28,12 @@ public class UserAction extends ActionSupport {
 		if (StringUtils.isBlank(user.getUserName())
 				|| StringUtils.isBlank(user.getPassword())) {
 			addActionError("用户名或者密码不能为空！");
+			LoggerManager.error("新用户【"+user.getUserName()+"】注册失败：信息不完整！");
 		} else {
 			boolean hasExist = userService.hasExist(user.getUserName());
 			if (hasExist) {
 				addActionError("该用户名已存在，请使用其他用户名！");
+				LoggerManager.error("新用户【"+user.getUserName()+"】注册失败：用户名已存在！");
 			} else {
 				try {
 					user.setRegisterDate(new Date());
