@@ -27,8 +27,8 @@
 		<div class="body-container" >
 			<div style="border: 1px solid silver; width: 100%; clear: both;">
 				<ul class="nav nav-tabs">
-				  <li role="presentation" onclick="activeItem(this)"><a href="/userAction_personalCenter?id=${authUser.id}">Basic Info</a></li>
-				  <li class="active" role="presentation" onclick="activeItem(this)"><a href="/userAction_editProfile?id=${authUser.id}">Edit Profile</a></li>
+				  <li role="presentation" onclick="activeItem(this)"><a href="/user/personalCenter.html?id=${authUser.id}">Basic Info</a></li>
+				  <li class="active" role="presentation" onclick="activeItem(this)"><a href="/user/editProfile.html?id=${authUser.id}">Edit Profile</a></li>
 				  <li role="presentation" onclick="activeItem(this)"><a href="#">Contact Method</a></li>
 				</ul>
 				<div style="text-align: center; padding-top: 5px;">
@@ -87,7 +87,7 @@
 					</table>
 					<div style="margin-bottom: 15px;">
 						<s:submit value="Save" cssClass="btn btn-success"/>
-						<a href="/userAction_personalCenter?id=${authUser.id}" class="btn btn-warning">Cancel</a>
+						<a href="/user/personalCenter.html?id=${authUser.id}" class="btn btn-warning">Cancel</a>
 					</div>
 					</s:form>
 				</div>
