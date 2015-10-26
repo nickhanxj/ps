@@ -24,4 +24,13 @@ public class BlogDao extends BaseDao{
 	public void deleteBlog(Blog blog){
 		getSession().delete(blog);
 	}
+	
+	public Blog blogDetail(Long id){
+		Query query = getSession().createQuery("from Blog b where b.id = "+id);
+		List list = query.list();
+		if(list != null && list.size() > 0){
+			return (Blog) list.get(0);
+		}
+		return null;
+	}
 }

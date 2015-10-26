@@ -18,29 +18,39 @@ public class BlogAction extends BaseAction {
 	@Resource
 	private BlogService blogService;
 	private Blog blog;
-	private int P;//保存时是否发布
+	private int P;// 保存时是否发布
+	private Long id;
 
 	public String saveBlog() {
 		// 设置相关信息
-		User currentUser = (User) ActionContext.getContext().getSession().get("authUser");
+		User currentUser = (User) ActionContext.getContext().getSession()
+				.get("authUser");
 		blog.setUser(currentUser);
 		blog.setPublishDate(new Date());
 		try {
 			blogService.saveBlog(blog);
-			LoggerManager.info("用户【"+currentUser.getUserName()+"】新增博客【"+blog.getTitle()+"】成功！");
+			LoggerManager.info("用户【" + currentUser.getUserName() + "】新增博客【"
+					+ blog.getTitle() + "】成功！");
 		} catch (Exception e) {
 			e.printStackTrace();
-			LoggerManager.info("用户【"+currentUser.getUserName()+"】新增博客失败："+e.getMessage());
+			LoggerManager.info("用户【" + currentUser.getUserName() + "】新增博客失败："
+					+ e.getMessage());
 			return ERROR;
 		}
 		return SUCCESS;
 	}
-	
-	public String list(){
+
+	public String list() {
 		List<Blog> blogs = blogService.selectList();
 		ActionContext.getContext().put("blogList", blogs);
 		LoggerManager.info("加载博客列表成功！");
 		return LIST;
+	}
+
+	public String detail() {
+		Blog detail = blogService.blogDetail(id);
+		ActionContext.getContext().put("blog", detail);
+		return DETAIL;
 	}
 
 	public String writeBlogPage() {
@@ -61,6 +71,14 @@ public class BlogAction extends BaseAction {
 
 	public void setP(int p) {
 		P = p;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 }

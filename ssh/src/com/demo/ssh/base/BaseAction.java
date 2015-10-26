@@ -7,5 +7,6 @@ public class BaseAction extends ActionSupport {
 	
 	public static final String REGISTER = "register";
 	public static final String LIST = "list";
+	public static final String DETAIL = "detail";
 	
 }
