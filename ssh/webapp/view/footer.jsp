@@ -10,8 +10,8 @@
 <title>首页</title>
 </head>
 <body>
-	<a href="#top" title="Back to top" style="display:block; position:fixed; right:20px; bottom:20px;">
-		<img alt="" src="/images/top.jpg" width="40px" height="40px;">
+	<a id="gotop" title="Back to top" style="display:none; position:fixed; right:20px; bottom:140px; cursor: pointer;">
+		<img alt="" src="/images/backtotop.png" width="40px" height="40px;">
 	</a>
 	<div class="foot vertically">
 		<div align="center">Copyright-2015</div>
@@ -20,10 +20,10 @@
 		<div align="center">Current version: v1.0</div>
 		<div align="center">
 			Quick Links:
-			<a href="www.baidu.com" class="footer-a">Baidu</a>
-			<a href="www.qq.com" class="footer-a">Tencent</a>
-			<a href="www.bing.com" class="footer-a">Bing</a>
-			<a href="www.sina.com" class="footer-a">Sina</a>
+			<a value="www.baidu.com" href="javascript:void(0)" onclick="redirectUrl(this)" class="footer-a">Baidu</a>
+			<a value="www.qq.com" href="javascript:void(0)" onclick="redirectUrl(this)" class="footer-a">Tencent</a>
+			<a value="www.bing.com" href="javascript:void(0)" onclick="redirectUrl(this)" class="footer-a">Bing</a>
+			<a value="www.sina.com" href="javascript:void(0)" onclick="redirectUrl(this)" class="footer-a">Sina</a>
 		</div>
 	</div>
 </body>
@@ -32,6 +32,25 @@
 		setInterval(function(){
 			$("#curTime").html(new Date());
 		},1000);
+		
+		 $(window).scroll(function(){
+            if($(window).scrollTop() > 100){
+                $("#gotop").fadeIn(500);//一秒渐入动画
+            }else{
+                $("#gotop").fadeOut(500);//一秒渐隐动画
+            }
+        });
+         
+        $("#gotop").click(function(){
+            $('body,html').animate({scrollTop:0},500);
+        });
 	});
+	
+	function redirectUrl(t){
+		console.debug(t);
+		var url = $(t).attr("value");
+		window.location.href = url;
+	}
+	
 </script>
 </html>

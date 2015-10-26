@@ -147,4 +147,24 @@ public class Blog {
 		this.readedTimes = readedTimes;
 	}
 
+	public Blog(long id, String title, String content, User user,
+			List<Image> images, int category, int praisedTimes, int shredTimes,
+			int suggestedTimes, int disSuggestTimes, int readedTimes,
+			Date publishDate, int status) {
+		super();
+		this.id = id;
+		this.title = title;
+		this.content = content;
+		this.user = user;
+		this.images = images;
+		this.category = category;
+		this.praisedTimes = praisedTimes;
+		this.shredTimes = shredTimes;
+		this.suggestedTimes = suggestedTimes;
+		this.disSuggestTimes = disSuggestTimes;
+		this.readedTimes = readedTimes;
+		this.publishDate = publishDate;
+		this.status = status;
+	}
+
 }

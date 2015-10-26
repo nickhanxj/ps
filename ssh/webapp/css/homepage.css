@@ -105,8 +105,17 @@
 
 .ele{
 	padding-left: 15px;
+	padding-right:15px;
+	padding-bottom: 15px;
 	color: white;
 	font-size: medium;
+}
+
+#navItems a:HOVER{
+	display: inline-block;
+	height: 32px;
+	border-bottom: 10px solid lightblue;
+	text-align: center;
 }
 
 .homepage-items{
@@ -139,6 +148,12 @@
     -webkit-padding-start: 40px;
 }
 
+.ac{
+	display: inline-block;
+	height: 32px;
+	border-bottom: 10px solid lightblue;
+	text-align: center;
+}
 /*
 	about blog
 */

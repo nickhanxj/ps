@@ -13,7 +13,7 @@
 <body style="clear: both;">
 	<img alt="" src="/images/login-left.jpg" class="back-img">
 	<s:form action="/user/login.html" theme="simple">
-		<div style="display:inline-block; float:right; width: 20%; height:400px; margin-right: 200px;  margin-top: 150px; border: 10px solid white;background: rgba(255,255,255, 0.5);">
+		<div style="display:inline-block; float:right; width: 20%; height:400px; margin-right: 200px;  margin-top: 150px; border: 10px solid white;background: rgba(255,255,255, 0);">
 			<div style="padding: 15px;">
 				<div style="font-size: 20px; font-family: cursive; font-weight: bold; border-bottom: 1px dotted gray; padding-bottom: 15px; padding-top: 10px;">帐号登录</div>
 				<div class="form-group" style="margin-top: 30px;">

@@ -13,11 +13,11 @@
 <body>
 	<nav class="navbar navbar-default" role="navigation">
 	   <div class="navbar-header">
-	      <a class="navbar-brand" href="/resourceAction_blog">My Blogs</a>
+	      <a class="navbar-brand" href="/resource/blog.html">My Blogs</a>
 	   </div>
 	   <div>
 	      <ul class="nav navbar-nav">
-	         <li class="active"><a href="/blogAction_writeBlogPage">Write New</a></li>
+	         <li class="active"><a href="/blog/writeBlogPage.html">Write New</a></li>
 	         <li><a href="#">My Share</a></li>
 	         <li><a href="#">Contact Writer</a></li>
 	         <li><a href="#">Manage Center</a></li>

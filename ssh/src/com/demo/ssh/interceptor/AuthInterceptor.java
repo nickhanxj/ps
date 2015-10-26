@@ -27,9 +27,9 @@ public class AuthInterceptor extends AbstractInterceptor{
 	public String intercept(ActionInvocation invocation) throws Exception {
 		// TODO Auto-generated method stub
 		Action action = (Action) invocation.getAction();
-		if(action instanceof UserAction){//如果是userAction则直接放行
+		if(action instanceof UserAction){
 			String method = invocation.getProxy().getMethod();
-			if("register".equals(method) || "login".equals(method)){
+			if("register".equals(method) || "login".equals(method)){//如果是登录或注册则直接放行
 				return invocation.invoke();
 			}else{
 				Map<String, Object> session = invocation.getInvocationContext().getSession();

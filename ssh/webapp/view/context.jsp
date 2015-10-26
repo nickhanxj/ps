@@ -7,7 +7,6 @@
 <link href="/js/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" media="screen">
 <link rel="stylesheet" href="/js/bootstrap-3.3.5/css/font-awesome.min.css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title></title>
 </head>
 <body>
 	<script type="text/javascript" src="/js/jquery-2.1.4.js"></script>
