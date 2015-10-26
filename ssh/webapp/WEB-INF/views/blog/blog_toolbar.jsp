@@ -13,7 +13,7 @@
 <body>
 	<nav class="navbar navbar-default" role="navigation">
 	   <div class="navbar-header">
-	      <a class="navbar-brand" href="/resource/blog.html">My Blogs</a>
+	      <a class="navbar-brand" href="/blog/list.html">My Blogs</a>
 	   </div>
 	   <div>
 	      <ul class="nav navbar-nav">

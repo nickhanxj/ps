@@ -3,19 +3,19 @@ package com.demo.ssh.dao;
 import java.util.Iterator;
 import java.util.List;
 
-import javax.annotation.Resource;
-
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.Query;
-import org.hibernate.SessionFactory;
-import org.hibernate.classic.Session;
 import org.springframework.stereotype.Repository;
 
 import com.demo.ssh.base.BaseAction;
+import com.demo.ssh.base.BaseDao;
 import com.demo.ssh.entity.User;
 
 @Repository
-public class UserDao extends BaseAction {
+@SuppressWarnings("all")
+public class UserDao extends BaseDao{
+	private static final long serialVersionUID = 1L;
+
 	public void addUser(User user) {
 		getSession().save(user);
 	}

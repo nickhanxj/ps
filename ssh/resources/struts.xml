@@ -49,6 +49,8 @@
 		
 		<action name="blogAction_*" class="com.demo.ssh.action.BlogAction" method="{1}">
 			<result name="write">/WEB-INF/views/blog/blog_write.jsp</result>
+			<result name="list">/WEB-INF/views/blog.jsp</result>
+			<result name="success" type="redirectAction">/blogAction_list</result>
 		</action>
 	</package>
 </struts>

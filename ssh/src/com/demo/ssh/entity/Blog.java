@@ -34,6 +34,8 @@ public class Blog {
 	private int readedTimes = 0;// 阅读次数
 	private Date publishDate;
 	private int status; // 1 正常 0被删除
+	private int published = 0; // 1 已发布 0未发布
+	private int auth;// 1 私有 2公开
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -147,24 +149,20 @@ public class Blog {
 		this.readedTimes = readedTimes;
 	}
 
-	public Blog(long id, String title, String content, User user,
-			List<Image> images, int category, int praisedTimes, int shredTimes,
-			int suggestedTimes, int disSuggestTimes, int readedTimes,
-			Date publishDate, int status) {
-		super();
-		this.id = id;
-		this.title = title;
-		this.content = content;
-		this.user = user;
-		this.images = images;
-		this.category = category;
-		this.praisedTimes = praisedTimes;
-		this.shredTimes = shredTimes;
-		this.suggestedTimes = suggestedTimes;
-		this.disSuggestTimes = disSuggestTimes;
-		this.readedTimes = readedTimes;
-		this.publishDate = publishDate;
-		this.status = status;
+	public int getPublished() {
+		return published;
+	}
+
+	public void setPublished(int published) {
+		this.published = published;
+	}
+
+	public int getAuth() {
+		return auth;
+	}
+
+	public void setAuth(int auth) {
+		this.auth = auth;
 	}
 
 }

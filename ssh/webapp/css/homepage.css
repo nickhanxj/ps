@@ -20,6 +20,13 @@
     padding-left: 30px;
 }
 
+.search-header{
+	border:solid 2px #ccc;
+	background: url("") no-repeat 0 center;
+	width: 200px;
+	height: 35px;
+}
+
 .lock {
     border:solid 2px #ccc;
     background:url(/images/lock1.jpg) no-repeat 0 center;
@@ -63,6 +70,10 @@
 .body-head{
 	height: 200px;
 	background-color: lightblue;
+}
+
+.edit-input{
+	width: 150px;
 }
 
 .body-head-text{

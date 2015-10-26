@@ -11,7 +11,7 @@
 </head>
 <body>
 	<a id="gotop" title="Back to top" style="display:none; position:fixed; right:20px; bottom:140px; cursor: pointer;">
-		<img alt="" src="/images/backtotop.png" width="40px" height="40px;">
+		<img alt="" src="/images/gototop.png" width="40px" height="40px;">
 	</a>
 	<div class="foot vertically">
 		<div align="center">Copyright-2015</div>

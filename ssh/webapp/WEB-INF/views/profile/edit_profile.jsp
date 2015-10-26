@@ -5,7 +5,7 @@
 <head>
 <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Personal Information Center</title>
+<title>Edit Personal Information</title>
 <jsp:include page="/view/context.jsp" />
 <link href="/css/homepage.css" rel="stylesheet">
 <%@taglib prefix="s" uri="/struts-tags"%>
@@ -31,21 +31,21 @@
 				  <li class="active" role="presentation" onclick="activeItem(this)"><a href="/user/editProfile.html?id=${authUser.id}">Edit Profile</a></li>
 				  <li role="presentation" onclick="activeItem(this)"><a href="#">Contact Method</a></li>
 				</ul>
-				<div style="text-align: center; padding-top: 5px;">
+				<div style="text-align: left; padding-top: 5px;">
 					<s:form theme="simple" action="/userAction_updateUser">
 						<s:hidden name="id" value="%{#selectedUser.id}"/>
 					<table class="table table-condensed" style="width: 50%; margin-left: auto; margin-right: auto;">
 						<tr>
 							<td class="tabHead">Name:</td>
-							<td><s:textfield name="user.userName" value="%{#selectedUser.userName}"/></td>
+							<td><s:textfield name="user.userName" value="%{#selectedUser.userName}" cssClass="form-control edit-input"/></td>
 						</tr>
 						<tr>
 							<td class="tabHead">Email:</td>
-							<td><s:textfield name="user.email" value="%{#selectedUser.email}"/></td>
+							<td><s:textfield name="user.email" value="%{#selectedUser.email}" cssClass="form-control edit-input"/></td>
 						</tr>
 						<tr>
 							<td class="tabHead">PhoneNumber:</td>
-							<td><s:textfield name="user.phoneNumber" value="%{#selectedUser.phoneNumber}"/></td>
+							<td><s:textfield name="user.phoneNumber" value="%{#selectedUser.phoneNumber}" cssClass="form-control edit-input"/></td>
 						</tr>
 						<tr>
 							<td class="tabHead">Sex:</td>
@@ -85,7 +85,7 @@
 							<td>${selectedUser.lastLoginIp}</td>
 						</tr>
 					</table>
-					<div style="margin-bottom: 15px;">
+					<div style="margin-bottom: 15px; text-align: center;">
 						<s:submit value="Save" cssClass="btn btn-success"/>
 						<a href="/user/personalCenter.html?id=${authUser.id}" class="btn btn-warning">Cancel</a>
 					</div>

@@ -21,7 +21,34 @@
 			</p>
 		</div>
 		<div class="body-container">
-			<s:include value="/WEB-INF/views/blog/blog_toolbar.jsp"/>
+			<nav class="navbar navbar-default" role="navigation">
+			   <div>
+			      <ul class="nav navbar-nav">
+			      	<li  class="active"><a href="/blog/list.html"><b>My Blogs</b></a></li>
+			         <li><a href="/blog/writeBlogPage.html">Write New</a></li>
+			         <li><a href="#">My Share</a></li>
+			         <li><a href="#">Contact Writer</a></li>
+			         <li><a href="#">Manage Center</a></li>
+			      </ul>
+			   </div>
+			</nav>
+			<div class="panel panel-default">
+			   <div class="panel-heading" style="background-color: lightblue;">
+			      <h3 class="panel-title">
+			         <b>Blogs:</b>
+			      </h3>
+			   </div>
+			    <div class="panel-body">
+					<s:iterator value="%{#blogList}" var="blog">
+						<div class="panel panel-default">
+						   <div class="panel-body" style="clear: both;">
+						   	<div style="display: inline; float: left;"><a href="${blog.id}"><b>${blog.title}</b></a></div>
+						   	<div style="display: inline; float: right;">${blog.user.userName} / ${blog.publishDate}</div>
+						   </div>
+						</div>
+					</s:iterator>
+				</div>
+			</div>
 		</div>
 	</div>
 	<s:include value="/view/footer.jsp"/>
