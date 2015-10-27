@@ -11,7 +11,6 @@ import com.demo.ssh.entity.User;
 import com.demo.ssh.service.BlogService;
 import com.demo.ssh.util.LoggerManager;
 import com.opensymphony.xwork2.ActionContext;
-import com.opensymphony.xwork2.util.logging.LoggerUtils;
 
 public class BlogAction extends BaseAction {
 	private static final long serialVersionUID = 1L;
@@ -35,6 +34,7 @@ public class BlogAction extends BaseAction {
 			e.printStackTrace();
 			LoggerManager.info("用户【" + currentUser.getUserName() + "】新增博客失败："
 					+ e.getMessage());
+			ActionContext.getContext().put("error", e.getMessage());
 			return ERROR;
 		}
 		return SUCCESS;

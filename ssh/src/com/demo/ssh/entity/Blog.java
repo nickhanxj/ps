@@ -33,6 +33,7 @@ public class Blog {
 	private int disSuggestTimes = 0;// 反对次数
 	private int readedTimes = 0;// 阅读次数
 	private Date publishDate;
+	private int enshrineTimes = 0;// 收藏次数
 	private int status; // 1 正常 0被删除
 	private int published = 0; // 1 已发布 0未发布
 	private int auth;// 1 私有 2公开
@@ -163,6 +164,14 @@ public class Blog {
 
 	public void setAuth(int auth) {
 		this.auth = auth;
+	}
+
+	public int getEnshrineTimes() {
+		return enshrineTimes;
+	}
+
+	public void setEnshrineTimes(int enshrineTimes) {
+		this.enshrineTimes = enshrineTimes;
 	}
 
 }

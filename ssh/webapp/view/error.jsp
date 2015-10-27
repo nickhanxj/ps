@@ -4,10 +4,17 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>错误</title>
+<title>ERROR</title>
+<link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico" />
+<jsp:include page="/view/context.jsp"/>
+<link href="/css/homepage.css" rel="stylesheet">
+<%@taglib prefix="s" uri="/struts-tags"%>
 </head>
 <body>
 	<h1 style="color: red;">Internal Error!</h1>
+	<p>
+		Error:${error}
+	</p>
 	<a href="/view/homepage.jsp">&lt;Back to homepage</a>
 </body>
 </html>
