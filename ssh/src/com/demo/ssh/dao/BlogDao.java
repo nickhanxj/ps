@@ -33,4 +33,8 @@ public class BlogDao extends BaseDao{
 		}
 		return null;
 	}
+	
+	public void updateBlog(Blog blog){
+		getSession().update(blog);
+	}
 }

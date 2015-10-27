@@ -27,4 +27,8 @@ public class BlogService {
 	public Blog blogDetail(Long id){
 		return dao.blogDetail(id);
 	}
+	
+	public void updateBlog(Blog blog){
+		dao.updateBlog(blog);
+	}
 }

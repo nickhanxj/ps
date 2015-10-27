@@ -52,6 +52,7 @@
 			<result name="list">/WEB-INF/views/blog.jsp</result>
 			<result name="success" type="redirectAction">/blogAction_list</result>
 			<result name="detail">/WEB-INF/views/blog/blog_detail.jsp</result>
+			<result name="blogDetail" type="redirectAction">/blogAction_detail?id=${id}</result>
 		</action>
 	</package>
 </struts>

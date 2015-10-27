@@ -33,6 +33,17 @@
 			   <hr>
 			   <div class="panel panel-default">
 			   	 <div class="panel-body" style="font-style: italic; font-weight: bold;">
+			   		<div style="color: #36648B; margin-left: 100px; margin-right: 100px;" >
+			   			<b>Readed Times(${blog.readedTimes})</b>&emsp;
+		   				<b>Shared Times(${blog.shredTimes})</b>&emsp;
+	   					<b>Suggested Times(${blog.suggestedTimes})</b>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+	   					<span style="color: black;font-weight:normal;">posted @ ${blog.publishDate} by ${blog.user.userName}<span>
+	   					<a href="#" style="float: right;">Edit</a>
+			   		</div>
+			   	 </div>
+		   	 </div>
+			   <div class="panel panel-default">
+			   	 <div class="panel-body" style="font-style: italic; font-weight: bold;">
 				   Category:
 				   <s:if test="%{#blog.category == 1}">
 				   	<a href="#">STUDY</a>
@@ -57,37 +68,33 @@
 						<span class="glyphicon glyphicon-thumbs-down" style="margin-left: 30px; cursor:pointer;">${blog.disSuggestTimes}</span>
 			   		</div>
 			   </div>
-				<div class="panel panel-default">
-				   	 <div class="panel-body" style="font-style: italic; font-weight: bold;">
-				   	 	Statistics:
-				   		<div style="color: green; margin-left: 100px;" >
-				   			<p><b>Readed Times: ${blog.readedTimes}</b></p>
-			   				<p><b>Shared Times: ${blog.shredTimes}</b></p>
-		   					<p><b>Suggested Times: ${blog.suggestedTimes}</b></p>
-				   		</div>
-				   	 </div>
-			   	 </div>
 			   	 <div class="panel panel-default">
-				   	 <div class="panel-body" style="font-style: normal;">
-				   	 	<b>&lt;&lt;Previous:</b>&emsp;<a style="text-decoration: underline; cursor: pointer;">TEST PICTURE</a>
+				   	 <div class="panel-body" style="font-style: normal;margin-left: 100px; margin-right: 100px;">
+				   	 	<a style="text-decoration: underline; cursor: pointer;"><b>&lt;&lt;Previous</b>&emsp;TEST PICTURE</a>
+				   	 	<span style="float: right;"><a style="text-decoration: underline; cursor: pointer;">TEST PICTURE<b>&emsp;Next&gt;&gt;</b></a></span>
 				   	 </div>
 			   	 </div>
 			   	  <div class="panel panel-default">
 				   	 <div class="panel-body" style="font-style: normal;">
 				   	 	<b>Comments:</b>
-				   	 		<div class="comments">
-				   	 			<div><a href="#">Nick</a>&emsp;2015-02-15 12:14:22</div>
-				   	 			<span style="margin-left: 50px;">Greate!</span>
-				   	 		</div>
-				   	 		<div class="comments">
-				   	 			<div><a href="#">Admin</a>&emsp;2015-02-15 12:14:22</div>
-				   	 			<span style="margin-left: 50px;">learned</span>
-				   	 		</div>
+				   	 		<s:if test="%{#comments.size == 0}">
+				   	 			<div class="comments">
+				   	 				No commnets yet!
+				   	 			</div>
+				   	 		</s:if>
+				   	 		<s:else>
+					   	 		<s:iterator value="%{#comments}" var="comment">
+						   	 		<div class="comments">
+						   	 			<div><a href="#">${comment.user.userName}</a>&emsp;${comment.pubTime}</div>
+						   	 			<span style="margin-left: 50px;">${comment.content}</span>
+						   	 		</div>
+					   	 		</s:iterator>
+				   	 		</s:else>
 				   	 	<br>
 				   	 	<b>Post my comments:</b>
 				   	 	<div style="padding-left: 100px;">
-				   	 		<s:form theme="simple">
-						   	 	<s:textarea cols="100" rows="5"></s:textarea>
+				   	 		<s:form theme="simple" action="/blog/saveCommnets.html?id=%{#blog.id}">
+						   	 	<s:textarea cols="100" rows="5" name="comment.content"></s:textarea>
 						   	 	<br>
 						   	 	<s:submit value="submit" cssClass="btn"></s:submit>
 				   	 		</s:form>
