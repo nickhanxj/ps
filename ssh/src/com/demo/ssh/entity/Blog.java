@@ -94,14 +94,6 @@ public class Blog {
 		this.category = category;
 	}
 
-	public int getPraisedTimes() {
-		return praisedTimes;
-	}
-
-	public void setPraisedTimes(int praisedTimes) {
-		this.praisedTimes = praisedTimes;
-	}
-
 	public int getShredTimes() {
 		return shredTimes;
 	}
@@ -134,14 +126,6 @@ public class Blog {
 		this.status = status;
 	}
 
-	public int getDisSuggestTimes() {
-		return disSuggestTimes;
-	}
-
-	public void setDisSuggestTimes(int disSuggestTimes) {
-		this.disSuggestTimes = disSuggestTimes;
-	}
-
 	public int getReadedTimes() {
 		return readedTimes;
 	}
@@ -172,6 +156,22 @@ public class Blog {
 
 	public void setEnshrineTimes(int enshrineTimes) {
 		this.enshrineTimes = enshrineTimes;
+	}
+
+	public int getPraisedTimes() {
+		return praisedTimes;
+	}
+
+	public void setPraisedTimes(int praisedTimes) {
+		this.praisedTimes = praisedTimes;
+	}
+
+	public int getDisSuggestTimes() {
+		return disSuggestTimes;
+	}
+
+	public void setDisSuggestTimes(int disSuggestTimes) {
+		this.disSuggestTimes = disSuggestTimes;
 	}
 
 }

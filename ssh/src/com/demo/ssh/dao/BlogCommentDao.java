@@ -16,7 +16,7 @@ public class BlogCommentDao extends BaseDao {
 	}
 
 	public List<BlogComment> getCommentsByBlogId(long blogId) {
-		String hql = "from BlogComment bc where bc.blog.id = " + blogId;
+		String hql = "from BlogComment bc where bc.blog.id = " + blogId +"order by bc.pubTime";
 		Query query = getSession().createQuery(hql);
 		return query.list();
 	}

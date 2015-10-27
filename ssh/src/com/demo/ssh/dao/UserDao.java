@@ -13,7 +13,7 @@ import com.demo.ssh.entity.User;
 
 @Repository
 @SuppressWarnings("all")
-public class UserDao extends BaseDao{
+public class UserDao extends BaseDao<User>{
 	private static final long serialVersionUID = 1L;
 
 	public void addUser(User user) {

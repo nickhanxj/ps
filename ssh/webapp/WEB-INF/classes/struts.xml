@@ -16,7 +16,7 @@
     <constant name="struts.configuration.xml.reload" value="false" />    
     <!-- 默认后缀名 -->    
 <!--     <constant name="struts.action.extension" value="action" />       -->
-	<package name="default" extends="struts-default" namespace="/">
+	<package name="default" extends="json-default" namespace="/">
 	
 		<!-- 权限拦截器配置 -->
 		<interceptors>
@@ -32,6 +32,9 @@
 		<global-results>
 			<result name="error">/view/error.jsp</result>
 			<result name="login">/view/login.jsp</result>
+			<result name="json" type="json">
+				<param name="root">jsonData</param>
+			</result>
 		</global-results>
 		
 		<action name="userAction_*" class="com.demo.ssh.action.UserAction" method="{1}">
@@ -52,7 +55,7 @@
 			<result name="list">/WEB-INF/views/blog.jsp</result>
 			<result name="success" type="redirectAction">/blogAction_list</result>
 			<result name="detail">/WEB-INF/views/blog/blog_detail.jsp</result>
-			<result name="blogDetail" type="redirectAction">/blogAction_detail?id=${id}</result>
+			<result name="blogDetail" type="redirectAction">blogAction_detail?id=${id}</result>
 		</action>
 	</package>
 </struts>
