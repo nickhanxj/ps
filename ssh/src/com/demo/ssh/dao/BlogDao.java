@@ -21,6 +21,11 @@ public class BlogDao extends BaseDao{
 		return query.list();
 	}
 	
+	public List<Blog> selectMyBlogs(long userId){
+		Query query = getSession().createQuery("from Blog b where b.user.id = "+userId+" order by b.publishDate desc");
+		return query.list();
+	}
+	
 	public void deleteBlog(Blog blog){
 		getSession().delete(blog);
 	}

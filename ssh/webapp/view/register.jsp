@@ -44,7 +44,7 @@
 			<s:submit value="注册" cssClass="btn btn-default"/>
 		</div>
 		<div align="right" style="font-size: x-small;">
-			已有账号？直接<a href="/view/login.jsp">登录</a>
+			已有账号？直接<a href="/view/login.html">登录</a>
 		</div>
 		<div style="color: red;" align="center" id="errorField">
 			<s:actionerror/>

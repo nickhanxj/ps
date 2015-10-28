@@ -11,7 +11,24 @@
 <title>Personal Space</title>
 </head>
 <body>
-	<s:include value="/view/header.jsp"/>
+	<div class="head">
+			<div class="header-vertically logo header-content">
+				<a href="/resource/homepage.html" style="color: white;">
+					<img alt="" src="/images/p3.png" width="30px;">
+					Personal Space
+				</a>
+			</div>
+			<div style="margin-left: 100px;" id="navItems" class="header-vertically header-content">
+				<a href="/blog/list.html" class="ele" id="blog"><span class="glyphicon glyphicon-paperclip">&ensp;Blog</span></a>
+				<a href="/resource/photo.html" class="ele" id="photo"><span class="glyphicon glyphicon-picture">&ensp;Photo</span></a>
+				<a href="/resource/music.html" class="ele" id="music"><span class="glyphicon glyphicon-music">&ensp;Music</span></a>
+				<a href="/resource/video.html" class="ele" id="video"><span class="glyphicon glyphicon-film">&ensp;Video</span></a>
+			</div>
+			<div style="float: right; margin-right: 100px;font-size: 14px; font-family: monospace;" class="header-content vertically" >
+				<a href="/view/login.html" style="color: white;" title="sign in">&ensp;Sign In</a>&ensp;|
+				<a href="/view/register.html" title="register" style="color: white; ">&ensp;Register</a>
+			</div>
+	</div>
 	<div class="main-container">
 		<div class="body-head">
 			<h1 class="body-head-title">Personal Space</h1>  

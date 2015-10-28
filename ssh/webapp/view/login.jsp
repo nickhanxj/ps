@@ -27,7 +27,7 @@
 				</div>
 				<div align="right" style="font-size: x-small; margin-top: 30px;">
 					<a href="#">忘记密码</a>&ensp;|
-					<a href="/view/register.jsp">马上注册</a>&ensp;|
+					<a href="/view/register.html">马上注册</a>&ensp;|
 					<a href="#">联系我们</a>
 				</div>
 				<div style="color: red;" align="center">

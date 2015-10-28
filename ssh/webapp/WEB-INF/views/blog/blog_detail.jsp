@@ -14,6 +14,7 @@
 <body>
 	<s:include value="/view/header.jsp"/>
 	<input type="hidden" value="${blog.id}" id="blogid">
+	<input type="hidden" value="${blog.user.userName}" id="authorName">
 	<div class="main-container"  style="background-image:url('/images/blog/blog_bg2.jpg'); height: 100%;">
 		<div class="body-head">
 			<h1 class="body-head-title">Blogs</h1>  
@@ -111,10 +112,11 @@
 <script type="text/javascript">
 	function doAction(type){
 		var blogId = $("#blogid").val();
+		var authorName = $("#authorName").val();
 		if(type == "1" || type == "2"){
 			$.ajax({
 				url:"/blogAction_praise?type="+type,
-				data:{"id":blogId},
+				data:{"id":blogId,"authorName":authorName},
 				async: false,
 				success:function(data){
 					if(data.status == 1){
@@ -130,11 +132,7 @@
 							$('#successMsg').slideUp(1000);
 					    }, 2000);
 					}else if(data.status == 2){
-						if(type == "1"){
-							$("#failedMsg").html("Can not repraise! You have praised this blog!");
-						}else if(type == "2"){
-							$("#failedMsg").html("Can not Dissuggest twice! You have dissuggested this blog!");
-						}
+						$("#failedMsg").html(data.message);
 						$('#failedMsg').slideDown(500);
 						setTimeout(function () { 
 							$('#failedMsg').slideUp(1000);
@@ -147,7 +145,7 @@
 		}else if(type == "enshrine"){ 
 			$.ajax({
 				url:"/blogAction_enshrine",
-				data:{"id":blogId},
+				data:{"id":blogId,"authorName":authorName},
 				async: false,
 				success:function(data){
 					if(data.status == 1){
@@ -158,7 +156,7 @@
 							$('#successMsg').slideUp(1000);
 					    }, 2000);
 					}else if(data.status == 2){
-						$("#failedMsg").html("You have enshrined this blog!");
+						$("#failedMsg").html(data.message);
 						$('#failedMsg').slideDown(500);
 						setTimeout(function () { 
 							$('#failedMsg').slideUp(1000);

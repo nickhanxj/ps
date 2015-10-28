@@ -24,6 +24,10 @@ public class BlogService {
 		return dao.selectList();
 	}
 	
+	public List<Blog> selectMyBlogs(long userId){
+		return dao.selectMyBlogs(userId);
+	}
+	
 	public Blog blogDetail(Long id){
 		return dao.blogDetail(id);
 	}

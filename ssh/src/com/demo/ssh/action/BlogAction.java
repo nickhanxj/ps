@@ -36,8 +36,9 @@ public class BlogAction extends BaseAction {
 	private Long id;
 	private BlogComment comment;
 	private int type;
+	private String authorName;
 
-	//新增
+	// 新增
 	public String saveBlog() {
 		// 设置相关信息
 		User currentUser = (User) ActionContext.getContext().getSession()
@@ -58,15 +59,16 @@ public class BlogAction extends BaseAction {
 		return SUCCESS;
 	}
 
-	//列表
+	// 列表
 	public String list() {
-		List<Blog> blogs = blogService.selectList();
+		User sessionUser = getSessionUser();
+		List<Blog> blogs = blogService.selectMyBlogs(sessionUser.getId());
 		ActionContext.getContext().put("blogList", blogs);
 		LoggerManager.info("加载博客列表成功！");
 		return LIST;
 	}
-
-	//详情
+	
+	// 详情
 	public String detail() {
 		Blog detail = blogService.blogDetail(id);
 		detail.setReadedTimes(detail.getReadedTimes() + 1);
@@ -80,7 +82,7 @@ public class BlogAction extends BaseAction {
 		return DETAIL;
 	}
 
-	//评论
+	// 评论
 	public String saveCommnets() {
 		Blog blog = new Blog();
 		blog.setId(id);
@@ -98,52 +100,76 @@ public class BlogAction extends BaseAction {
 		return BLOGDETAIL;
 	}
 
-	//点赞或反对 tyep  1点赞  2反对
+	// 点赞或反对 tyep 1点赞 2反对
 	public String praise() {
+		Map<String, Object> result = new HashMap<String, Object>();
 		User currentUser = (User) ActionContext.getContext().getSession()
 				.get("authUser");
-		// 检测当前用户是否已经点赞
-		boolean praised = praiseService.hasPraised(id, currentUser.getId(), type);
-		Map<String, Object> result = new HashMap<String, Object>();
-		if(praised){
+		//判断博客是否是当前用户的
+		if(currentUser.getUserName().equals(authorName)){
+			if(type == 1){
+				result.put(MESSAGE, "You can not praise your own blog!");
+			}else if(type == 2){
+				result.put(MESSAGE, "You can not dissuggested your own blog!");
+			}
 			result.put(STATUS, STATUS_ERROR);
 		}else{
-			BlogPraise blogPraise = new BlogPraise();
-			Blog blog = new Blog();
-			blog.setId(id);
-			blogPraise.setBlog(blog);
-			blogPraise.setUser(currentUser);
-			blogPraise.setType(type);
-			praiseService.savePraise(blogPraise);
-			int countPraise = praiseService.countPraise(id, type);
-			result.put(STATUS, STATUS_SUCCESS);
-			result.put("praisedTimes", countPraise);
+			// 检测当前用户是否已经点赞
+			boolean praised = praiseService.hasPraised(id, currentUser.getId(),
+					type);
+			if (praised) {
+				if(type == 1){
+					result.put(MESSAGE, "Can not repraise! You have praised this blog!");
+				}else if(type == 2){
+					result.put(MESSAGE, "Can not Dissuggest twice! You have dissuggested this blog!");
+				}
+				result.put(STATUS, STATUS_ERROR);
+			} else {
+				BlogPraise blogPraise = new BlogPraise();
+				Blog blog = new Blog();
+				blog.setId(id);
+				blogPraise.setBlog(blog);
+				blogPraise.setUser(currentUser);
+				blogPraise.setType(type);
+				praiseService.savePraise(blogPraise);
+				int countPraise = praiseService.countPraise(id, type);
+				result.put(STATUS, STATUS_SUCCESS);
+				result.put("praisedTimes", countPraise);
+			}
 		}
 		ActionContext.getContext().put(JSONDATA, result);
 		return JSON;
 	}
-	
-	//收藏
-	public String enshrine(){
+
+	// 收藏
+	public String enshrine() {
 		Map<String, Object> result = new HashMap<String, Object>();
 		EnshrineBlog enshrineBlog = new EnshrineBlog();
 		Blog blog = new Blog();
 		blog.setId(id);
 		enshrineBlog.setBlog(blog);
 		User sessionUser = getSessionUser();
-		//验证是否收藏过
-		boolean hasEnshrined = enshrineBlogService.hasEnshrined(id, sessionUser.getId());
-		if(hasEnshrined){
+		//判断博客是否是当前用户的
+		if(sessionUser.getUserName().equals(authorName)){
+			result.put(MESSAGE, "You can not enshrine your own blog!");
 			result.put(STATUS, STATUS_ERROR);
 		}else{
-			enshrineBlog.setUser(sessionUser);
-			try {
-				enshrineBlogService.saveEnshrine(enshrineBlog);
-				int enshrined = enshrineBlogService.countEnshrined(id);
-				result.put("enshrinedTimes", enshrined);
-				result.put(STATUS, STATUS_SUCCESS);
-			} catch (Exception e) {
+			// 验证是否收藏过
+			boolean hasEnshrined = enshrineBlogService.hasEnshrined(id,
+					sessionUser.getId());
+			if (hasEnshrined) {
 				result.put(STATUS, STATUS_ERROR);
+				result.put(MESSAGE, "You have enshrined this blog!");
+			} else {
+				enshrineBlog.setUser(sessionUser);
+				try {
+					enshrineBlogService.saveEnshrine(enshrineBlog);
+					int enshrined = enshrineBlogService.countEnshrined(id);
+					result.put("enshrinedTimes", enshrined);
+					result.put(STATUS, STATUS_SUCCESS);
+				} catch (Exception e) {
+					result.put(STATUS, STATUS_ERROR);
+				}
 			}
 		}
 		ActionContext.getContext().put(JSONDATA, result);
@@ -192,6 +218,14 @@ public class BlogAction extends BaseAction {
 
 	public void setType(int type) {
 		this.type = type;
+	}
+
+	public String getAuthorName() {
+		return authorName;
+	}
+
+	public void setAuthorName(String authorName) {
+		this.authorName = authorName;
 	}
 
 }

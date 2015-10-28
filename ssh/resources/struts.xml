@@ -57,5 +57,10 @@
 			<result name="detail">/WEB-INF/views/blog/blog_detail.jsp</result>
 			<result name="blogDetail" type="redirectAction">blogAction_detail?id=${id}</result>
 		</action>
+		
+		<action name="viewAction_*" class="com.demo.ssh.action.UnAuthedResourceAction" method="{1}">
+			<result name="homepage">/view/homepage.jsp</result>
+			<result name="register">/view/register.jsp</result>
+		</action>
 	</package>
 </struts>

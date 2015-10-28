@@ -16,6 +16,7 @@ public class BaseAction extends ActionSupport {
 	public static final String STATUS = "status";
 	public static final String STATUS_SUCCESS = "1";
 	public static final String STATUS_ERROR = "2";
+	public static final String MESSAGE = "message";
 	
 	protected User getSessionUser(){
 		User currentUser = (User) ActionContext.getContext().getSession()
