@@ -19,6 +19,9 @@
 			Retain every wonderful moment with camera. Persist each piece of time.
 			</p>
 		</div>
+		<div class="body-container">
+			<a href="/photo/upload.html">upload photo</a>
+		</div>
 	</div>
 	<s:include value="/view/footer.jsp"/>
 </body>

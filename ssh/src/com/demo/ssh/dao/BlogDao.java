@@ -42,4 +42,10 @@ public class BlogDao extends BaseDao{
 	public void updateBlog(Blog blog){
 		getSession().update(blog);
 	}
+	
+	public List<Blog> selectHotBlog(int readedTimes){
+		String hql = "from Blog b where b.readedTimes >= "+readedTimes +" order by b.readedTimes desc";
+		Query query = getSession().createQuery(hql);
+		return query.list();
+	}
 }

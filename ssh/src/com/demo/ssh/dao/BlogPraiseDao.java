@@ -31,4 +31,15 @@ public class BlogPraiseDao extends BaseDao{
 			return false;
 		}
 	}
+	
+	public boolean anonymousPraised(long blogId, String ip, int type){
+		String hql = "from BlogPraise bp where bp.blog.id = "+blogId +" and bp.anonymousIp = '"+ip +"' and bp.type = "+type;
+		Query query = getSession().createQuery(hql);
+		List list = query.list();
+		if(list.size() > 0){
+			return true;
+		}else{
+			return false;
+		}
+	}
 }

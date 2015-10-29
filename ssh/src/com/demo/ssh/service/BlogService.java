@@ -9,6 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.demo.ssh.dao.BlogDao;
 import com.demo.ssh.entity.Blog;
+import com.nick.page.pageutil.Page;
+import com.nick.page.pageutil.PageUtil;
 
 @Transactional
 @Service
@@ -35,4 +37,29 @@ public class BlogService {
 	public void updateBlog(Blog blog){
 		dao.updateBlog(blog);
 	}
+	
+	public List<Blog> selectHotBlog(){
+		return dao.selectHotBlog(50);
+	}
+	
+	public Page<Blog> selectListByPage(int currentPage, int pageSize){
+		Page<Blog> page = new Page<Blog>();
+		page.setCurrentPage(currentPage);
+		page.setPageSize(pageSize);
+		page.setCustomizedHql("from Blog b order by b.publishDate desc");
+		PageUtil<Blog> pageUtil = new PageUtil<Blog>();
+		Page<Blog> resultPage = pageUtil.selectByPage(page, Blog.class);
+		return resultPage;
+	}
+	
+	public Page<Blog> selectHotBlogsByPage(int currentPage, int pageSize){
+		Page<Blog> page = new Page<Blog>();
+		page.setCurrentPage(currentPage);
+		page.setPageSize(pageSize);
+		page.setCustomizedHql("from Blog b where b.readedTimes >= 50 order by b.readedTimes desc");
+		PageUtil<Blog> pageUtil = new PageUtil<Blog>();
+		Page<Blog> resultPage = pageUtil.selectByPage(page, Blog.class);
+		return resultPage;
+	}
+	
 }

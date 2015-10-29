@@ -38,7 +38,7 @@
 }
 
 .head{
-	background-color: #7EC0EE; 
+	background-color: #103858; 
 	height: 50px; 
 	clear: both; 
 	position: fixed; 
@@ -64,12 +64,13 @@
 
 .main-container{
 	margin-top: 50px;
-/* 	height: 1000px; */
+/* 	background-color: #D2D8DE; */
+	height: 100%;
 }
 
 .body-head{
 	height: 200px;
-	background-color: lightblue;
+	background-color: #BED8E0;
 }
 
 .edit-input{
@@ -99,7 +100,7 @@
 	margin-bottom: 100px;
 }
 
-.header-vertically a:HOVER{text-decoration: none;}
+.header-vertically a:HOVER{text-decoration: none;color: #BED8E0;}
 .header-vertically a:VISITED{text-decoration: none;}
 .header-vertically a:ACTIVE{text-decoration: none;}
 .header-vertically a:LINK{text-decoration: none;}
@@ -125,7 +126,7 @@
 #navItems a:HOVER{
 	display: inline-block;
 	height: 32px;
-	border-bottom: 10px solid lightblue;
+	border-bottom: 10px solid #BED8E0;
 	text-align: center;
 }
 
@@ -162,7 +163,7 @@
 .ac{
 	display: inline-block;
 	height: 32px;
-	border-bottom: 10px solid lightblue;
+	border-bottom: 10px solid #BED8E0;
 	text-align: center;
 }
 /*

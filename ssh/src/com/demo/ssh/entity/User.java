@@ -15,7 +15,7 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", nullable = false, unique = true)
-	private int id;
+	private long id;
 	private String userName;
 	private String password;
 	private String email;
@@ -29,11 +29,11 @@ public class User {
 	private String curLoginIp;
 	private int type = 1;// 0: 管理员 1：普通用户
 
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 

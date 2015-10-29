@@ -115,8 +115,8 @@
 		var authorName = $("#authorName").val();
 		if(type == "1" || type == "2"){
 			$.ajax({
-				url:"/blogAction_praise?type="+type,
-				data:{"id":blogId,"authorName":authorName},
+				url:"/viewAction_praise?type="+type,
+				data:{"blogId":blogId,"authorName":authorName},
 				async: false,
 				success:function(data){
 					if(data.status == 1){
@@ -161,10 +161,17 @@
 						setTimeout(function () { 
 							$('#failedMsg').slideUp(1000);
 					    }, 2000);
+					}else if(data.indexOf("登录") > 0){
+						$("#failedMsg").html("Please sign in!<a href='/view/login.html' style='color: green; text-decoration: underline;' title='sign in'>&ensp;Sign in now</a><span style='float:right;font-style: normal; font-weight: normal; cursor: pointer;' title='close' class='glyphicon glyphicon-chevron-up' onclick='closeErrorMsg()'></span>");
+						$('#failedMsg').slideDown(500);
 					}
 				}
 			});
 		}
+	}
+	
+	function closeErrorMsg(){
+		$('#failedMsg').slideUp(1000);
 	}
 </script>
 </html>

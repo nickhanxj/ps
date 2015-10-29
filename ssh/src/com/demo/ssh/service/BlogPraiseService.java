@@ -25,4 +25,8 @@ public class BlogPraiseService {
 	public boolean hasPraised(long blogId, long userId, int type){
 		return praiseDao.hasPraised(blogId, userId, type);
 	}
+	
+	public boolean anonymousPraised(long blogId, String ip, int type){
+		return praiseDao.anonymousPraised(blogId, ip, type);
+	}
 }

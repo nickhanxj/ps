@@ -1,10 +1,14 @@
 package com.demo.ssh.base;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+@SuppressWarnings("all")
 public class BaseDao<T>{
 	@Resource
 	private SessionFactory sessionFactory;
@@ -23,5 +27,11 @@ public class BaseDao<T>{
 
 	public void delete(T t) {
 		getSession().delete(t);
+	}
+	
+	public List<T> selectAll(Class clz){
+		String hql = "from "+clz.getSimpleName();
+		Query query = getSession().createQuery(hql);
+		return query.list();
 	}
 }

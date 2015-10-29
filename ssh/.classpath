@@ -59,5 +59,6 @@
 	<classpathentry kind="lib" path="D:/study/eclipse/plugins/javax.servlet_3.0.0.v201112011016.jar"/>
 	<classpathentry kind="lib" path="webapp/WEB-INF/lib/hibernate3.3.1-slf4j-api-1.5.2.jar"/>
 	<classpathentry kind="lib" path="webapp/WEB-INF/lib/hibernate3.3.1-slf4j-log4j12-1.5.2.jar"/>
+	<classpathentry kind="lib" path="webapp/WEB-INF/lib/pageutil.jar"/>
 	<classpathentry kind="output" path="webapp/WEB-INF/classes"/>
 </classpath>

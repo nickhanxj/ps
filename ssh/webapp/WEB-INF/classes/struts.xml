@@ -54,13 +54,21 @@
 			<result name="write">/WEB-INF/views/blog/blog_write.jsp</result>
 			<result name="list">/WEB-INF/views/blog.jsp</result>
 			<result name="success" type="redirectAction">/blogAction_list</result>
-			<result name="detail">/WEB-INF/views/blog/blog_detail.jsp</result>
 			<result name="blogDetail" type="redirectAction">blogAction_detail?id=${id}</result>
 		</action>
 		
 		<action name="viewAction_*" class="com.demo.ssh.action.UnAuthedResourceAction" method="{1}">
 			<result name="homepage">/view/homepage.jsp</result>
 			<result name="register">/view/register.jsp</result>
+			<result name="detail">/WEB-INF/views/blog/blog_detail.jsp</result>
+		</action>
+		
+		<action name="fileAction_*" class="com.demo.ssh.action.FileAction" method="{1}">
+			<result name="success">/WEB-INF/views/uploadsuccess.jsp</result>
+		</action>
+		
+		<action name="photoAction_*" class="com.demo.ssh.action.PhotoAction" method="{1}">
+			<result name="success">/WEB-INF/views/photo/upload.jsp</result>
 		</action>
 	</package>
 </struts>

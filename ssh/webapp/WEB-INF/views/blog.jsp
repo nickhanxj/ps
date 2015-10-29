@@ -42,7 +42,7 @@
 					<s:iterator value="%{#blogList}" var="blog">
 						<div class="panel panel-default">
 						   <div class="panel-body" style="clear: both;">
-						   	<div style="display: inline; float: left;"><a href="/blog/detail.html?id=${blog.id}"><b>${blog.title}</b></a></div>
+						   	<div style="display: inline; float: left;"><a href="/view/blogdetail.html?blogId=${blog.id}"><b>${blog.title}</b></a></div>
 						   	<div style="display: inline; float: right;">${blog.user.userName} / ${blog.publishDate}</div>
 						   </div>
 						</div>

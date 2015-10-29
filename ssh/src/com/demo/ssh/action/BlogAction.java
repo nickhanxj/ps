@@ -10,7 +10,6 @@ import javax.annotation.Resource;
 import com.demo.ssh.base.BaseAction;
 import com.demo.ssh.entity.Blog;
 import com.demo.ssh.entity.BlogComment;
-import com.demo.ssh.entity.BlogPraise;
 import com.demo.ssh.entity.EnshrineBlog;
 import com.demo.ssh.entity.User;
 import com.demo.ssh.service.BlogCommentService;
@@ -68,20 +67,6 @@ public class BlogAction extends BaseAction {
 		return LIST;
 	}
 	
-	// 详情
-	public String detail() {
-		Blog detail = blogService.blogDetail(id);
-		detail.setReadedTimes(detail.getReadedTimes() + 1);
-		detail.setPraisedTimes(praiseService.countPraise(id, 1));
-		detail.setDisSuggestTimes(praiseService.countPraise(id, 2));
-		detail.setEnshrineTimes(enshrineBlogService.countEnshrined(id));
-		blogService.updateBlog(detail);
-		ActionContext.getContext().put("blog", detail);
-		List<BlogComment> comments = commentService.getCommentsByBlogId(id);
-		ActionContext.getContext().put("comments", comments);
-		return DETAIL;
-	}
-
 	// 评论
 	public String saveCommnets() {
 		Blog blog = new Blog();
@@ -100,53 +85,11 @@ public class BlogAction extends BaseAction {
 		return BLOGDETAIL;
 	}
 
-	// 点赞或反对 tyep 1点赞 2反对
-	public String praise() {
-		Map<String, Object> result = new HashMap<String, Object>();
-		User currentUser = (User) ActionContext.getContext().getSession()
-				.get("authUser");
-		//判断博客是否是当前用户的
-		if(currentUser.getUserName().equals(authorName)){
-			if(type == 1){
-				result.put(MESSAGE, "You can not praise your own blog!");
-			}else if(type == 2){
-				result.put(MESSAGE, "You can not dissuggested your own blog!");
-			}
-			result.put(STATUS, STATUS_ERROR);
-		}else{
-			// 检测当前用户是否已经点赞
-			boolean praised = praiseService.hasPraised(id, currentUser.getId(),
-					type);
-			if (praised) {
-				if(type == 1){
-					result.put(MESSAGE, "Can not repraise! You have praised this blog!");
-				}else if(type == 2){
-					result.put(MESSAGE, "Can not Dissuggest twice! You have dissuggested this blog!");
-				}
-				result.put(STATUS, STATUS_ERROR);
-			} else {
-				BlogPraise blogPraise = new BlogPraise();
-				Blog blog = new Blog();
-				blog.setId(id);
-				blogPraise.setBlog(blog);
-				blogPraise.setUser(currentUser);
-				blogPraise.setType(type);
-				praiseService.savePraise(blogPraise);
-				int countPraise = praiseService.countPraise(id, type);
-				result.put(STATUS, STATUS_SUCCESS);
-				result.put("praisedTimes", countPraise);
-			}
-		}
-		ActionContext.getContext().put(JSONDATA, result);
-		return JSON;
-	}
-
 	// 收藏
 	public String enshrine() {
 		Map<String, Object> result = new HashMap<String, Object>();
 		EnshrineBlog enshrineBlog = new EnshrineBlog();
-		Blog blog = new Blog();
-		blog.setId(id);
+		Blog blog = blogService.blogDetail(id);
 		enshrineBlog.setBlog(blog);
 		User sessionUser = getSessionUser();
 		//判断博客是否是当前用户的
@@ -165,6 +108,8 @@ public class BlogAction extends BaseAction {
 				try {
 					enshrineBlogService.saveEnshrine(enshrineBlog);
 					int enshrined = enshrineBlogService.countEnshrined(id);
+					blog.setEnshrineTimes(enshrined);
+					blogService.updateBlog(blog);
 					result.put("enshrinedTimes", enshrined);
 					result.put(STATUS, STATUS_SUCCESS);
 				} catch (Exception e) {

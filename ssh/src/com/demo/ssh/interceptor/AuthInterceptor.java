@@ -11,6 +11,7 @@ import com.demo.ssh.action.UserAction;
 import com.demo.ssh.entity.User;
 import com.demo.ssh.util.LoggerManager;
 import com.opensymphony.xwork2.Action;
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
 
@@ -46,6 +47,7 @@ public class AuthInterceptor extends AbstractInterceptor {
 							+ "] ÔÚÎ´µÇÂ¼×´Ì¬³¢ÊÔ·ÃÎÊ×ÊÔ´£º["
 							+ invocation.getProxy().getActionName() + ":"
 							+ invocation.getProxy().getMethod() + "] >>> Ê§°Ü£¡");
+					invocation.getInvocationContext().getContext().put(Action.ERROR, "Please sign in!");
 					return Action.LOGIN;
 				}
 			}
@@ -61,6 +63,7 @@ public class AuthInterceptor extends AbstractInterceptor {
 						+ "] ÔÚÎ´µÇÂ¼×´Ì¬³¢ÊÔ·ÃÎÊ×ÊÔ´£º["
 						+ invocation.getProxy().getActionName() + ":"
 						+ invocation.getProxy().getMethod() + "] >>> Ê§°Ü£¡");
+				invocation.getInvocationContext().getContext().put(Action.ERROR, "Please sign in!");
 				return Action.LOGIN;
 			}
 		}

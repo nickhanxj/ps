@@ -11,14 +11,16 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
 @Entity
-@Table(name="t_blogpraise")
+@Table(name = "t_blogpraise")
 public class BlogPraise {
 	private long id;
 	private Blog blog;
 	private User user;
 	private Date praisedDate = new Date();
 	private int type; // 类型 1点赞 2反对
+	private String anonymousIp;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,7 +44,7 @@ public class BlogPraise {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="user_id")
+	@JoinColumn(name = "user_id")
 	public User getUser() {
 		return user;
 	}
@@ -65,6 +67,14 @@ public class BlogPraise {
 
 	public void setType(int type) {
 		this.type = type;
+	}
+
+	public String getAnonymousIp() {
+		return anonymousIp;
+	}
+
+	public void setAnonymousIp(String anonymousIp) {
+		this.anonymousIp = anonymousIp;
 	}
 
 }

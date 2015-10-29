@@ -11,7 +11,7 @@
 <body>
 	<div class="head">
 			<div class="header-vertically logo header-content">
-				<a href="/resource/homepage.html" style="color: white;">
+				<a href="/view/homepage.html" style="color: white;">
 					<img alt="" src="/images/p3.png" width="30px;">
 					Personal Space
 				</a>
@@ -29,8 +29,15 @@
 <%-- 					</s:form> --%>
 <!-- 			</div> -->
 			<div style="float: right; margin-right: 100px;font-size: 14px; font-family: monospace;" class="header-content vertically" >
-				<a href="/user/personalCenter.html?id=${authUser.id}" title="Detail Infomation!"><span class="glyphicon glyphicon-user" style="color: white;">&ensp;${authUser.userName}</span></a>&ensp;|
-				<a href="/user/logout.html" title="Logout" style="color: white; "><span class="glyphicon glyphicon-off">&ensp;Logout</span></a>
+				<s:if test="%{#session.authUser == null}">
+					<a href="/view/login.html" style="color: white;" title="sign in">&ensp;<b>Sign In</b></a>&ensp;|
+					<a href="/view/register.html" title="register" style="color: white; ">&ensp;<b>Register</b></a>
+				</s:if>
+				<s:else>
+					<a href="/user/personalCenter.html?id=${authUser.id}" title="Detail Infomation!"><span class="glyphicon glyphicon-user" style="color: white;">&ensp;${authUser.userName}</span></a>&ensp;
+					<b style="color: white;">|</b>&ensp;
+					<a href="/user/logout.html" title="Logout" style="color: white; "><span class="glyphicon glyphicon-off">&ensp;Logout</span></a>
+				</s:else>
 			</div>
 	</div>
 <%-- 	<s:debug></s:debug> --%>
