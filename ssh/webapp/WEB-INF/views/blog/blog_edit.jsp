@@ -28,7 +28,7 @@
                     ]});
 </script>
 <%@taglib prefix="s" uri="/struts-tags"%>
-<title>Write Blog</title>
+<title>Edit Blog</title>
 </head>
 <body>
 	<s:include value="/view/header.jsp"/>
@@ -45,24 +45,26 @@
 			   <div>
 			      <ul class="nav navbar-nav">
 			      	<li><a href="/blog/list.html">My Blogs</a></li>
-			         <li class="active"><a href="/blog/writeBlogPage.html"><b>Write New</b></a></li>
+			         <li><a href="/blog/writeBlogPage.html">Write New</a></li>
 			         <li><a href="#">My Share</a></li>
 			         <li><a href="#">Contact Writer</a></li>
 			         <li><a href="#">Manage Center</a></li>
+			         <li class="active"><a href="#"><b>Edit: ${blog.title}</b></a></li>
 			      </ul>
 			   </div>
 			</nav>
 			<div class="panel panel-default" >
 				<div class="panel-heading" style="background-color: lightblue;">
 			      <h3 class="panel-title">
-			        Write new blog:
+			        Edit blog:
 			      </h3>
 			   </div>
 				<div class="panel-body">
-					<s:form action="/blog/saveBlog.html" theme="simple">
-					<b>Title:</b><s:textfield name="blog.title" cssClass="form-control"/>
+					<s:form action="/blog/updateBlog.html" theme="simple">
+					<s:hidden value="%{#blog.id}" name="blog.id"/>
+					<b>Title:</b><s:textfield name="blog.title" cssClass="form-control" value="%{#blog.title}"/>
 					<b>Content:</b>
-					 <s:textarea name="blog.content"></s:textarea>
+					 <s:textarea name="blog.content" value="%{#blog.content}"></s:textarea>
 					 <hr color="black">
 					 <div class="panel panel-default">
 					   <div class="panel-heading" style="background-color: lightgray;">
@@ -71,7 +73,7 @@
 					      </h3>
 					   </div>
 					   <div class="panel-body">
-					   	<s:radio name="blog.category" list="%{#{'1':'Study','2':'Entainment','3':'Life'}}" value="1"></s:radio>
+					   	<s:radio name="blog.category" list="%{#{'1':'Study','2':'Entainment','3':'Life'}}" value="%{#blog.category}"></s:radio>
 					   </div>
 					</div>
 					<div class="panel panel-default">
@@ -81,12 +83,11 @@
 					      </h3>
 					   </div>
 					   <div class="panel-body">
-					   <s:radio name="blog.auth" list="%{#{'1':'Private','2':'Public'}}" value="1"></s:radio>
+					   <s:radio name="blog.auth" list="%{#{'1':'Private','2':'Public'}}" value="%{#blog.auth}"></s:radio>
 					   </div>
 					</div>
 					<div style="text-align: center;">
-						<s:submit value="Publish" cssClass="btn btn-success"/>
-						<s:submit value="Save as draft" cssClass="btn btn-info"/>
+						<s:submit value="Save changes" cssClass="btn btn-success"/>
 						<a href="javascript:history.back(-1);" class="btn btn-warning">Cancel</a>
 					</div>
 					</s:form>

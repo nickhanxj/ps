@@ -38,11 +38,15 @@
 			   	 <div class="panel-body" style="font-style: italic; font-weight: bold;">
 			   		<div style="color: #36648B; margin-left: 100px; margin-right: 100px;" >
 			   			<b>Readed Times(${blog.readedTimes})</b>
-	   					<span style="color: black;font-weight:normal;margin-left: 400px;">posted @ ${blog.publishDate} by *${blog.user.userName}*</span>
+	   					<span style="color: black;font-weight:normal;margin-left: 200px;">posted @ ${blog.publishDate} by *${blog.user.userName}*</span>
+	   					<c:if test="${not empty blog.lastEditDate}">
+	   						<span style="color: black;font-weight:normal;">(last edit: ${blog.lastEditDate})</span>
+	   					</c:if>
+	   					
 	   					<s:set value="%{#blog.user.id}" var="bloguser"/>
 	   					<s:set value="%{#session.authUser.id}" var="sessionuser"/>
 	   					<c:if test="${bloguser == sessionuser}">
-		   					<a href="#" style="float: right; font-style: normal; color: red;" title="edit your blog--${blog.title}"><span class="glyphicon glyphicon-pencil"></span></a>
+		   					<a href="/blog/edit.html?id=${blog.id}" style="float: right; font-style: normal; color: red;" title="edit your blog--${blog.title}"><span class="glyphicon glyphicon-pencil"></span></a>
 	   					</c:if>
 			   		</div>
 			   		<br>
@@ -107,6 +111,40 @@
 			</div>
 		</div>
 	</div>
+	<a href="javascript:void(0)" onclick="showModel()" style="display: none;" id="modelLogin"></a>
+	<div id="modal-overlay"> 
+	    <div class="modal-data">  
+	    	<div style="float: right;"><a onclick="showModel()" href="">close</a></div>  
+	    	<s:form action="" theme="simple" id="ajaxLoginData">
+				<input type="hidden" id="pendingUrl" name="pendingUrl"/>
+				<input type="hidden" id="port" name="port"/>
+				<input type="hidden" id="host" name="host"/>
+				<input type="hidden" id="protocol" name="protocol"/>
+				<div style="display:inline-block;  margin:20px auto 20px auto; border: 10px solid white;background: rgba(255,255,255);">
+					<div style="font-size: 20px; font-family: cursive; font-weight: bold; border-bottom: 1px dotted gray; padding-bottom: 15px; padding-top: 10px;">Sign In</div>
+					<div style="padding: 15px;">
+						<div class="form-group" style="margin-top: 10px;">
+							<s:textfield name="user.userName"  cssClass="form-control user" placeholder="account"></s:textfield>
+						</div>
+						<div class="form-group" style="margin-top: 40px;">
+							<s:password required="true" name="user.password"  cssClass="form-control glyphicon lock" placeholder="password"/>
+						</div>
+						<div style="color: red; font-size: x-small;margin-top: 30px;" align="center">
+							You must sign in first!
+						</div>
+						<div align="center" style="margin-top: 30px;">
+							<button  class="btn btn-default" onclick="ajaxLogin()">Safe Sign In</button>
+						</div>
+						<div align="right" style="font-size: x-small; margin-top: 30px;">
+							<a href="#">Forget Password</a>&ensp;|
+							<a href="/view/register.html">Register</a>&ensp;|
+							<a href="#">Contact Us</a>
+						</div>
+					</div>
+				</div>
+			</s:form>
+	    </div>
+	</div>
 	<s:include value="/view/footer.jsp"/>
 </body>
 <script type="text/javascript">
@@ -146,7 +184,7 @@
 			$.ajax({
 				url:"/blogAction_enshrine",
 				data:{"id":blogId,"authorName":authorName},
-				async: false,
+				async: true,
 				success:function(data){
 					if(data.status == 1){
 						$("#successMsg").html("Enshrined Successfully!");
@@ -162,8 +200,9 @@
 							$('#failedMsg').slideUp(1000);
 					    }, 2000);
 					}else if(data.indexOf("登录") > 0){
-						$("#failedMsg").html("Please sign in!<a href='/view/login.html' style='color: green; text-decoration: underline;' title='sign in'>&ensp;Sign in now</a><span style='float:right;font-style: normal; font-weight: normal; cursor: pointer;' title='close' class='glyphicon glyphicon-chevron-up' onclick='closeErrorMsg()'></span>");
-						$('#failedMsg').slideDown(500);
+// 						$("#failedMsg").html("Please sign in!<a href='/view/login.html' style='color: green; text-decoration: underline;' title='sign in'>&ensp;Sign in now</a><span style='float:right;font-style: normal; font-weight: normal; cursor: pointer;' title='close' class='glyphicon glyphicon-chevron-up' onclick='closeErrorMsg()'></span>");
+// 						$('#failedMsg').slideDown(500);
+						$("#modelLogin").click();
 					}
 				}
 			});
@@ -172,6 +211,23 @@
 	
 	function closeErrorMsg(){
 		$('#failedMsg').slideUp(1000);
+	}
+	$(function(){
+		$("#pendingUrl").val(window.location.href);
+	});
+	
+	function ajaxLogin(){
+		$.ajax({
+			url:"/user/ajaxLogin.html",
+			data:$("#ajaxLoginData").serialize(),
+			async: false,
+			success:function(data){
+				if(data.status == 2){
+					alert(data.message);
+				}
+			}
+		});
+		return false;
 	}
 </script>
 </html>

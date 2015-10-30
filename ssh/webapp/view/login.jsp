@@ -14,6 +14,10 @@
 	<span style="display:none;">登录</span>
 	<img alt="" src="/images/login-left.jpg" class="back-img">
 	<s:form action="/user/login.html" theme="simple">
+		<input type="hidden" id="pendingUrl" name="pendingUrl"/>
+		<input type="hidden" id="port" name="port"/>
+		<input type="hidden" id="host" name="host"/>
+		<input type="hidden" id="protocol" name="protocol"/>
 		<div style="display:inline-block; float:right; width: 20%; height:400px; margin-right: 200px;  margin-top: 150px; border: 10px solid white;background: rgba(255,255,255, 0);">
 			<div style="padding: 15px;">
 				<div style="font-size: 20px; font-family: cursive; font-weight: bold; border-bottom: 1px dotted gray; padding-bottom: 15px; padding-top: 10px;">Sign In</div>
@@ -23,7 +27,11 @@
 				<div class="form-group" style="margin-top: 40px;">
 					<s:password required="true" name="user.password"  cssClass="form-control glyphicon lock" placeholder="password"/>
 				</div>
-				<div align="center" style="margin-top: 70px;">
+				<div style="color: red; font-size: x-small;margin-top: 30px;" align="center">
+					<s:actionerror/>
+					${error}
+				</div>
+				<div align="center" style="margin-top: 30px;">
 					<s:submit value="Safe Sign In" cssClass="btn btn-default"/>
 				</div>
 				<div align="right" style="font-size: x-small; margin-top: 30px;">
@@ -31,12 +39,13 @@
 					<a href="/view/register.html">Register</a>&ensp;|
 					<a href="#">Contact Us</a>
 				</div>
-				<div style="color: red;" align="center">
-					<s:actionerror/>
-					${error}
-				</div>
 			</div>
 		</div>
 	</s:form>
 </body>
+<script type="text/javascript">
+	$(function(){
+		$("#pendingUrl").val(window.location.href);
+	});
+</script>
 </html>

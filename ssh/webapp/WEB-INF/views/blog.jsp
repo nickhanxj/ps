@@ -32,6 +32,10 @@
 			      </ul>
 			   </div>
 			</nav>
+			<div class="alert alert-success" id="successMsg" style="display: none;">
+			 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+			${message}
+			</div>
 			<div class="panel panel-default">
 			   <div class="panel-heading" style="background-color: lightblue;">
 			      <h3 class="panel-title">
@@ -53,4 +57,12 @@
 	</div>
 	<s:include value="/view/footer.jsp"/>
 </body>
+<script type="text/javascript">
+	$(function(){
+		var msg = $("#successMsg").html();
+		if(msg.indexOf('success') > 0){
+			$("#successMsg").slideDown(1000);
+		}
+	});
+</script>
 </html>

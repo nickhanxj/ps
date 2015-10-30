@@ -8,6 +8,7 @@
 <jsp:include page="/view/context.jsp"/>
 <link href="/css/homepage.css" rel="stylesheet">
 <%@taglib prefix="s" uri="/struts-tags"%>
+<!-- fileupload -->
 <title>File Upload</title>
 </head>
 <body>
@@ -19,14 +20,32 @@
 			Retain every wonderful moment with camera. Persist each piece of time.
 			</p>
 		</div>
-		<div class="body-container">
+		<div class="body-container" style="clear: both;">
 			<s:form action="/file/upload.html" method="post" enctype="multipart/form-data" theme="simple">
-				<s:textfield placeholder="File Name" name="fileName"/>
-				<s:file name="file"></s:file>
-				<s:submit value="upload"></s:submit>
+				<s:hidden placeholder="File Name" name="fileName" id="fileName"/><br><br>
+				<div style="border: 2px dashed #99D3F5; width: 300px; height:30px; float: left; text-align: center;" id="showFile">
+				ssss
+				</div>
+				<div style="float: left; margin-left: 100px; margin-right: 10px;">
+					<a href="javascript:;" class="file" >select file
+		    			<input type="file" name="file" id="fileInput">
+					</a>
+				</div>
+					<s:submit value="upload" cssClass="file"></s:submit>
+				<br><br>
 			</s:form>
 		</div>
 	</div>
 	<s:include value="/view/footer.jsp"/>
 </body>
+<script type="text/javascript">
+	$(function(){
+		$("#fileInput").bind("change",function(){
+			var fileName = $("#fileInput").val();
+			$("#fileName").val(fileName);
+			$("#showFile").html(fileName);
+			console.debug(fileName);
+		});
+	});
+</script>
 </html>

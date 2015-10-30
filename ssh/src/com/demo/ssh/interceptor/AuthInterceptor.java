@@ -33,7 +33,7 @@ public class AuthInterceptor extends AbstractInterceptor {
 			return invocation.invoke();
 		} else if (action instanceof UserAction) {
 			String method = invocation.getProxy().getMethod();
-			if ("register".equals(method) || "login".equals(method)) {// 如果是登录或注册则直接放行
+			if ("register".equals(method) || "login".equals(method) || "ajaxLogin".equals(method)) {// 如果是登录或注册则直接放行
 				return invocation.invoke();
 			} else {
 				Map<String, Object> session = invocation.getInvocationContext()

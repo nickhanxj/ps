@@ -33,6 +33,7 @@ public class Blog {
 	private int disSuggestTimes = 0;// 反对次数
 	private int readedTimes = 0;// 阅读次数
 	private Date publishDate;
+	private Date lastEditDate;
 	private int enshrineTimes = 0;// 收藏次数
 	private int status; // 1 正常 0被删除
 	private int published = 0; // 1 已发布 0未发布
@@ -172,6 +173,27 @@ public class Blog {
 
 	public void setDisSuggestTimes(int disSuggestTimes) {
 		this.disSuggestTimes = disSuggestTimes;
+	}
+
+	public Date getLastEditDate() {
+		return lastEditDate;
+	}
+
+	public void setLastEditDate(Date lastEditDate) {
+		this.lastEditDate = lastEditDate;
+	}
+
+	@Override
+	public String toString() {
+		return "Blog [id=" + id + ", title=" + title + ", content=" + content
+				+ ", user=" + user + ", images=" + images + ", category="
+				+ category + ", praisedTimes=" + praisedTimes + ", shredTimes="
+				+ shredTimes + ", suggestedTimes=" + suggestedTimes
+				+ ", disSuggestTimes=" + disSuggestTimes + ", readedTimes="
+				+ readedTimes + ", publishDate=" + publishDate
+				+ ", lastEditDate=" + lastEditDate + ", enshrineTimes="
+				+ enshrineTimes + ", status=" + status + ", published="
+				+ published + ", auth=" + auth + "]";
 	}
 
 }

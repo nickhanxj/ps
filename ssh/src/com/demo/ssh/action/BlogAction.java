@@ -36,6 +36,7 @@ public class BlogAction extends BaseAction {
 	private BlogComment comment;
 	private int type;
 	private String authorName;
+	private String message;
 
 	// 新增
 	public String saveBlog() {
@@ -55,6 +56,27 @@ public class BlogAction extends BaseAction {
 			ActionContext.getContext().put("error", e.getMessage());
 			return ERROR;
 		}
+		ActionContext.getContext().put(MESSAGE,
+				"Create blog [" + blog.getTitle() + "] success!");
+		return SUCCESS;
+	}
+
+	// 更新
+	public String updateBlog() {
+		Blog persistenceBlog = blogService.blogDetail(blog.getId());
+		persistenceBlog.setTitle(blog.getTitle());
+		persistenceBlog.setContent(blog.getContent());
+		persistenceBlog.setCategory(blog.getCategory());
+		persistenceBlog.setAuth(blog.getAuth());
+		persistenceBlog.setLastEditDate(new Date());
+		try {
+			blogService.updateBlog(persistenceBlog);
+		} catch (Exception e) {
+			// TODO: handle exception
+			ActionContext.getContext().put("error", e.getMessage());
+			return ERROR;
+		}
+		message = "Edit blog [" + blog.getTitle() + "] success!</span><a style='color: gray; margin-left:20px;' title='quick view' href='/view/blogdetail.html?blogId="+blog.getId()+" '><span class='glyphicon glyphicon-list-alt'></a>";
 		return SUCCESS;
 	}
 
@@ -63,10 +85,11 @@ public class BlogAction extends BaseAction {
 		User sessionUser = getSessionUser();
 		List<Blog> blogs = blogService.selectMyBlogs(sessionUser.getId());
 		ActionContext.getContext().put("blogList", blogs);
+		ActionContext.getContext().put(MESSAGE,message);
 		LoggerManager.info("加载博客列表成功！");
 		return LIST;
 	}
-	
+
 	// 评论
 	public String saveCommnets() {
 		Blog blog = new Blog();
@@ -92,11 +115,11 @@ public class BlogAction extends BaseAction {
 		Blog blog = blogService.blogDetail(id);
 		enshrineBlog.setBlog(blog);
 		User sessionUser = getSessionUser();
-		//判断博客是否是当前用户的
-		if(sessionUser.getUserName().equals(authorName)){
+		// 判断博客是否是当前用户的
+		if (sessionUser.getUserName().equals(authorName)) {
 			result.put(MESSAGE, "You can not enshrine your own blog!");
 			result.put(STATUS, STATUS_ERROR);
-		}else{
+		} else {
 			// 验证是否收藏过
 			boolean hasEnshrined = enshrineBlogService.hasEnshrined(id,
 					sessionUser.getId());
@@ -119,6 +142,12 @@ public class BlogAction extends BaseAction {
 		}
 		ActionContext.getContext().put(JSONDATA, result);
 		return JSON;
+	}
+
+	public String edit() {
+		Blog blogDetail = blogService.blogDetail(id);
+		ActionContext.getContext().put("blog", blogDetail);
+		return "edit";
 	}
 
 	public String writeBlogPage() {
@@ -171,6 +200,14 @@ public class BlogAction extends BaseAction {
 
 	public void setAuthorName(String authorName) {
 		this.authorName = authorName;
+	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
 	}
 
 }

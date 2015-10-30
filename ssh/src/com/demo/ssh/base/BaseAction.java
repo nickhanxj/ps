@@ -24,4 +24,8 @@ public class BaseAction extends ActionSupport {
 		return currentUser;
 	}
 	
+	protected void putContext(String key, Object value){
+		ActionContext.getContext().put(key, value);
+	}
+	
 }

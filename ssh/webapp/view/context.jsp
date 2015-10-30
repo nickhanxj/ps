@@ -7,9 +7,15 @@
 <link href="/js/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" media="screen">
 <link rel="stylesheet" href="/js/bootstrap-3.3.5/css/font-awesome.min.css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script type="text/javascript" src="/js/jquery-2.1.4.js"></script>
+<script src="/js/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+function showModel(){
+    var e1 = document.getElementById('modal-overlay');           
+    e1.style.visibility =  (e1.style.visibility == "visible"  ) ? "hidden" : "visible";
+}
+</script>
 </head>
 <body>
-	<script type="text/javascript" src="/js/jquery-2.1.4.js"></script>
-	<script src="/js/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 </body>
 </html>

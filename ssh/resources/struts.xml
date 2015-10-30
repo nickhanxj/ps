@@ -40,7 +40,7 @@
 		<action name="userAction_*" class="com.demo.ssh.action.UserAction" method="{1}">
 			<result name="register">/view/register.jsp</result>
 			<result name="personalCenter">/WEB-INF/views/personalcenter.jsp</result>
-			<result name="success">/WEB-INF/views/homepage.jsp</result>
+			<result name="success" type="redirect">${pendingUrl}</result>
 			<result name="forgetPassword">/WEB-INF/views/forgetPassword.jsp</result>
 			<result name="editProfile">/WEB-INF/views/profile/edit_profile.jsp</result>
 			<result name="reloadInfo" type="redirectAction">/userAction_personalCenter</result>
@@ -52,9 +52,10 @@
 		
 		<action name="blogAction_*" class="com.demo.ssh.action.BlogAction" method="{1}">
 			<result name="write">/WEB-INF/views/blog/blog_write.jsp</result>
+			<result name="edit">/WEB-INF/views/blog/blog_edit.jsp</result>
 			<result name="list">/WEB-INF/views/blog.jsp</result>
-			<result name="success" type="redirectAction">/blogAction_list</result>
-			<result name="blogDetail" type="redirectAction">blogAction_detail?id=${id}</result>
+			<result name="success" type="redirectAction">/blogAction_list?message=${message}</result>
+			<result name="blogDetail" type="redirectAction">viewAction_blogdetail?blogId=${id}</result>
 		</action>
 		
 		<action name="viewAction_*" class="com.demo.ssh.action.UnAuthedResourceAction" method="{1}">
@@ -65,6 +66,7 @@
 		
 		<action name="fileAction_*" class="com.demo.ssh.action.FileAction" method="{1}">
 			<result name="success">/WEB-INF/views/uploadsuccess.jsp</result>
+			<result name="photo">/WEB-INF/views/photo.jsp</result>
 		</action>
 		
 		<action name="photoAction_*" class="com.demo.ssh.action.PhotoAction" method="{1}">

@@ -18,7 +18,7 @@
 			</div>
 			<div style="margin-left: 100px;" id="navItems" class="header-vertically header-content">
 				<a href="/blog/list.html" class="ele" id="blog"><span class="glyphicon glyphicon-paperclip">&ensp;Blog</span></a>
-				<a href="/resource/photo.html" class="ele" id="photo"><span class="glyphicon glyphicon-picture">&ensp;Photo</span></a>
+				<a href="/file/photo.html" class="ele" id="photo"><span class="glyphicon glyphicon-picture">&ensp;Photo</span></a>
 				<a href="/resource/music.html" class="ele" id="music"><span class="glyphicon glyphicon-music">&ensp;Music</span></a>
 				<a href="/resource/video.html" class="ele" id="video"><span class="glyphicon glyphicon-film">&ensp;Video</span></a>
 			</div>
@@ -28,17 +28,19 @@
 <!-- 				         <input type="text" class="form-control search-header" placeholder="search..."> -->
 <%-- 					</s:form> --%>
 <!-- 			</div> -->
-			<div style="float: right; margin-right: 100px;font-size: 14px; font-family: monospace;" class="header-content vertically" >
 				<s:if test="%{#session.authUser == null}">
-					<a href="/view/login.html" style="color: white;" title="sign in">&ensp;<b>Sign In</b></a>&ensp;|
-					<a href="/view/register.html" title="register" style="color: white; ">&ensp;<b>Register</b></a>
+					<div style="float: right; margin-right: 100px;font-size: 14px; font-family: monospace;" class="header-content vertically" >
+						<a href="/view/login.html" style="color: white;" title="sign in">&ensp;<b>Sign In</b></a>&ensp;|
+						<a href="/view/register.html" title="register" style="color: white; ">&ensp;<b>Register</b></a>
+					</div>
 				</s:if>
 				<s:else>
-					<a href="/user/personalCenter.html?id=${authUser.id}" title="Detail Infomation!"><span class="glyphicon glyphicon-user" style="color: white;">&ensp;${authUser.userName}</span></a>&ensp;
-					<b style="color: white;">|</b>&ensp;
-					<a href="/user/logout.html" title="Logout" style="color: white; "><span class="glyphicon glyphicon-off">&ensp;Logout</span></a>
+					<div style="float: right; margin: 6px 100px 6px;font-size: 14px; font-family: monospace;" class="header-content" >
+						<a href="/user/personalCenter.html?id=${authUser.id}" title="Detail Infomation!"><img alt="" src="/upload/photo/photo.gif" height="36px" width="36px" style=""><span class="glyphicon" style="color: white;">${authUser.userName}</span></a>&ensp;
+						<b style="color: white;">|</b>&ensp;
+						<a href="/user/logout.html" title="Logout" style="color: white; "><span class="glyphicon">Logout</span></a>
+					</div>
 				</s:else>
-			</div>
 	</div>
 <%-- 	<s:debug></s:debug> --%>
 </body>
