@@ -49,7 +49,7 @@
 	function redirectUrl(t){
 		console.debug(t);
 		var url = $(t).attr("value");
-		window.location.href = url;
+		window.location.href = "http://"+url;
 	}
 	
 </script>

@@ -27,30 +27,30 @@ public class UserAction extends BaseAction {
 	private String pendingUrl;
 
 	public String register() {
-		LoggerManager.info("ĞÂÓÃ»§×¢²á...");
+		LoggerManager.info("æ–°ç”¨æˆ·æ³¨å†Œ...");
 		if (StringUtils.isBlank(user.getUserName())
 				|| StringUtils.isBlank(user.getPassword())) {
-			addActionError("ÓÃ»§Ãû»òÕßÃÜÂë²»ÄÜÎª¿Õ£¡");
-			LoggerManager.error("ĞÂÓÃ»§¡¾" + user.getUserName() + "¡¿×¢²áÊ§°Ü£ºĞÅÏ¢²»ÍêÕû£¡");
+			addActionError("ç”¨æˆ·åæˆ–è€…å¯†ç ä¸èƒ½ä¸ºç©ºï¼");
+			LoggerManager.error("æ–°ç”¨æˆ·ã€" + user.getUserName() + "ã€‘æ³¨å†Œå¤±è´¥ï¼šä¿¡æ¯ä¸å®Œæ•´ï¼");
 		} else {
 			boolean hasExist = userService.hasExist(user.getUserName());
 			if (hasExist) {
-				addActionError("¸ÃÓÃ»§ÃûÒÑ´æÔÚ£¬ÇëÊ¹ÓÃÆäËûÓÃ»§Ãû£¡");
-				LoggerManager.error("ĞÂÓÃ»§¡¾" + user.getUserName()
-						+ "¡¿×¢²áÊ§°Ü£ºÓÃ»§ÃûÒÑ´æÔÚ£¡");
+				addActionError("è¯¥ç”¨æˆ·åå·²å­˜åœ¨ï¼Œè¯·ä½¿ç”¨å…¶ä»–ç”¨æˆ·åï¼");
+				LoggerManager.error("æ–°ç”¨æˆ·ã€" + user.getUserName()
+						+ "ã€‘æ³¨å†Œå¤±è´¥ï¼šç”¨æˆ·åå·²å­˜åœ¨ï¼");
 			} else {
 				try {
 					user.setRegisterDate(new Date());
 					String md5Hex = DigestUtils.md5Hex(user.getPassword());
 					user.setPassword(md5Hex);
 					userService.addUser(user);
-					addActionMessage("×¢²á³É¹¦£¡");
-					LoggerManager.info("ĞÂÓÃ»§×¢²á³É¹¦£º¡¾" + user.getUserName() + "--"
-							+ user.getEmail() + "¡¿");
+					addActionMessage("æ³¨å†ŒæˆåŠŸï¼");
+					LoggerManager.info("æ–°ç”¨æˆ·æ³¨å†ŒæˆåŠŸï¼šã€" + user.getUserName() + "--"
+							+ user.getEmail() + "ã€‘");
 				} catch (Exception e) {
 					addActionError(e.getMessage());
 					e.printStackTrace();
-					LoggerManager.error("ĞÂÓÃ»§¡¾" + user.getUserName() + "¡¿×¢²áÊ§°Ü£º"
+					LoggerManager.error("æ–°ç”¨æˆ·ã€" + user.getUserName() + "ã€‘æ³¨å†Œå¤±è´¥ï¼š"
 							+ e.getMessage());
 					return REGISTER;
 				}
@@ -60,7 +60,7 @@ public class UserAction extends BaseAction {
 	}
 
 	public String login() {
-		//»ñÈ¡µÇÂ½Ç°×¼±¸·ÃÎÊµÄurl
+		//è·å–ç™»é™†å‰å‡†å¤‡è®¿é—®çš„url
 		int index = pendingUrl.indexOf("/");
 		pendingUrl = pendingUrl.substring(index+2);
 		pendingUrl = pendingUrl.substring(pendingUrl.indexOf("/"));
@@ -71,34 +71,34 @@ public class UserAction extends BaseAction {
 		user.setPassword(DigestUtils.md5Hex(user.getPassword()));
 		if (StringUtils.isBlank(user.getUserName())
 				|| StringUtils.isBlank(user.getPassword())) {
-			addActionError("ÓÃ»§Ãû»òÕßÃÜÂë²»ÄÜÎª¿Õ£¡");
-			LoggerManager.error("ÓÃ»§¡¾" + user.getUserName() + "¡¿µÇÂ¼Ê§°Ü£¨"
-					+ new Date() + "£©¡£Ô­Òò£ºµÇÂ¼ĞÅÏ¢²»ÍêÕû¡£");
+			addActionError("ç”¨æˆ·åæˆ–è€…å¯†ç ä¸èƒ½ä¸ºç©ºï¼");
+			LoggerManager.error("ç”¨æˆ·ã€" + user.getUserName() + "ã€‘ç™»å½•å¤±è´¥ï¼ˆ"
+					+ new Date() + "ï¼‰ã€‚åŸå› ï¼šç™»å½•ä¿¡æ¯ä¸å®Œæ•´ã€‚");
 			return LOGIN;
 		}
 		User authUser = userService.authUser(user);
 		if (authUser == null) {
-			addActionError("ÓÃ»§Ãû»òÃÜÂë´íÎó£¡");
+			addActionError("ç”¨æˆ·åæˆ–å¯†ç é”™è¯¯ï¼");
 			// user = authUser;
-			LoggerManager.error("ÓÃ»§¡¾" + user.getUserName() + "¡¿µÇÂ¼Ê§°Ü£¨"
-					+ new Date() + "£©¡£Ô­Òò£ºÓÃ»§ÃûÓëÃÜÂë²»Æ¥Åä¡£");
+			LoggerManager.error("ç”¨æˆ·ã€" + user.getUserName() + "ã€‘ç™»å½•å¤±è´¥ï¼ˆ"
+					+ new Date() + "ï¼‰ã€‚åŸå› ï¼šç”¨æˆ·åä¸å¯†ç ä¸åŒ¹é…ã€‚");
 			return LOGIN;
 		}
 		ActionContext.getContext().getSession().put("authUser", authUser);
-		// ¸üĞÂÓÃ»§ĞÅÏ¢
+		// æ›´æ–°ç”¨æˆ·ä¿¡æ¯
 		authUser.setLastLoginDate(authUser.getCurLoginDate());
 		authUser.setCurLoginDate(new Date());
 		authUser.setLastLoginIp(authUser.getCurLoginIp());
 		authUser.setCurLoginIp(request.getRemoteAddr());
 		userService.updateUser(authUser);
-		LoggerManager.info("ÓÃ»§¡¾" + user.getUserName() + "¡¿µÇÂ¼³É¹¦(" + new Date()
-				+ ")£¡");
+		LoggerManager.info("ç”¨æˆ·ã€" + user.getUserName() + "ã€‘ç™»å½•æˆåŠŸ(" + new Date()
+				+ ")ï¼");
 		return SUCCESS;
 	}
 	
 	public String ajaxLogin(){
 		Map<String,Object> result = new HashMap<String,Object>();
-		//»ñÈ¡µÇÂ½Ç°×¼±¸·ÃÎÊµÄurl
+		//è·å–ç™»é™†å‰å‡†å¤‡è®¿é—®çš„url
 		int index = pendingUrl.indexOf("/");
 		pendingUrl = pendingUrl.substring(index+2);
 		pendingUrl = pendingUrl.substring(pendingUrl.indexOf("/"));
@@ -109,34 +109,34 @@ public class UserAction extends BaseAction {
 		user.setPassword(DigestUtils.md5Hex(user.getPassword()));
 		if (StringUtils.isBlank(user.getUserName())
 				|| StringUtils.isBlank(user.getPassword())) {
-			addActionError("ÓÃ»§Ãû»òÕßÃÜÂë²»ÄÜÎª¿Õ£¡");
-			LoggerManager.error("ÓÃ»§¡¾" + user.getUserName() + "¡¿µÇÂ¼Ê§°Ü£¨"
-					+ new Date() + "£©¡£Ô­Òò£ºµÇÂ¼ĞÅÏ¢²»ÍêÕû¡£");
+			addActionError("ç”¨æˆ·åæˆ–è€…å¯†ç ä¸èƒ½ä¸ºç©ºï¼");
+			LoggerManager.error("ç”¨æˆ·ã€" + user.getUserName() + "ã€‘ç™»å½•å¤±è´¥ï¼ˆ"
+					+ new Date() + "ï¼‰ã€‚åŸå› ï¼šç™»å½•ä¿¡æ¯ä¸å®Œæ•´ã€‚");
 			result.put(STATUS, STATUS_ERROR);
-			result.put(MESSAGE, "ÓÃ»§Ãû»òÕßÃÜÂë²»ÄÜÎª¿Õ£¡");
+			result.put(MESSAGE, "ç”¨æˆ·åæˆ–è€…å¯†ç ä¸èƒ½ä¸ºç©ºï¼");
 			putContext(JSONDATA, result);
 			return JSON;
 		}
 		User authUser = userService.authUser(user);
 		if (authUser == null) {
-			addActionError("ÓÃ»§Ãû»òÃÜÂë´íÎó£¡");
+			addActionError("ç”¨æˆ·åæˆ–å¯†ç é”™è¯¯ï¼");
 			// user = authUser;
-			LoggerManager.error("ÓÃ»§¡¾" + user.getUserName() + "¡¿µÇÂ¼Ê§°Ü£¨"
-					+ new Date() + "£©¡£Ô­Òò£ºÓÃ»§ÃûÓëÃÜÂë²»Æ¥Åä¡£");
+			LoggerManager.error("ç”¨æˆ·ã€" + user.getUserName() + "ã€‘ç™»å½•å¤±è´¥ï¼ˆ"
+					+ new Date() + "ï¼‰ã€‚åŸå› ï¼šç”¨æˆ·åä¸å¯†ç ä¸åŒ¹é…ã€‚");
 			result.put(STATUS, STATUS_ERROR);
-			result.put(MESSAGE, "ÓÃ»§Ãû»òÃÜÂë´íÎó£¡");
+			result.put(MESSAGE, "ç”¨æˆ·åæˆ–å¯†ç é”™è¯¯ï¼");
 			putContext(JSONDATA, result);
 			return JSON;
 		}
 		ActionContext.getContext().getSession().put("authUser", authUser);
-		// ¸üĞÂÓÃ»§ĞÅÏ¢
+		// æ›´æ–°ç”¨æˆ·ä¿¡æ¯
 		authUser.setLastLoginDate(authUser.getCurLoginDate());
 		authUser.setCurLoginDate(new Date());
 		authUser.setLastLoginIp(authUser.getCurLoginIp());
 		authUser.setCurLoginIp(request.getRemoteAddr());
 		userService.updateUser(authUser);
-		LoggerManager.info("ÓÃ»§¡¾" + user.getUserName() + "¡¿µÇÂ¼³É¹¦(" + new Date()
-				+ ")£¡");
+		LoggerManager.info("ç”¨æˆ·ã€" + user.getUserName() + "ã€‘ç™»å½•æˆåŠŸ(" + new Date()
+				+ ")ï¼");
 		result.put(STATUS, STATUS_SUCCESS);
 		putContext(JSONDATA, result);
 		return JSON;
@@ -154,8 +154,8 @@ public class UserAction extends BaseAction {
 		selectedUser.setPhoneNumber(user.getPhoneNumber());
 		selectedUser.setSex(user.getSex());
 		userService.updateUser(selectedUser);
-		LoggerManager.info("ÓÃ»§¡¾" + user.getUserName() + "¡¿¸üĞÂ¸öÈËĞÅÏ¢³É¹¦("
-				+ new Date() + ")£¡");
+		LoggerManager.info("ç”¨æˆ·ã€" + user.getUserName() + "ã€‘æ›´æ–°ä¸ªäººä¿¡æ¯æˆåŠŸ("
+				+ new Date() + ")ï¼");
 		return "reloadInfo";
 	}
 

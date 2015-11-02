@@ -21,8 +21,8 @@ public class Album {
 	private User user;
 	private Date createTime = new Date();
 	private int photoNumber = 0;
-	private int state = 1;// 1Õý³£ 0É¾³ý
-	private int status = 0;// 1 ¹«¿ª 0Ë½ÓÐ
+	private int state = 1;// 1ï¿½ï¿½ 0É¾ï¿½ï¿½
+	private int status = 0;// 1 ï¿½ï¿½ï¿½ï¿½ 0Ë½ï¿½ï¿½
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)

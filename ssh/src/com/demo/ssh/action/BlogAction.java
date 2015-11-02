@@ -31,27 +31,27 @@ public class BlogAction extends BaseAction {
 	@Resource
 	private EnshrineBlogService enshrineBlogService;
 	private Blog blog;
-	private int P;// ±£´æÊ±ÊÇ·ñ·¢²¼
+	private int P;// ä¿å­˜æ—¶æ˜¯å¦å‘å¸ƒ
 	private Long id;
 	private BlogComment comment;
 	private int type;
 	private String authorName;
 	private String message;
 
-	// ĞÂÔö
+	// æ–°å¢
 	public String saveBlog() {
-		// ÉèÖÃÏà¹ØĞÅÏ¢
+		// è®¾ç½®ç›¸å…³ä¿¡æ¯
 		User currentUser = (User) ActionContext.getContext().getSession()
 				.get("authUser");
 		blog.setUser(currentUser);
 		blog.setPublishDate(new Date());
 		try {
 			blogService.saveBlog(blog);
-			LoggerManager.info("ÓÃ»§¡¾" + currentUser.getUserName() + "¡¿ĞÂÔö²©¿Í¡¾"
-					+ blog.getTitle() + "¡¿³É¹¦£¡");
+			LoggerManager.info("ç”¨æˆ·ã€" + currentUser.getUserName() + "ã€‘æ–°å¢åšå®¢ã€"
+					+ blog.getTitle() + "ã€‘æˆåŠŸï¼");
 		} catch (Exception e) {
 			e.printStackTrace();
-			LoggerManager.info("ÓÃ»§¡¾" + currentUser.getUserName() + "¡¿ĞÂÔö²©¿ÍÊ§°Ü£º"
+			LoggerManager.info("ç”¨æˆ·ã€" + currentUser.getUserName() + "ã€‘æ–°å¢åšå®¢å¤±è´¥ï¼š"
 					+ e.getMessage());
 			ActionContext.getContext().put("error", e.getMessage());
 			return ERROR;
@@ -61,8 +61,9 @@ public class BlogAction extends BaseAction {
 		return SUCCESS;
 	}
 
-	// ¸üĞÂ
+	// æ›´æ–°
 	public String updateBlog() {
+		System.out.println("blog: "+blog);
 		Blog persistenceBlog = blogService.blogDetail(blog.getId());
 		persistenceBlog.setTitle(blog.getTitle());
 		persistenceBlog.setContent(blog.getContent());
@@ -76,21 +77,25 @@ public class BlogAction extends BaseAction {
 			ActionContext.getContext().put("error", e.getMessage());
 			return ERROR;
 		}
-		message = "Edit blog [" + blog.getTitle() + "] success!</span><a style='color: gray; margin-left:20px;' title='quick view' href='/view/blogdetail.html?blogId="+blog.getId()+" '><span class='glyphicon glyphicon-list-alt'></a>";
+		message = "Edit blog ["
+				+ blog.getTitle()
+				+ "] success!</span><a style='color: gray; margin-left:20px;' title='quick view' href='/view/blogdetail.html?blogId="
+				+ blog.getId()
+				+ " '><span class='glyphicon glyphicon-list-alt'></a>";
 		return SUCCESS;
 	}
 
-	// ÁĞ±í
+	// åˆ—è¡¨
 	public String list() {
 		User sessionUser = getSessionUser();
 		List<Blog> blogs = blogService.selectMyBlogs(sessionUser.getId());
 		ActionContext.getContext().put("blogList", blogs);
-		ActionContext.getContext().put(MESSAGE,message);
-		LoggerManager.info("¼ÓÔØ²©¿ÍÁĞ±í³É¹¦£¡");
+		ActionContext.getContext().put(MESSAGE, message);
+		LoggerManager.info("åŠ è½½åšå®¢åˆ—è¡¨æˆåŠŸï¼");
 		return LIST;
 	}
 
-	// ÆÀÂÛ
+	// è¯„è®º
 	public String saveCommnets() {
 		Blog blog = new Blog();
 		blog.setId(id);
@@ -108,19 +113,19 @@ public class BlogAction extends BaseAction {
 		return BLOGDETAIL;
 	}
 
-	// ÊÕ²Ø
+	// æ”¶è—
 	public String enshrine() {
 		Map<String, Object> result = new HashMap<String, Object>();
 		EnshrineBlog enshrineBlog = new EnshrineBlog();
 		Blog blog = blogService.blogDetail(id);
 		enshrineBlog.setBlog(blog);
 		User sessionUser = getSessionUser();
-		// ÅĞ¶Ï²©¿ÍÊÇ·ñÊÇµ±Ç°ÓÃ»§µÄ
+		// åˆ¤æ–­åšå®¢æ˜¯å¦æ˜¯å½“å‰ç”¨æˆ·çš„
 		if (sessionUser.getUserName().equals(authorName)) {
 			result.put(MESSAGE, "You can not enshrine your own blog!");
 			result.put(STATUS, STATUS_ERROR);
 		} else {
-			// ÑéÖ¤ÊÇ·ñÊÕ²Ø¹ı
+			// éªŒè¯æ˜¯å¦æ”¶è—è¿‡
 			boolean hasEnshrined = enshrineBlogService.hasEnshrined(id,
 					sessionUser.getId());
 			if (hasEnshrined) {

@@ -16,7 +16,7 @@ import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
 
 /**
- * È¨ÏŞÀ¹½ØÆ÷
+ * æƒé™æ‹¦æˆªå™¨
  * 
  * @author john
  * 
@@ -28,12 +28,12 @@ public class AuthInterceptor extends AbstractInterceptor {
 	@Override
 	public String intercept(ActionInvocation invocation) throws Exception {
 		Action action = (Action) invocation.getAction();
-		// Èç¹ûÊÇcom.demo.ssh.action.UnAuthedResourceActionÔòÖ±½Ó·ÅĞĞ£º¹«¹²·ÃÎÊÇøÓò
+		// å¦‚æœæ˜¯com.demo.ssh.action.UnAuthedResourceActionåˆ™ç›´æ¥æ”¾è¡Œï¼šå…¬å…±è®¿é—®åŒºåŸŸ
 		if (action instanceof UnAuthedResourceAction) {
 			return invocation.invoke();
 		} else if (action instanceof UserAction) {
 			String method = invocation.getProxy().getMethod();
-			if ("register".equals(method) || "login".equals(method) || "ajaxLogin".equals(method)) {// Èç¹ûÊÇµÇÂ¼»ò×¢²áÔòÖ±½Ó·ÅĞĞ
+			if ("register".equals(method) || "login".equals(method) || "ajaxLogin".equals(method)) {// å¦‚æœæ˜¯ç™»å½•æˆ–æ³¨å†Œåˆ™ç›´æ¥æ”¾è¡Œ
 				return invocation.invoke();
 			} else {
 				Map<String, Object> session = invocation.getInvocationContext()
@@ -43,10 +43,10 @@ public class AuthInterceptor extends AbstractInterceptor {
 					HttpServletRequest request = (HttpServletRequest) invocation
 							.getInvocationContext().get(
 									ServletActionContext.HTTP_REQUEST);
-					LoggerManager.warn("¾¯¸æ£º[" + request.getRemoteAddr()
-							+ "] ÔÚÎ´µÇÂ¼×´Ì¬³¢ÊÔ·ÃÎÊ×ÊÔ´£º["
+					LoggerManager.warn("è­¦å‘Šï¼š[" + request.getRemoteAddr()
+							+ "] åœ¨æœªç™»å½•çŠ¶æ€å°è¯•è®¿é—®èµ„æºï¼š["
 							+ invocation.getProxy().getActionName() + ":"
-							+ invocation.getProxy().getMethod() + "] >>> Ê§°Ü£¡");
+							+ invocation.getProxy().getMethod() + "] >>> å¤±è´¥ï¼");
 					invocation.getInvocationContext().getContext().put(Action.ERROR, "Please sign in!");
 					return Action.LOGIN;
 				}
@@ -59,10 +59,10 @@ public class AuthInterceptor extends AbstractInterceptor {
 				HttpServletRequest request = (HttpServletRequest) invocation
 						.getInvocationContext().get(
 								ServletActionContext.HTTP_REQUEST);
-				LoggerManager.warn("¾¯¸æ£º[" + request.getRemoteAddr()
-						+ "] ÔÚÎ´µÇÂ¼×´Ì¬³¢ÊÔ·ÃÎÊ×ÊÔ´£º["
+				LoggerManager.warn("è­¦å‘Šï¼š[" + request.getRemoteAddr()
+						+ "] åœ¨æœªç™»å½•çŠ¶æ€å°è¯•è®¿é—®èµ„æºï¼š["
 						+ invocation.getProxy().getActionName() + ":"
-						+ invocation.getProxy().getMethod() + "] >>> Ê§°Ü£¡");
+						+ invocation.getProxy().getMethod() + "] >>> å¤±è´¥ï¼");
 				invocation.getInvocationContext().getContext().put(Action.ERROR, "Please sign in!");
 				return Action.LOGIN;
 			}

@@ -25,19 +25,19 @@ public class Blog {
 	private String title;
 	private String content;
 	private User user;
-	private List<Image> images;// Ïà¹ØÍ¼Æ¬
-	private int category;// ·ÖÀà 1.Ñ§Ï° 2.ÓéÀÖ 3.Éú»î
-	private int praisedTimes = 0;// ±»ÔŞ´ÎÊı
-	private int shredTimes = 0;// ±»·ÖÏí´ÎÊı
-	private int suggestedTimes = 0;// ÍÆ¼ö´ÎÊı
-	private int disSuggestTimes = 0;// ·´¶Ô´ÎÊı
-	private int readedTimes = 0;// ÔÄ¶Á´ÎÊı
+	private List<Image> images;// ç›¸å…³å›¾ç‰‡
+	private int category;// åˆ†ç±» 1.å­¦ä¹  2.å¨±ä¹ 3.ç”Ÿæ´»
+	private int praisedTimes = 0;// è¢«èµæ¬¡æ•°
+	private int shredTimes = 0;// è¢«åˆ†äº«æ¬¡æ•°
+	private int suggestedTimes = 0;// æ¨èæ¬¡æ•°
+	private int disSuggestTimes = 0;// åå¯¹æ¬¡æ•°
+	private int readedTimes = 0;// é˜…è¯»æ¬¡æ•°
 	private Date publishDate;
 	private Date lastEditDate;
-	private int enshrineTimes = 0;// ÊÕ²Ø´ÎÊı
-	private int status; // 1 Õı³£ 0±»É¾³ı
-	private int published = 0; // 1 ÒÑ·¢²¼ 0Î´·¢²¼
-	private int auth;// 1 Ë½ÓĞ 2¹«¿ª
+	private int enshrineTimes = 0;// æ”¶è—æ¬¡æ•°
+	private int status; // 1 æ­£å¸¸ 0è¢«åˆ é™¤
+	private int published = 0; // 1 å·²å‘å¸ƒ 0æœªå‘å¸ƒ
+	private int auth;// 1 ç§æœ‰ 2å…¬å¼€
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -78,7 +78,7 @@ public class Blog {
 
 	@OneToMany(mappedBy = "blog")
 	@LazyCollection(LazyCollectionOption.EXTRA)
-	// azyCollectionÊôĞÔÉèÖÃ³ÉEXTRAÖ¸¶¨ÁËµ±Èç¹û²éÑ¯Êı¾İµÄ¸öÊıÊ±ºò£¬Ö»»á·¢³öÒ»Ìõ count(*)µÄÓï¾ä£¬Ìá¸ßĞÔÄÜ
+	// azyCollectionï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã³ï¿½EXTRAÖ¸ï¿½ï¿½ï¿½Ëµï¿½ï¿½ï¿½ï¿½ï¿½Ñ¯ï¿½ï¿½İµÄ¸ï¿½ï¿½ï¿½Ê±ï¿½ï¿½Ö»ï¿½á·¢ï¿½ï¿½Ò»ï¿½ï¿½ count(*)ï¿½ï¿½ï¿½ï¿½ä£¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	public List<Image> getImages() {
 		return images;
 	}

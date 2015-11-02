@@ -33,7 +33,7 @@ public class UnAuthedResourceAction extends BaseAction {
 	private int currentPage = 1;
 	private int pageSize = 3;
 
-	// ²©¿Í ÏêÇé
+	// åšå®¢ è¯¦æƒ…
 	public String blogdetail() {
 		Blog detail = blogService.blogDetail(blogId);
 		detail.setReadedTimes(detail.getReadedTimes() + 1);
@@ -44,16 +44,16 @@ public class UnAuthedResourceAction extends BaseAction {
 		return DETAIL;
 	}
 
-	// µãÔŞ»ò·´¶Ô tyep 1µãÔŞ 2·´¶Ô
+	// ç‚¹èµæˆ–åå¯¹ tyep 1ç‚¹èµ 2åå¯¹
 	public String praise() {
 		Map<String, Object> result = new HashMap<String, Object>();
 		User currentUser = (User) ActionContext.getContext().getSession()
 				.get("authUser");
-		// Î´µÇÂ¼ÓÃ»§µãÔŞ
+		// æœªç™»å½•ç”¨æˆ·ç‚¹èµ
 		if (currentUser == null) {
 			String remoteAddr = ServletActionContext.getRequest()
 					.getRemoteAddr();
-			//ÅĞ¶ÏÄäÃûÓÃ»§ÊÇ·ñµãÔŞ£º ¸ù¾İipÅĞ¶Ï
+			//åˆ¤æ–­åŒ¿åç”¨æˆ·æ˜¯å¦ç‚¹èµï¼š æ ¹æ®ipåˆ¤æ–­
 			boolean anonymousPraised = praiseService.anonymousPraised(blogId, remoteAddr, type);
 			if(anonymousPraised){
 				if (type == 1) {
@@ -72,7 +72,7 @@ public class UnAuthedResourceAction extends BaseAction {
 			ActionContext.getContext().put(JSONDATA, result);
 			return JSON;
 		}
-		// ÅĞ¶Ï²©¿ÍÊÇ·ñÊÇµ±Ç°ÓÃ»§µÄ
+		// åˆ¤æ–­åšå®¢æ˜¯å¦æ˜¯å½“å‰ç”¨æˆ·çš„
 		if (currentUser.getUserName().equals(authorName)) {
 			if (type == 1) {
 				result.put(MESSAGE, "You can not praise your own blog!");
@@ -81,7 +81,7 @@ public class UnAuthedResourceAction extends BaseAction {
 			}
 			result.put(STATUS, STATUS_ERROR);
 		} else {
-			// ¼ì²âµ±Ç°ÓÃ»§ÊÇ·ñÒÑ¾­µãÔŞ
+			// æ£€æµ‹å½“å‰ç”¨æˆ·æ˜¯å¦å·²ç»ç‚¹èµ
 			boolean praised = praiseService.hasPraised(blogId, currentUser.getId(),
 					type);
 			if (praised) {
