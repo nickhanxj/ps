@@ -4,6 +4,8 @@
 "http://struts.apache.org/dtds/struts-2.3.dtd"> 
 
 <struts>
+	<!-- 主题 -->
+	<constant name="struts.ui.theme" value="simple"></constant>
 	<!-- 开启使用开发模式，详细错误提示 -->    
     <constant name="struts.devMode" value="true" />    
     <!-- 将对象交给spring管理 -->    
@@ -26,6 +28,7 @@
 				<interceptor-ref name="authInterceptor"/>
 			</interceptor-stack>
 		</interceptors>
+		
 		<!-- 配置默认拦截器栈 -->
 		<default-interceptor-ref name="authStack"/>
 		
@@ -54,7 +57,7 @@
 			<result name="write">/WEB-INF/views/blog/blog_write.jsp</result>
 			<result name="edit">/WEB-INF/views/blog/blog_edit.jsp</result>
 			<result name="list">/WEB-INF/views/blog.jsp</result>
-			<result name="success" type="redirectAction">/blogAction_list?message=${message}</result>
+			<result name="success" type="redirectAction">blogAction_list?message=${message}</result>
 			<result name="blogDetail" type="redirectAction">viewAction_blogdetail?blogId=${id}</result>
 		</action>
 		
@@ -66,11 +69,13 @@
 		
 		<action name="fileAction_*" class="com.demo.ssh.action.FileAction" method="{1}">
 			<result name="success">/WEB-INF/views/uploadsuccess.jsp</result>
-			<result name="photo">/WEB-INF/views/photo.jsp</result>
+			<result name="album">/WEB-INF/views/album.jsp</result>
+			<result name="albumlist"  type="redirectAction">fileAction_album</result>
 		</action>
 		
 		<action name="photoAction_*" class="com.demo.ssh.action.PhotoAction" method="{1}">
 			<result name="success">/WEB-INF/views/photo/upload.jsp</result>
+			<result name="phptolist">/WEB-INF/views/photo/photo_list.jsp</result>
 		</action>
 	</package>
 </struts>

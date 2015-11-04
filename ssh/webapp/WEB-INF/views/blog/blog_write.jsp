@@ -28,7 +28,7 @@
                     ]});
 </script>
 <%@taglib prefix="s" uri="/struts-tags"%>
-<title>Write Blog</title>
+<title>写博客</title>
 </head>
 <body>
 	<s:include value="/view/header.jsp"/>
@@ -44,50 +44,50 @@
 			<nav class="navbar navbar-default" role="navigation">
 			   <div>
 			      <ul class="nav navbar-nav">
-			      	<li><a href="/blog/list.html">My Blogs</a></li>
-			         <li class="active"><a href="/blog/writeBlogPage.html"><b>Write New</b></a></li>
-			         <li><a href="#">My Share</a></li>
-			         <li><a href="#">Contact Writer</a></li>
-			         <li><a href="#">Manage Center</a></li>
+			      	<li><a href="/blog/list.html">我的博客</a></li>
+			         <li class="active"><a href="/blog/writeBlogPage.html"><b>写博客</b></a></li>
+			         <li><a href="#">我的分享</a></li>
+			         <li><a href="#">联系作者</a></li>
+			         <li><a href="#">管理中心</a></li>
 			      </ul>
 			   </div>
 			</nav>
 			<div class="panel panel-default" >
 				<div class="panel-heading" style="background-color: lightblue;">
 			      <h3 class="panel-title">
-			        Write new blog:
+			        写博客:
 			      </h3>
 			   </div>
 				<div class="panel-body">
 					<s:form action="/blog/saveBlog.html" theme="simple">
-					<b>Title:</b><s:textfield name="blog.title" cssClass="form-control"/>
-					<b>Content:</b>
+					<b>标题:</b><s:textfield name="blog.title" cssClass="form-control"/>
+					<b>内容:</b>
 					 <s:textarea name="blog.content"></s:textarea>
 					 <hr color="black">
 					 <div class="panel panel-default">
 					   <div class="panel-heading" style="background-color: lightgray;">
 					      <h3 class="panel-title">
-					         <b>Categories:</b>
+					         <b>选择分类:</b>
 					      </h3>
 					   </div>
 					   <div class="panel-body">
-					   	<s:radio name="blog.category" list="%{#{'1':'Study','2':'Entainment','3':'Life'}}" value="1"></s:radio>
+					   	<s:radio name="blog.category" list="%{#{'1':'学习','2':'娱乐','3':'生活'}}" value="1"></s:radio>
 					   </div>
 					</div>
 					<div class="panel panel-default">
 					   <div class="panel-heading" style="background-color: lightgray;">
 					      <h3 class="panel-title">
-					         <b>Publish Selections:</b>
+					         <b>发布选项:</b>
 					      </h3>
 					   </div>
 					   <div class="panel-body">
-					   <s:radio name="blog.auth" list="%{#{'1':'Private','2':'Public'}}" value="1"></s:radio>
+					   <s:radio name="blog.auth" list="%{#{'1':'私有','2':'公开'}}" value="1"></s:radio>
 					   </div>
 					</div>
 					<div style="text-align: center;">
-						<s:submit value="Publish" cssClass="btn btn-success"/>
-						<s:submit value="Save as draft" cssClass="btn btn-info"/>
-						<a href="javascript:history.back(-1);" class="btn btn-warning">Cancel</a>
+						<s:submit value="保存并发布" cssClass="btn btn-success"/>
+						<s:submit value="存为草稿" cssClass="btn btn-info"/>
+						<a href="javascript:history.back(-1);" class="btn btn-warning">取消</a>
 					</div>
 					</s:form>
 				</div>

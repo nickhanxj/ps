@@ -23,4 +23,8 @@ public class AlbumService {
 	public List<Album> getAll(){
 		return albunDao.selectAll(Album.class);
 	}
+	
+	public Album getAlbum(Long id){
+		return albunDao.getById(Album.class, id);
+	}
 }

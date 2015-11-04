@@ -56,13 +56,13 @@ public class FileAction extends BaseAction {
 			putContext(STATUS, STATUS_ERROR);
 			putContext(MESSAGE, "create album ["+album.getName()+"] failed!");
 		}
-		return "photo";
+		return ALBUM_LIST;
 	}
 	
-	public String photo(){
+	public String album(){
 		List<Album> all = albumService.getAll();
 		putContext("albums", all);
-		return "photo";
+		return "album";
 	}
 
 	private static String getExtention(String fileName) {

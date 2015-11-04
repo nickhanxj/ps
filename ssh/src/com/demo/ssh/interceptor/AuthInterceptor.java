@@ -47,7 +47,7 @@ public class AuthInterceptor extends AbstractInterceptor {
 							+ "] 在未登录状态尝试访问资源：["
 							+ invocation.getProxy().getActionName() + ":"
 							+ invocation.getProxy().getMethod() + "] >>> 失败！");
-					invocation.getInvocationContext().getContext().put(Action.ERROR, "Please sign in!");
+					invocation.getInvocationContext().getContext().put(Action.ERROR, "请登录!");
 					return Action.LOGIN;
 				}
 			}
@@ -63,7 +63,7 @@ public class AuthInterceptor extends AbstractInterceptor {
 						+ "] 在未登录状态尝试访问资源：["
 						+ invocation.getProxy().getActionName() + ":"
 						+ invocation.getProxy().getMethod() + "] >>> 失败！");
-				invocation.getInvocationContext().getContext().put(Action.ERROR, "Please sign in!");
+				invocation.getInvocationContext().getContext().put(Action.ERROR, "请登录!");
 				return Action.LOGIN;
 			}
 		}

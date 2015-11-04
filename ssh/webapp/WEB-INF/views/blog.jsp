@@ -8,7 +8,7 @@
 <jsp:include page="/view/context.jsp"/>
 <link href="/css/homepage.css" rel="stylesheet">
 <%@taglib prefix="s" uri="/struts-tags"%>
-<title>Blog</title>
+<title>博客</title>
 </head>
 <body>
 	<s:include value="/view/header.jsp"/>
@@ -24,11 +24,11 @@
 			<nav class="navbar navbar-default" role="navigation">
 			   <div>
 			      <ul class="nav navbar-nav">
-			      	<li  class="active"><a href="/blog/list.html"><b>My Blogs</b></a></li>
-			         <li><a href="/blog/writeBlogPage.html">Write New</a></li>
-			         <li><a href="#">My Share</a></li>
-			         <li><a href="#">Contact Writer</a></li>
-			         <li><a href="#">Manage Center</a></li>
+			      	<li  class="active"><a href="/blog/list.html"><b>我的博客</b></a></li>
+			         <li><a href="/blog/writeBlogPage.html">写博客</a></li>
+			         <li><a href="#">我的分享</a></li>
+			         <li><a href="#">联系作者</a></li>
+			         <li><a href="#">管理中心</a></li>
 			      </ul>
 			   </div>
 			</nav>

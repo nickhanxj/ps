@@ -41,6 +41,8 @@ public class UnAuthedResourceAction extends BaseAction {
 		ActionContext.getContext().put("blog", detail);
 		List<BlogComment> comments = commentService.getCommentsByBlogId(blogId);
 		ActionContext.getContext().put("comments", comments);
+		Map<String, Object> preAndNext = blogService.preAndNext(blogId);
+		ActionContext.getContext().put("preAndNext", preAndNext);
 		return DETAIL;
 	}
 
@@ -58,10 +60,10 @@ public class UnAuthedResourceAction extends BaseAction {
 			if(anonymousPraised){
 				if (type == 1) {
 					result.put(MESSAGE,
-							"Can not repraise! You have praised this blog!");
+							"你已经赞过该博客!");
 				} else if (type == 2) {
 					result.put(MESSAGE,
-							"Can not Dissuggest twice! You have dissuggested this blog!");
+							"你已反对过经对该博客！");
 				}
 				result.put(STATUS, STATUS_ERROR);
 			}else{
@@ -75,9 +77,9 @@ public class UnAuthedResourceAction extends BaseAction {
 		// 判断博客是否是当前用户的
 		if (currentUser.getUserName().equals(authorName)) {
 			if (type == 1) {
-				result.put(MESSAGE, "You can not praise your own blog!");
+				result.put(MESSAGE, "不能对自己的博客点赞!");
 			} else if (type == 2) {
-				result.put(MESSAGE, "You can not dissuggested your own blog!");
+				result.put(MESSAGE, "不能反对自己的博客!");
 			}
 			result.put(STATUS, STATUS_ERROR);
 		} else {
@@ -87,10 +89,10 @@ public class UnAuthedResourceAction extends BaseAction {
 			if (praised) {
 				if (type == 1) {
 					result.put(MESSAGE,
-							"Can not repraise! You have praised this blog!");
+							"你已经赞过该博客!");
 				} else if (type == 2) {
 					result.put(MESSAGE,
-							"Can not Dissuggest twice! You have dissuggested this blog!");
+							"你已经反对过该博客！");
 				}
 				result.put(STATUS, STATUS_ERROR);
 			} else {

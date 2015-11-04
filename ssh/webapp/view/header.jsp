@@ -17,10 +17,10 @@
 				</a>
 			</div>
 			<div style="margin-left: 100px;" id="navItems" class="header-vertically header-content">
-				<a href="/blog/list.html" class="ele" id="blog"><span class="glyphicon glyphicon-paperclip">&ensp;Blog</span></a>
-				<a href="/file/photo.html" class="ele" id="photo"><span class="glyphicon glyphicon-picture">&ensp;Photo</span></a>
-				<a href="/resource/music.html" class="ele" id="music"><span class="glyphicon glyphicon-music">&ensp;Music</span></a>
-				<a href="/resource/video.html" class="ele" id="video"><span class="glyphicon glyphicon-film">&ensp;Video</span></a>
+				<a href="/blog/list.html" class="ele" id="blog"><span class="glyphicon glyphicon-paperclip" style="">&ensp;</span>博客</a>
+				<a href="/file/album.html" class="ele" id="photo"><span class="glyphicon glyphicon-picture">&ensp;</span>相册</a>
+				<a href="/resource/music.html" class="ele" id="music"><span class="glyphicon glyphicon-music">&ensp;</span>音乐</a>
+				<a href="/resource/video.html" class="ele" id="video"><span class="glyphicon glyphicon-film">&ensp;</span>视频</a>
 			</div>
 <!-- 			<div style="margin-left: 50px;" class="header-vertically header-content"> -->
 <!-- 				<input style="display: block; width: 200px; height: 35px;" placeholder="search something"> -->
@@ -30,15 +30,15 @@
 <!-- 			</div> -->
 				<s:if test="%{#session.authUser == null}">
 					<div style="float: right; margin-right: 100px;font-size: 14px; font-family: monospace;" class="header-content vertically" >
-						<a href="/view/login.html" style="color: white;" title="sign in">&ensp;<b>Sign In</b></a>&ensp;|
-						<a href="/view/register.html" title="register" style="color: white; ">&ensp;<b>Register</b></a>
+						<a href="/view/login.html" style="color: white; font-family: '微软雅黑';" title="sign in">&ensp;<b>登录</b></a>&ensp;|
+						<a href="/view/register.html" title="register" style="color: white; font-family: '微软雅黑';">&ensp;<b>注册</b></a>
 					</div>
 				</s:if>
 				<s:else>
 					<div style="float: right; margin: 6px 100px 6px;font-size: 14px; font-family: monospace;" class="header-content" >
-						<a href="/user/personalCenter.html?id=${authUser.id}" title="Detail Infomation!"><img alt="" src="/upload/photo/photo.gif" height="36px" width="36px" style=""><span class="glyphicon" style="color: white;">${authUser.userName}</span></a>&ensp;
+						<a href="/user/personalCenter.html?id=${authUser.id}" title="Detail Infomation!" style="font-family: '微软雅黑'; color: white;"><img alt="" src="/upload/photo/photo.gif" height="36px" width="36px" style="">${authUser.userName}</a>
 						<b style="color: white;">|</b>&ensp;
-						<a href="/user/logout.html" title="Logout" style="color: white; "><span class="glyphicon">Logout</span></a>
+						<a href="/user/logout.html" title="Logout" style="color: white; font-family: '微软雅黑';"><span class="glyphicon"></span>退出</a>
 					</div>
 				</s:else>
 	</div>

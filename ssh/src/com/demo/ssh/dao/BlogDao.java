@@ -1,6 +1,8 @@
 package com.demo.ssh.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
@@ -47,5 +49,24 @@ public class BlogDao extends BaseDao{
 		String hql = "from Blog b where b.readedTimes >= "+readedTimes +" order by b.readedTimes desc";
 		Query query = getSession().createQuery(hql);
 		return query.list();
+	}
+	
+	public Map<String, Object> preAndNext(Long blogId){
+		Map<String, Object> result = new HashMap<String, Object>();
+		String preHql = "from Blog b where b.id = "+(blogId-1);
+		String nextHql = "from Blog b where b.id = "+(blogId+1);
+		List preQuery = getSession().createQuery(preHql).list();
+		List nextQuery = getSession().createQuery(nextHql).list();
+		if(preQuery.size() > 0){
+			result.put("pre", preQuery.get(0));
+		}else{
+			result.put("pre", null);
+		}
+		if(nextQuery.size() > 0){
+			result.put("next", nextQuery.get(0));
+		}else{
+			result.put("next", null);
+		}
+		return result;
 	}
 }

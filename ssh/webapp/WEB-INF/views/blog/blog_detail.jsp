@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Blog [ ${blog.title} ]</title>
+<title>博客 -${blog.title}</title>
 <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico" />
 <jsp:include page="/view/context.jsp"/>
 <link href="/css/homepage.css" rel="stylesheet">
@@ -37,7 +37,7 @@
 			   <div class="panel panel-default">
 			   	 <div class="panel-body" style="font-style: italic; font-weight: bold;">
 			   		<div style="color: #36648B; margin-left: 100px; margin-right: 100px;" >
-			   			<b>Readed Times(${blog.readedTimes})</b>
+			   			<b>阅读(${blog.readedTimes})</b>
 	   					<span style="color: black;font-weight:normal;margin-left: 200px;">posted @ ${blog.publishDate} by *${blog.user.userName}*</span>
 	   					<c:if test="${not empty blog.lastEditDate}">
 	   						<span style="color: black;font-weight:normal;">(last edit: ${blog.lastEditDate})</span>
@@ -62,30 +62,46 @@
 		   	 </div>
 			   <div class="panel panel-default">
 			   	 <div class="panel-body" style="font-style: italic; font-weight: bold;">
-				   Category:
+				   分类:
 				   <s:if test="%{#blog.category == 1}">
-				   	<a href="#">STUDY</a>
+				   	<a href="#">学习</a>
 				   </s:if>
 				   <s:elseif test="%{#blog.category == 2}">
-				   	<a href="#">ENTERTAINMENT</a>
+				   	<a href="#">娱乐</a>
 				   </s:elseif>
 				   <s:else>
-				   	<a href="#">LIFE</a>
+				   	<a href="#">生活</a>
 				   </s:else>
 			   	 </div>
 			   </div>
 			   	 <div class="panel panel-default">
 				   	 <div class="panel-body">
-				   	 	<b>Previous:&emsp;</b><a style="text-decoration: underline; cursor: pointer;">TEST PICTURE</a>
-				   	 	<br><b>Next:&emsp;</b><a style="text-decoration: underline; cursor: pointer;">TEST PICTURE</a>
+				   	 	<b>上一篇:&emsp;</b>
+				   	 		<c:if test="${not empty preAndNext.pre}">
+				   	 			<a href="/view/blogdetail.html?blogId=${preAndNext.pre.id}" style="text-decoration: underline; cursor: pointer;">
+				   	 				${preAndNext.pre.title}
+						   	 	</a>
+				   	 		</c:if>
+				   	 		<c:if test="${empty preAndNext.pre}">
+				   	 			已经是第一篇！
+				   	 		</c:if>
+				   	 	<br><b>下一篇:&emsp;</b>
+				   	 		<c:if test="${not empty preAndNext.next}">
+			   	 				<a href="/view/blogdetail.html?blogId=${preAndNext.next.id}" style="text-decoration: underline; cursor: pointer;">
+			   	 					${preAndNext.next.title}
+					   	 		</a>
+				   	 		</c:if>
+				   	 		<c:if test="${empty preAndNext.next}">
+				   	 			已经是最后一篇！
+				   	 		</c:if>
 				   	 </div>
 			   	 </div>
 			   	  <div class="panel panel-default">
 				   	 <div class="panel-body" style="font-style: normal;">
-				   	 	<b>Comments:</b>
+				   	 	<b>评论:</b>
 				   	 		<s:if test="%{#comments.size == 0}">
 				   	 			<div class="comments">
-				   	 				No commnets yet!
+				   	 				暂无评论!
 				   	 			</div>
 				   	 		</s:if>
 				   	 		<s:else>
@@ -98,12 +114,12 @@
 					   	 		</s:iterator>
 				   	 		</s:else>
 				   	 	<br>
-				   	 	<b>Post my comments:</b>
+				   	 	<b>发表我的评论:</b>
 				   	 	<div style="padding-left: 100px;">
 				   	 		<s:form theme="simple" action="/blog/saveCommnets.html?id=%{#blog.id}">
 						   	 	<s:textarea cols="100" rows="5" name="comment.content"></s:textarea>
 						   	 	<br>
-						   	 	<s:submit value="submit" cssClass="btn"></s:submit>
+						   	 	<s:submit value="发表评论" cssClass="btn"></s:submit>
 				   	 		</s:form>
 				   	 	</div>
 				   	 </div>
@@ -114,31 +130,31 @@
 	<a href="javascript:void(0)" onclick="showModel()" style="display: none;" id="modelLogin"></a>
 	<div id="modal-overlay"> 
 	    <div class="modal-data">  
-	    	<div style="float: right;"><a onclick="showModel()" href="">close</a></div>  
+	    	<div style="float: right;"><a onclick="showModel()" href="">关闭</a></div>  
 	    	<s:form action="" theme="simple" id="ajaxLoginData">
 				<input type="hidden" id="pendingUrl" name="pendingUrl"/>
 				<input type="hidden" id="port" name="port"/>
 				<input type="hidden" id="host" name="host"/>
 				<input type="hidden" id="protocol" name="protocol"/>
 				<div style="display:inline-block;  margin:20px auto 20px auto; border: 10px solid white;background: rgba(255,255,255);">
-					<div style="font-size: 20px; font-family: cursive; font-weight: bold; border-bottom: 1px dotted gray; padding-bottom: 15px; padding-top: 10px;">Sign In</div>
+					<div style="font-size: 20px; font-family: cursive; font-weight: bold; border-bottom: 1px dotted gray; padding-bottom: 15px; padding-top: 10px;">登录</div>
 					<div style="padding: 15px;">
 						<div class="form-group" style="margin-top: 10px;">
-							<s:textfield name="user.userName"  cssClass="form-control user" placeholder="account"></s:textfield>
+							<s:textfield name="user.email"  cssClass="form-control user" placeholder="邮箱"></s:textfield>
 						</div>
 						<div class="form-group" style="margin-top: 40px;">
-							<s:password required="true" name="user.password"  cssClass="form-control glyphicon lock" placeholder="password"/>
+							<s:password required="true" name="user.password"  cssClass="form-control glyphicon lock" placeholder="密码"/>
 						</div>
 						<div style="color: red; font-size: x-small;margin-top: 30px;" align="center">
-							You must sign in first!
+							必须先登录才能收藏!
 						</div>
 						<div align="center" style="margin-top: 30px;">
-							<button  class="btn btn-default" onclick="ajaxLogin()">Safe Sign In</button>
+							<button  class="btn btn-default" onclick="ajaxLogin()">登录</button>
 						</div>
 						<div align="right" style="font-size: x-small; margin-top: 30px;">
-							<a href="#">Forget Password</a>&ensp;|
-							<a href="/view/register.html">Register</a>&ensp;|
-							<a href="#">Contact Us</a>
+							<a href="#">忘记密码</a>&ensp;|
+							<a href="/view/register.html">注册</a>&ensp;|
+<!-- 							<a href="#">Contact Us</a> -->
 						</div>
 					</div>
 				</div>
@@ -159,10 +175,10 @@
 				success:function(data){
 					if(data.status == 1){
 						if(type == "1"){
-							$("#successMsg").html("Praised Successfully!");
+							$("#successMsg").html("点赞成功!");
 							$("#praise").html("("+data.praisedTimes+")");
 						}else if(type == "2"){
-							$("#successMsg").html("Dissuggested Successfully!");
+							$("#successMsg").html("反对成功!");
 							$("#disSuggest").html("("+data.praisedTimes+")");
 						}
 						$('#successMsg').slideDown(500);
@@ -187,7 +203,7 @@
 				async: true,
 				success:function(data){
 					if(data.status == 1){
-						$("#successMsg").html("Enshrined Successfully!");
+						$("#successMsg").html("收藏成功!");
 						$("#enshrine").html("("+data.enshrinedTimes+")");
 						$('#successMsg').slideDown(500);
 						setTimeout(function () { 

@@ -8,14 +8,14 @@
 <jsp:include page="/view/context.jsp" />
 <link href="/css/homepage.css" rel="stylesheet">
  <%@taglib prefix="s" uri="/struts-tags"%> 
-<title>注册</title>
+<title>新用户注册</title>
 </head>
 <body>
 	<img alt="" src="/images/login-left.jpg" class="back-img">
-	<div style="width: 30%; margin-left: auto; margin-right: auto; margin-top: 100px; border: 10px solid lightgray;background: rgba(255,255,255, 1);">
+	<div style="width: 30%; margin-left: auto; margin-right: auto; margin-top: 100px; border: 10px solid lightgray;background: rgba(255,255,255, 1);-webkit-border-radius: 15px;-moz-border-radius: 15px;">
 	<div style="padding: 15px;">
 	<s:form action="/userAction_register" theme="simple">
-	<div style="font-size: 20px; font-family: cursive; font-weight: bold; border: 1px dashed gray; padding-bottom: 15px; padding-top: 10px; text-align: center;">新用户注册</div>
+	<div style="font-size: 20px; font-family: cursive; font-weight: bold; border: 1px dashed gray; padding-bottom: 15px; padding-top: 10px; text-align: center; -webkit-border-radius: 15px;-moz-border-radius: 15px;">新用户注册</div>
 		<div class="form-group" style="margin-top: 15px;">
 			<label for="name">用户名:</label> 
 			<s:textfield name="user.userName"  cssClass="form-control" placeholder="请输入名称"></s:textfield>

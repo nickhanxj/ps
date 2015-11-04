@@ -26,8 +26,8 @@
 <!-- 				<div style="width: 30%; border: 1px dotted gray; height: 300px;"> -->
 <!-- 					photos -->
 <!-- 				</div> -->
-				<div style="width: 20%; border: 5px solid #103858; margin-left: 75%; padding: 5px;">
-					<div style="font-weight: bold;  border-bottom: 1px solid gray;" >Newest Blogs</div>
+				<div style="width: 30%; border: 5px solid #103858; margin-left: 65%; padding: 5px;">
+					<div style="font-weight: bold;  border-bottom: 1px solid gray;" >最新博客</div>
 					<s:iterator value="%{#blogList}" var="blog">
 						<div style="height: auto; border-bottom: 1px dashed gray; width:90%; margin-left: auto; margin-right: auto;">
 						   <div class="panel-body" style="clear: both;">
@@ -42,7 +42,7 @@
 					videos<br>
 				</div>
 				<div style="width: 20%; border: 5px solid #103858; margin-left: 75%; padding: 5px; float: left;">
-					<div style="font-weight: bold;  border-bottom: 1px solid gray;" >Hot Blogs</div>
+					<div style="font-weight: bold;  border-bottom: 1px solid gray;" >热门博客</div>
 					<s:iterator value="%{#hotList}" var="blog">
 						<div style="height: auto; border-bottom: 1px dashed gray; width:90%; margin-left: auto; margin-right: auto;">
 						   <div class="panel-body" style="clear: both;">

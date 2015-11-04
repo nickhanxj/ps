@@ -8,7 +8,7 @@
 <jsp:include page="/view/context.jsp" />
 <link href="/css/homepage.css" rel="stylesheet">
  <%@taglib prefix="s" uri="/struts-tags"%> 
-<title>Sign In</title>
+<title>帐号登录</title>
 </head>
 <body style="clear: both;">
 	<span style="display:none;">登录</span>
@@ -18,26 +18,26 @@
 		<input type="hidden" id="port" name="port"/>
 		<input type="hidden" id="host" name="host"/>
 		<input type="hidden" id="protocol" name="protocol"/>
-		<div style="display:inline-block; float:right; width: 20%; height:400px; margin-right: 200px;  margin-top: 150px; border: 10px solid white;background: rgba(255,255,255, 0);">
+		<div style="display:inline-block; float:right; width: 20%; height:400px; margin-right: 200px;  margin-top: 150px; border: 10px solid white;background: rgba(255,255,255, 0); -webkit-border-radius: 15px;-moz-border-radius: 15px;">
 			<div style="padding: 15px;">
-				<div style="font-size: 20px; font-family: cursive; font-weight: bold; border-bottom: 1px dotted gray; padding-bottom: 15px; padding-top: 10px;">Sign In</div>
+				<div style="font-size: 20px; font-family: cursive; font-weight: bold; border-bottom: 1px dotted gray; padding-bottom: 15px; padding-top: 10px;">登录</div>
 				<div class="form-group" style="margin-top: 30px;">
-					<s:textfield name="user.userName"  cssClass="form-control user" placeholder="account"></s:textfield>
+					<s:textfield name="user.email"  cssClass="form-control user" placeholder="邮箱"></s:textfield>
 				</div>
 				<div class="form-group" style="margin-top: 40px;">
-					<s:password required="true" name="user.password"  cssClass="form-control glyphicon lock" placeholder="password"/>
+					<s:password required="true" name="user.password"  cssClass="form-control glyphicon lock" placeholder="密码"/>
 				</div>
 				<div style="color: red; font-size: x-small;margin-top: 30px;" align="center">
 					<s:actionerror/>
 					${error}
 				</div>
 				<div align="center" style="margin-top: 30px;">
-					<s:submit value="Safe Sign In" cssClass="btn btn-default"/>
+					<s:submit value="安全登录" cssClass="btn btn-default"/>
 				</div>
 				<div align="right" style="font-size: x-small; margin-top: 30px;">
-					<a href="#">Forget Password</a>&ensp;|
-					<a href="/view/register.html">Register</a>&ensp;|
-					<a href="#">Contact Us</a>
+					<a href="#">忘记密码</a>&ensp;|
+					<a href="/view/register.html">注册</a>&ensp;|
+					<a href="#">联系我们</a>
 				</div>
 			</div>
 		</div>

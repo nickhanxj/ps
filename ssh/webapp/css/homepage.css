@@ -123,9 +123,14 @@
 	font-size: medium;
 }
 
+body{
+	font-family: "微软雅黑";
+}
+
+
 #navItems a:HOVER{
 	display: inline-block;
-	height: 32px;
+	height: 34px;
 	border-bottom: 10px solid #BED8E0;
 	text-align: center;
 }
@@ -162,7 +167,7 @@
 
 .ac{
 	display: inline-block;
-	height: 32px;
+	height: 34px;
 	border-bottom: 10px solid #BED8E0;
 	text-align: center;
 }
@@ -226,4 +231,32 @@
      padding:15px;
 /*      text-align:center; */
      position:relative left=50% top=50%;
+}
+
+.album{
+	display: inline;
+	margin-left: 20px;
+}
+.album-img{
+	width:130px;
+	height:130px;
+	border:4px solid lightblue;
+	-webkit-border-radius: 15px;
+	-moz-border-radius: 15px;
+}
+
+.album-description{
+	width:130px;
+	height:130px;
+	border:4px solid lightblue;
+	-webkit-border-radius: 15px;
+	-moz-border-radius: 15px;
+	text-overflow:ellipsis;
+	overflow:hidden;
+}
+
+.album-name{
+	width:130px;
+	text-align: center;
+	margin-left: 20px;
 }

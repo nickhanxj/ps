@@ -5,7 +5,7 @@
 <head>
 <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Personal Information Center</title>
+<title>个人中心-基本信息</title>
 <jsp:include page="/view/context.jsp" />
 <link href="/css/homepage.css" rel="stylesheet">
 <%@taglib prefix="s" uri="/struts-tags"%>
@@ -27,64 +27,64 @@
 		<div class="body-container" >
 			<div style="border: 1px solid silver; width: 100%; clear: both;">
 				<ul class="nav nav-tabs">
-				  <li class="active" role="presentation" onclick="activeItem(this)"><a href="/user/personalCenter.html?id=${authUser.id}">Basic Info</a></li>
-				  <li role="presentation" onclick="activeItem(this)"><a href="/user/editProfile.html?id=${authUser.id}">Edit Profile</a></li>
-				  <li role="presentation" onclick="activeItem(this)"><a href="#">Contact Method</a></li>
+				  <li class="active" role="presentation" onclick="activeItem(this)"><a href="/user/personalCenter.html?id=${authUser.id}">基本信息</a></li>
+				  <li role="presentation" onclick="activeItem(this)"><a href="/user/editProfile.html?id=${authUser.id}">修改资料</a></li>
+				  <li role="presentation" onclick="activeItem(this)"><a href="#">联系方式</a></li>
 				</ul>
 				<div style="text-align: center; padding-top: 5px;">
 					<table class="table table-condensed" style="width: 50%; margin-left: auto; margin-right: auto;">
 						<tr>
-							<td class="tabHead">Name:</td>
+							<td class="tabHead">用户名:</td>
 							<td>${selectedUser.userName}</td>
 						</tr>
 						<tr>
-							<td class="tabHead">Email:</td>
+							<td class="tabHead">邮箱:</td>
 							<td>${selectedUser.email}</td>
 						</tr>
 						<tr>
-							<td class="tabHead">PhoneNumber:</td>
+							<td class="tabHead">电话:</td>
 							<td>${selectedUser.phoneNumber}</td>
 						</tr>
 						<tr>
-							<td class="tabHead">Sex:</td>
+							<td class="tabHead">性别:</td>
 							<td>
 								<s:if test="#selectedUser.sex == 1">
-									Male
+									男
 								</s:if>
 								<s:else>
-									Female
+									女
 								</s:else>
 							</td>
 						</tr>
 						<tr>
-							<td class="tabHead">Status:</td>
+							<td class="tabHead">帐号状态:</td>
 							<td>
 								<s:if test="#selectedUser.status == 1">
-									Normal
+									正常
 								</s:if>
 								<s:else>
-									<font color="red">Abnormal:</font>
+									<font color="red">异常:</font>
 								</s:else>
 							</td>
 						</tr>
 						<tr>
-							<td class="tabHead">RegisterDate:</td>
+							<td class="tabHead">注册时间:</td>
 							<td>${selectedUser.registerDate}</td>
 						</tr>
 						<tr>
-							<td class="tabHead">CurrentLoginDate:</td>
+							<td class="tabHead">本次登陆时间:</td>
 							<td>${selectedUser.curLoginDate}</td>
 						</tr>
 						<tr>
-							<td class="tabHead">CurrentLoginIp:</td>
+							<td class="tabHead">本次登录ip:</td>
 							<td>${selectedUser.curLoginIp}</td>
 						</tr>
 						<tr>
-							<td class="tabHead">LastLoginDate:</td>
+							<td class="tabHead">上次登录时间:</td>
 							<td>${selectedUser.lastLoginDate}</td>
 						</tr>
 						<tr>
-							<td class="tabHead">LastLoginIp:</td>
+							<td class="tabHead">上次登录ip:</td>
 							<td>${selectedUser.lastLoginIp}</td>
 						</tr>
 					</table>

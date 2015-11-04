@@ -7,7 +7,6 @@
 <jsp:include page="/view/context.jsp"/>
 <link href="/css/homepage.css" rel="stylesheet">
 <%@taglib prefix="s" uri="/struts-tags"%>
-<title>首页</title>
 </head>
 <body>
 	<a id="gotop" title="Back to top" style="display:none; position:fixed; right:20px; bottom:140px; cursor: pointer;">
@@ -19,11 +18,11 @@
 		<div align="center" id="curTime">Author: Nick</div>
 		<div align="center">Current version: v1.0</div>
 		<div align="center">
-			Quick Links:
-			<a value="www.baidu.com" href="javascript:void(0)" onclick="redirectUrl(this)" class="footer-a">Baidu</a>
-			<a value="www.qq.com" href="javascript:void(0)" onclick="redirectUrl(this)" class="footer-a">Tencent</a>
-			<a value="www.bing.com" href="javascript:void(0)" onclick="redirectUrl(this)" class="footer-a">Bing</a>
-			<a value="www.sina.com" href="javascript:void(0)" onclick="redirectUrl(this)" class="footer-a">Sina</a>
+			快速链接:
+			<a value="www.baidu.com" href="javascript:void(0)" onclick="redirectUrl(this)" class="footer-a">百度</a>
+			<a value="www.qq.com" href="javascript:void(0)" onclick="redirectUrl(this)" class="footer-a">腾讯</a>
+			<a value="www.bing.com" href="javascript:void(0)" onclick="redirectUrl(this)" class="footer-a">必应</a>
+			<a value="www.sina.com" href="javascript:void(0)" onclick="redirectUrl(this)" class="footer-a">新浪</a>
 		</div>
 	</div>
 </body>
@@ -49,7 +48,8 @@
 	function redirectUrl(t){
 		console.debug(t);
 		var url = $(t).attr("value");
-		window.location.href = "http://"+url;
+// 		window.location.href = "http://"+url;
+		window.open("http://"+url);
 	}
 	
 </script>

@@ -10,14 +10,17 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "t_album")
 public class Album {
-	
+
 	private Long id;
 	private String name;
+	private String description;
+	private Photo cover;
 	private User user;
 	private Date createTime = new Date();
 	private int photoNumber = 0;
@@ -25,7 +28,7 @@ public class Album {
 	private int status = 0;// 1 ���� 0˽��
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", nullable = false, unique = true)
 	public Long getId() {
 		return id;
@@ -43,8 +46,8 @@ public class Album {
 		this.name = name;
 	}
 
-	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="user_id")
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "user_id")
 	public User getUser() {
 		return user;
 	}
@@ -83,6 +86,24 @@ public class Album {
 
 	public void setStatus(int status) {
 		this.status = status;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	@OneToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="photo_id")
+	public Photo getCover() {
+		return cover;
+	}
+
+	public void setCover(Photo cover) {
+		this.cover = cover;
 	}
 
 }

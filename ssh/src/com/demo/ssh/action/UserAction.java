@@ -69,19 +69,19 @@ public class UserAction extends BaseAction {
 		}
 		HttpServletRequest request = ServletActionContext.getRequest();
 		user.setPassword(DigestUtils.md5Hex(user.getPassword()));
-		if (StringUtils.isBlank(user.getUserName())
+		if (StringUtils.isBlank(user.getEmail())
 				|| StringUtils.isBlank(user.getPassword())) {
-			addActionError("用户名或者密码不能为空！");
-			LoggerManager.error("用户【" + user.getUserName() + "】登录失败（"
+			addActionError("帐号或者密码不能为空！");
+			LoggerManager.error("用户【" + user.getEmail() + "】登录失败（"
 					+ new Date() + "）。原因：登录信息不完整。");
 			return LOGIN;
 		}
 		User authUser = userService.authUser(user);
 		if (authUser == null) {
-			addActionError("用户名或密码错误！");
+			addActionError("帐号或密码错误！");
 			// user = authUser;
-			LoggerManager.error("用户【" + user.getUserName() + "】登录失败（"
-					+ new Date() + "）。原因：用户名与密码不匹配。");
+			LoggerManager.error("用户【" + user.getEmail() + "】登录失败（"
+					+ new Date() + "）。原因：帐号与密码不匹配。");
 			return LOGIN;
 		}
 		ActionContext.getContext().getSession().put("authUser", authUser);
@@ -91,7 +91,7 @@ public class UserAction extends BaseAction {
 		authUser.setLastLoginIp(authUser.getCurLoginIp());
 		authUser.setCurLoginIp(request.getRemoteAddr());
 		userService.updateUser(authUser);
-		LoggerManager.info("用户【" + user.getUserName() + "】登录成功(" + new Date()
+		LoggerManager.info("用户【" + user.getEmail() + "】登录成功(" + new Date()
 				+ ")！");
 		return SUCCESS;
 	}

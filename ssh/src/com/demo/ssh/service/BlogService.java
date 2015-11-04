@@ -1,6 +1,7 @@
 package com.demo.ssh.service;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -36,6 +37,10 @@ public class BlogService {
 	
 	public void updateBlog(Blog blog){
 		dao.updateBlog(blog);
+	}
+	
+	public Map<String, Object> preAndNext(Long blogId){
+		return dao.preAndNext(blogId);
 	}
 	
 	public List<Blog> selectHotBlog(){

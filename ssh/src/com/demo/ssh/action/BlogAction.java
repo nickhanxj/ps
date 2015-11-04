@@ -63,7 +63,6 @@ public class BlogAction extends BaseAction {
 
 	// 更新
 	public String updateBlog() {
-		System.out.println("blog: "+blog);
 		Blog persistenceBlog = blogService.blogDetail(blog.getId());
 		persistenceBlog.setTitle(blog.getTitle());
 		persistenceBlog.setContent(blog.getContent());
@@ -77,9 +76,9 @@ public class BlogAction extends BaseAction {
 			ActionContext.getContext().put("error", e.getMessage());
 			return ERROR;
 		}
-		message = "Edit blog ["
+		message = "修改博客 ["
 				+ blog.getTitle()
-				+ "] success!</span><a style='color: gray; margin-left:20px;' title='quick view' href='/view/blogdetail.html?blogId="
+				+ "] 成功!</span><a style='color: gray; margin-left:20px;' title='quick view' href='/view/blogdetail.html?blogId="
 				+ blog.getId()
 				+ " '><span class='glyphicon glyphicon-list-alt'></a>";
 		return SUCCESS;
@@ -122,7 +121,7 @@ public class BlogAction extends BaseAction {
 		User sessionUser = getSessionUser();
 		// 判断博客是否是当前用户的
 		if (sessionUser.getUserName().equals(authorName)) {
-			result.put(MESSAGE, "You can not enshrine your own blog!");
+			result.put(MESSAGE, "不能收藏自己的博客！");
 			result.put(STATUS, STATUS_ERROR);
 		} else {
 			// 验证是否收藏过
@@ -130,7 +129,7 @@ public class BlogAction extends BaseAction {
 					sessionUser.getId());
 			if (hasEnshrined) {
 				result.put(STATUS, STATUS_ERROR);
-				result.put(MESSAGE, "You have enshrined this blog!");
+				result.put(MESSAGE, "你已经收藏过该博客!");
 			} else {
 				enshrineBlog.setUser(sessionUser);
 				try {
