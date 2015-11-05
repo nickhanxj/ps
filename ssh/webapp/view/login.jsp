@@ -10,17 +10,16 @@
  <%@taglib prefix="s" uri="/struts-tags"%> 
 <title>帐号登录</title>
 </head>
-<body style="clear: both;">
+<body >
+	<s:include value="/view/header.jsp"/>
 	<span style="display:none;">登录</span>
-	<img alt="" src="/images/login-left.jpg" class="back-img">
-	<s:form action="/user/login.html" theme="simple">
-		<input type="hidden" id="pendingUrl" name="pendingUrl"/>
-		<input type="hidden" id="port" name="port"/>
-		<input type="hidden" id="host" name="host"/>
-		<input type="hidden" id="protocol" name="protocol"/>
-		<div style="display:inline-block; float:right; width: 20%; height:400px; margin-right: 200px;  margin-top: 150px; border: 10px solid white;background: rgba(255,255,255, 0); -webkit-border-radius: 15px;-moz-border-radius: 15px;">
+<!-- 	<img alt="" src="/images/backImg.jpg" class="back-img"> -->
+	<s:form action="/user/login.html" theme="simple" method="post">
+		<s:hidden id="pendingUrl" name="pendingUrl"/>
+		<div style="margin-left: auto; margin-right: auto; width: 40%; height:400px;  margin-top: 150px; background: rgba(255,255,255, 1); -webkit-border-radius: 15px;-moz-border-radius: 15px;">
 			<div style="padding: 15px;">
-				<div style="font-size: 20px; font-family: cursive; font-weight: bold; border-bottom: 1px dotted gray; padding-bottom: 15px; padding-top: 10px;">登录</div>
+				<div style="width: 100%; text-align: center;"><img alt="" src="/images/favicon.ico"> </div>
+				<div style="width: 100%; text-align: center;font-size: 20px; font-family: cursive; font-weight: bold; border-bottom: 1px dotted gray; padding-bottom: 15px; padding-top: 10px;">登录</div>
 				<div class="form-group" style="margin-top: 30px;">
 					<s:textfield name="user.email"  cssClass="form-control user" placeholder="邮箱"></s:textfield>
 				</div>
@@ -46,6 +45,7 @@
 <script type="text/javascript">
 	$(function(){
 		$("#pendingUrl").val(window.location.href);
+		console.debug($("#pendingUrl"));
 	});
 </script>
 </html>

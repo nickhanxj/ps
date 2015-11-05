@@ -4,17 +4,12 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<link href="/js/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" media="screen">
+<link href="/js/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet">
+<link href="/js/bootstrap-3.3.5/css/bootstrap.css" rel="stylesheet">
 <link rel="stylesheet" href="/js/bootstrap-3.3.5/css/font-awesome.min.css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<script type="text/javascript" src="/js/jquery-2.1.4.js"></script>
+<script type="text/javascript" src="/js/jquery-2.1.1.min.js"></script>
 <script src="/js/bootstrap-3.3.5/js/bootstrap.min.js"></script>
-<script type="text/javascript">
-function showModel(){
-    var e1 = document.getElementById('modal-overlay');           
-    e1.style.visibility =  (e1.style.visibility == "visible"  ) ? "hidden" : "visible";
-}
-</script>
 </head>
 <body>
 </body>

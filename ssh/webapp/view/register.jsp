@@ -11,11 +11,15 @@
 <title>新用户注册</title>
 </head>
 <body>
-	<img alt="" src="/images/login-left.jpg" class="back-img">
-	<div style="width: 30%; margin-left: auto; margin-right: auto; margin-top: 100px; border: 10px solid lightgray;background: rgba(255,255,255, 1);-webkit-border-radius: 15px;-moz-border-radius: 15px;">
+	<s:include value="/view/header.jsp"/>
+<!-- 	<img alt="" src="/images/backImg.jpg" class="back-img"> -->
+	<div style="width: 50%; margin-left: auto; margin-right: auto; margin-top: 100px; background: rgba(255,255,255, 0.5);-webkit-border-radius: 15px;-moz-border-radius: 15px;">
 	<div style="padding: 15px;">
 	<s:form action="/userAction_register" theme="simple">
-	<div style="font-size: 20px; font-family: cursive; font-weight: bold; border: 1px dashed gray; padding-bottom: 15px; padding-top: 10px; text-align: center; -webkit-border-radius: 15px;-moz-border-radius: 15px;">新用户注册</div>
+	<div style="font-size: 20px; font-family: cursive; font-weight: bold;  padding-bottom: 15px; padding-top: 10px; text-align: center; -webkit-border-radius: 15px;-moz-border-radius: 15px;">
+	获取我的私人空间<br>
+	<p style="font-size: 8px;font-weight: normal;">Private space is a place where you can place your personal files(videos, photos, musics etc) and manage your resources, and also you can take record your daily mood here and some interesting things of your daily life. It's a harbour of your heart and a time capsule of your experience. Just retain wonderful moment !</p>
+	</div>
 		<div class="form-group" style="margin-top: 15px;">
 			<label for="name">用户名:</label> 
 			<s:textfield name="user.userName"  cssClass="form-control" placeholder="请输入名称"></s:textfield>
@@ -55,6 +59,7 @@
 	</s:form>
 	</div>
 	</div>
+<%-- 	<s:include value="/view/footer.jsp"/> --%>
 </body>
 <script type="text/javascript">
 	function validatePwd(){

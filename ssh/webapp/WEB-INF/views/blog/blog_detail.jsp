@@ -15,7 +15,7 @@
 	<s:include value="/view/header.jsp"/>
 	<input type="hidden" value="${blog.id}" id="blogid">
 	<input type="hidden" value="${blog.user.userName}" id="authorName">
-	<div class="main-container"  style="background-image:url('/images/blog/blog_bg2.jpg'); height: 100%;">
+	<div class="main-container"  style="background-image:url('/images/blog/u=1367135330,1476901792&fm=21&gp=0.jpg'); height: 100%;">
 		<div class="body-head">
 			<h1 class="body-head-title">Blogs</h1>  
 			<p class="body-head-text">
@@ -119,7 +119,12 @@
 				   	 		<s:form theme="simple" action="/blog/saveCommnets.html?id=%{#blog.id}">
 						   	 	<s:textarea cols="100" rows="5" name="comment.content"></s:textarea>
 						   	 	<br>
-						   	 	<s:submit value="发表评论" cssClass="btn"></s:submit>
+						   	 	<s:if test="#session.authUser != null">
+							   	 	<s:submit value="发表评论" cssClass="btn"></s:submit>
+						   	 	</s:if>
+						   	 	<s:else>
+						   	 		<a href="/view/login.html">登录</a>后才能发表评论!
+						   	 	</s:else>
 				   	 		</s:form>
 				   	 	</div>
 				   	 </div>
@@ -127,7 +132,7 @@
 			</div>
 		</div>
 	</div>
-	<a href="javascript:void(0)" onclick="showModel()" style="display: none;" id="modelLogin"></a>
+	<a href="javascript:void(0)" data-toggle="modal" data-target="#myModal" style="display: none;" id="modelLogin"></a>
 	<div id="modal-overlay"> 
 	    <div class="modal-data">  
 	    	<div style="float: right;"><a onclick="showModel()" href="">关闭</a></div>  
@@ -160,6 +165,58 @@
 				</div>
 			</s:form>
 	    </div>
+	</div>
+	<!-- 模态框（Modal） -->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" 
+	   aria-labelledby="myModalLabel" aria-hidden="true">
+	   <div class="modal-dialog" style="width: 300px;">
+	      <div class="modal-content">
+	         <div class="modal-header">
+	            <button type="button" class="close" 
+	               data-dismiss="modal" aria-hidden="true">
+	                  &times;
+	            </button>
+	            <h4 class="modal-title" id="myModalLabel">
+	        		      用户登录
+	            </h4>
+	         </div>
+	         <div class="modal-body" style="text-align: center;">
+		    		<s:form action="" theme="simple" id="ajaxLoginData">
+				<input type="hidden" id="pendingUrl" name="pendingUrl"/>
+				<input type="hidden" id="port" name="port"/>
+				<input type="hidden" id="host" name="host"/>
+				<input type="hidden" id="protocol" name="protocol"/>
+				<div style="display:inline-block;  margin:20px auto 20px auto; border: 10px solid white;background: rgba(255,255,255);">
+					<div style="padding: 15px;">
+						<div class="form-group" style="margin-top: 10px;">
+							<s:textfield name="user.email"  cssClass="form-control user" placeholder="邮箱"></s:textfield>
+						</div>
+						<div class="form-group" style="margin-top: 40px;">
+							<s:password required="true" name="user.password"  cssClass="form-control glyphicon lock" placeholder="密码"/>
+						</div>
+						<div style="color: red; font-size: x-small;margin-top: 30px;" align="center">
+							必须先登录才能收藏!
+						</div>
+						<div align="center" style="margin-top: 30px;">
+							<button  class="btn btn-default" onclick="ajaxLogin()">登录</button>
+						</div>
+						<div align="right" style="font-size: x-small; margin-top: 30px;">
+							<a href="#">忘记密码</a>&ensp;|
+							<a href="/view/register.html">注册</a>&ensp;|
+<!-- 							<a href="#">Contact Us</a> -->
+						</div>
+					</div>
+				</div>
+			</s:form>
+	         </div>
+<!-- 	         <div class="modal-footer"> -->
+<!-- 	            <button type="button" class="btn btn-default"  -->
+<!-- 	               data-dismiss="modal">关闭 -->
+<!-- 	            </button> -->
+<%-- 	             <s:submit value="创建" cssClass="btn btn-info"></s:submit> --%>
+<!-- 	         </div> -->
+	      </div><!-- /.modal-content -->
+		</div><!-- /.modal -->
 	</div>
 	<s:include value="/view/footer.jsp"/>
 </body>

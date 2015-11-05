@@ -5,10 +5,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico" />
-<jsp:include page="/view/context.jsp"/>
-<link href="/css/homepage.css" rel="stylesheet">
 <%@taglib prefix="s" uri="/struts-tags"%>
+<link href="/css/homepage.css" rel="stylesheet">
+<link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico" />
+<s:include value="/view/context.jsp"/>
 <title>Photos</title>
 <style type="text/css">
 	.item{
@@ -31,25 +31,20 @@
 				You don't have any album yet, <a href="#" onclick="showModel()">create</a> one now?
 			</s:if>
 			<s:else>
-				<table>
+					<div class="row">
 				<s:iterator value="#albums" var="album" status="s">
-					<c:if test="${s.count % 5 == 0}">
-						<tr>
-					</c:if>
-					<td>
-					<a href="/photo/photos.html?albumId=${album.id}" class="album">
-						<img  class="album-img" alt="" src="/images/dc54564e9258d109e7edcc52d058ccbf6d814dc7.jpg">
-						<div class="album-name">${album.name}</div>
-					</a>
-					</td>
-					<c:if test="${s.count % 3 == 0}">
-						</tr>
-					</c:if>
+					  <div class="col-xs-6 col-md-2">
+					    <a href="/photo/photos.html?albumId=${album.id}" class="thumbnail" style="text-align: center;">
+					      <img src="/images/dc54564e9258d109e7edcc52d058ccbf6d814dc7.jpg" alt="${album.name}">
+					      <b>${album.name}</b>
+					    </a>
+					  </div>
 				</s:iterator>
-				</table>
+					</div>
 			</s:else>
 			<div>
-			<a href="#" onclick="showModel()">create</a> one now.
+<!-- 			<a href="#" onclick="showModel()">create</a> one now. -->
+			<a href="#" data-toggle="modal" data-target="#myModal">创建</a>新相册.
 			</div>
 <!-- 			<a href="/photo/upload.html">upload photo</a> -->
 		</div>
@@ -76,6 +71,42 @@
 		    	</s:form>
 		    </div>
 		</div>
+	</div>
+	<!-- 模态框（Modal） -->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" 
+	   aria-labelledby="myModalLabel" aria-hidden="true">
+	   <div class="modal-dialog" style="width: 400px; text-align: center;">
+	      <div class="modal-content">
+	         <div class="modal-header">
+	            <button type="button" class="close" 
+	               data-dismiss="modal" aria-hidden="true">
+	                  &times;
+	            </button>
+	            <h4 class="modal-title" id="myModalLabel">
+	        		       创建相册
+	            </h4>
+	         </div>
+	           <s:form action="/file/createAlbum.html" theme="simple">
+	         <div class="modal-body">
+		    		<div class="item">
+		    			名称: <s:textfield name="album.name" placeholder="相册名称"/>
+		    		</div>
+		    		<div class="item">
+		    			<s:radio name="album.status" list="%{#{'1':'公开','0':'私有'}}"></s:radio>
+		    		</div>
+		    		<div class="item">
+		    			描述：<s:textarea name="album.description" placeholder="相册描述" rows="5" cols="22"/>
+		    		</div>
+	         </div>
+	         <div class="modal-footer">
+	            <button type="button" class="btn btn-default" 
+	               data-dismiss="modal">关闭
+	            </button>
+	             <s:submit value="创建" cssClass="btn btn-info"></s:submit>
+	         </div>
+		    	</s:form>
+	      </div><!-- /.modal-content -->
+		</div><!-- /.modal -->
 	</div>
 	<s:include value="/view/footer.jsp"/>
 </body>

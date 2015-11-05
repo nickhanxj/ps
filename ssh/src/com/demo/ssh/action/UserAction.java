@@ -24,7 +24,7 @@ public class UserAction extends BaseAction {
 	private UserService userService;
 	private User user;
 	private String id;
-	private String pendingUrl;
+	private String pendingUrl = "/view/homepage.html";
 
 	public String register() {
 		LoggerManager.info("新用户注册...");
@@ -61,11 +61,14 @@ public class UserAction extends BaseAction {
 
 	public String login() {
 		//获取登陆前准备访问的url
-		int index = pendingUrl.indexOf("/");
-		pendingUrl = pendingUrl.substring(index+2);
-		pendingUrl = pendingUrl.substring(pendingUrl.indexOf("/"));
-		if(pendingUrl.indexOf("login") > 0 || pendingUrl.indexOf("logout") > 0){
-			pendingUrl = "/view/homepage.html";
+		if(StringUtils.isNotBlank(pendingUrl)){
+			int index = pendingUrl.indexOf("/");
+			System.out.println("pendingUrl : "+pendingUrl);
+			pendingUrl = pendingUrl.substring(index+2);
+			pendingUrl = pendingUrl.substring(pendingUrl.indexOf("/"));
+			if(pendingUrl.indexOf("login") > 0 || pendingUrl.indexOf("logout") > 0){
+				pendingUrl = "/view/homepage.html";
+			}
 		}
 		HttpServletRequest request = ServletActionContext.getRequest();
 		user.setPassword(DigestUtils.md5Hex(user.getPassword()));
@@ -107,10 +110,10 @@ public class UserAction extends BaseAction {
 		}
 		HttpServletRequest request = ServletActionContext.getRequest();
 		user.setPassword(DigestUtils.md5Hex(user.getPassword()));
-		if (StringUtils.isBlank(user.getUserName())
+		if (StringUtils.isBlank(user.getEmail())
 				|| StringUtils.isBlank(user.getPassword())) {
 			addActionError("用户名或者密码不能为空！");
-			LoggerManager.error("用户【" + user.getUserName() + "】登录失败（"
+			LoggerManager.error("用户【" + user.getEmail() + "】登录失败（"
 					+ new Date() + "）。原因：登录信息不完整。");
 			result.put(STATUS, STATUS_ERROR);
 			result.put(MESSAGE, "用户名或者密码不能为空！");
@@ -121,7 +124,7 @@ public class UserAction extends BaseAction {
 		if (authUser == null) {
 			addActionError("用户名或密码错误！");
 			// user = authUser;
-			LoggerManager.error("用户【" + user.getUserName() + "】登录失败（"
+			LoggerManager.error("用户【" + user.getEmail() + "】登录失败（"
 					+ new Date() + "）。原因：用户名与密码不匹配。");
 			result.put(STATUS, STATUS_ERROR);
 			result.put(MESSAGE, "用户名或密码错误！");
@@ -135,7 +138,7 @@ public class UserAction extends BaseAction {
 		authUser.setLastLoginIp(authUser.getCurLoginIp());
 		authUser.setCurLoginIp(request.getRemoteAddr());
 		userService.updateUser(authUser);
-		LoggerManager.info("用户【" + user.getUserName() + "】登录成功(" + new Date()
+		LoggerManager.info("用户【" + user.getEmail() + "】登录成功(" + new Date()
 				+ ")！");
 		result.put(STATUS, STATUS_SUCCESS);
 		putContext(JSONDATA, result);
@@ -144,7 +147,7 @@ public class UserAction extends BaseAction {
 
 	public String logout() {
 		ActionContext.getContext().getSession().put("authUser", null);
-		return LOGIN;
+		return "homepage";
 	}
 
 	public String updateUser() {

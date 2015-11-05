@@ -12,8 +12,8 @@
 	<div class="head">
 			<div class="header-vertically logo header-content">
 				<a href="/view/homepage.html" style="color: white;">
-					<img alt="" src="/images/p3.png" width="30px;">
-					Personal Space
+					<img alt="" src="/images/favicon_bak3.ico" width="30px;">
+					Private Space
 				</a>
 			</div>
 			<div style="margin-left: 100px;" id="navItems" class="header-vertically header-content">
@@ -30,7 +30,7 @@
 <!-- 			</div> -->
 				<s:if test="%{#session.authUser == null}">
 					<div style="float: right; margin-right: 100px;font-size: 14px; font-family: monospace;" class="header-content vertically" >
-						<a href="/view/login.html" style="color: white; font-family: '微软雅黑';" title="sign in">&ensp;<b>登录</b></a>&ensp;|
+						<a href="/view/login.html" style="color: white; font-family: '微软雅黑';" title="sign in">&ensp;<b>登录</b></a>
 						<a href="/view/register.html" title="register" style="color: white; font-family: '微软雅黑';">&ensp;<b>注册</b></a>
 					</div>
 				</s:if>
@@ -42,7 +42,6 @@
 					</div>
 				</s:else>
 	</div>
-<%-- 	<s:debug></s:debug> --%>
 </body>
 <script type="text/javascript">
 	$(function(){

@@ -8,21 +8,21 @@
 <jsp:include page="/view/context.jsp"/>
 <link href="/css/homepage.css" rel="stylesheet">
 <%@taglib prefix="s" uri="/struts-tags"%>
-<title>Personal Space</title>
+<title>Private Space</title>
 </head>
 <body>
 	<s:include value="/view/header.jsp"/>
 	<div class="main-container">
 		<div class="body-head">
-			<h1 class="body-head-title">Personal Space</h1>  
+			<h1 class="body-head-title">Private Space</h1>  
 			<p class="body-head-text">
-			Personal space is a place where you can place your personal files(videos, photos, musics etc) and manage your resources,
+			This is a place where you can place your personal files(videos, photos, musics etc) and manage your resources,
 			and also you can take record your daily mood here and some interesting things of your daily life. It's a harbour
 			of your heart and a time capsule of your experience. Just retain wonderful moment !
 			</p>
 		</div>
 		<div class="body-container">
-			<div style="width: 100%; border-left: 1px solid gray;border-right: 1px solid gray; margin-left: auto; margin-right: auto; overflow: hidden;" >
+			<div style="width: 100%; margin-left: auto; margin-right: auto; overflow: hidden;" >
 <!-- 				<div style="width: 30%; border: 1px dotted gray; height: 300px;"> -->
 <!-- 					photos -->
 <!-- 				</div> -->
@@ -41,13 +41,13 @@
 				<div style="width: 30%; border: 1px dotted gray;  float: left;">
 					videos<br>
 				</div>
-				<div style="width: 20%; border: 5px solid #103858; margin-left: 75%; padding: 5px; float: left;">
-					<div style="font-weight: bold;  border-bottom: 1px solid gray;" >热门博客</div>
+				<div style="width: 30%; border: 5px solid #103858; margin-left: 65%; padding: 5px; float: left;">
+					<div style="font-weight: bold;  border-bottom: 1px solid gray;" >博客阅读排行榜</div>
 					<s:iterator value="%{#hotList}" var="blog">
 						<div style="height: auto; border-bottom: 1px dashed gray; width:90%; margin-left: auto; margin-right: auto;">
 						   <div class="panel-body" style="clear: both;">
 						   	<div style="display: inline; float: left;"><a href="/view/blogdetail.html?blogId=${blog.id}"><b>${blog.title}</b></a></div>
-						   	<div style="display: inline; float: right;">${blog.user.userName}</div>
+<%-- 						   	<div style="display: inline; float: right;">${blog.user.userName}</div> --%>
 						   	<br>
 						   </div>
 						 </div>

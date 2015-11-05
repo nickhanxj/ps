@@ -47,6 +47,7 @@
 			      	<li><a href="/blog/list.html">我的博客</a></li>
 			         <li class="active"><a href="/blog/writeBlogPage.html"><b>写博客</b></a></li>
 			         <li><a href="#">我的分享</a></li>
+			         <li><a href="#">我的收藏</a></li>
 			         <li><a href="#">联系作者</a></li>
 			         <li><a href="#">管理中心</a></li>
 			      </ul>
