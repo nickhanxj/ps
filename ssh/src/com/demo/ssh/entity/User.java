@@ -20,14 +20,15 @@ public class User {
 	private String password;
 	private String email;
 	private String phoneNumber;
-	private int sex;// 0:Î´Öª 1£ºÄĞ 2£ºÅ®
-	private int status = 1;// 0:Òì³£ 1£ºÕı³£
+	private int sex;// 0:Î´Öª 1ï¿½ï¿½ï¿½ï¿½ 2ï¿½ï¿½Å®
+	private int status = 1;// 0:ï¿½ì³£ 1ï¿½ï¿½ï¿½ï¿½
 	private Date registerDate;
 	private Date lastLoginDate;
 	private String lastLoginIp;
 	private Date curLoginDate;
 	private String curLoginIp;
-	private int type = 1;// 0: ¹ÜÀíÔ± 1£ºÆÕÍ¨ÓÃ»§
+	private int type = 1;// 0: ï¿½ï¿½ï¿½ï¿½Ô± 1ï¿½ï¿½ï¿½ï¿½Í¨ï¿½Ã»ï¿½
+	private String friends;// å¥½å‹id ç”¨é€—å·éš”å¼€
 
 	public long getId() {
 		return id;
@@ -133,6 +134,14 @@ public class User {
 		this.curLoginIp = curLoginIp;
 	}
 
+	public String getFriends() {
+		return friends;
+	}
+
+	public void setFriends(String friends) {
+		this.friends = friends;
+	}
+
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", userName=" + userName + ", password="
@@ -141,7 +150,7 @@ public class User {
 				+ ", registerDate=" + registerDate + ", lastLoginDate="
 				+ lastLoginDate + ", lastLoginIp=" + lastLoginIp
 				+ ", curLoginDate=" + curLoginDate + ", curLoginIp="
-				+ curLoginIp + ", type=" + type + "]";
+				+ curLoginIp + ", type=" + type + ", friends=" + friends + "]";
 	}
 
 }

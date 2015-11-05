@@ -46,7 +46,7 @@
 					<s:iterator value="%{#hotList}" var="blog">
 						<div style="height: auto; border-bottom: 1px dashed gray; width:90%; margin-left: auto; margin-right: auto;">
 						   <div class="panel-body" style="clear: both;">
-						   	<div style="display: inline; float: left;"><a href="/view/blogdetail.html?blogId=${blog.id}"><b>${blog.title}</b></a></div>
+						   	<div style="display: inline; float: left;"><a href="/view/blogdetail.html?blogId=${blog.id}"><b>${blog.title}</b></a>(${blog.readedTimes})</div>
 <%-- 						   	<div style="display: inline; float: right;">${blog.user.userName}</div> --%>
 						   	<br>
 						   </div>

@@ -55,8 +55,16 @@
 			   		<div style="float:right;margin-right: 100px;">
 						<span id="praise" onclick="doAction('1')" class="glyphicon glyphicon-thumbs-up" style="margin-left: 30px; cursor:pointer;" title="praise">(${blog.praisedTimes})</span>
 						<span id="disSuggest" onclick="doAction('2')" class="glyphicon glyphicon-thumbs-down" style="margin-left: 30px; cursor:pointer;" title="disSuggest">(${blog.disSuggestTimes})</span>
-			   			<span id="share" onclick="doAction('share')" class="glyphicon glyphicon-share" style="margin-left: 30px; cursor:pointer;" title="share">(${blog.shredTimes})</span>
+<%-- 			   			<span id="share" onclick="doAction('share')" class="glyphicon glyphicon-share" style="margin-left: 30px; cursor:pointer;" title="share">(${blog.shredTimes})</span> --%>
 			   			<span id="enshrine" onclick="doAction('enshrine')" style="margin-left: 30px; cursor:pointer;" class="glyphicon glyphicon-book" title="enshrine">(${blog.enshrineTimes})</span>
+			   			<span style="font-family: 'Microsoft YaHei', arial, tahoma, 宋体, sans-serif;"><div id="ckepop"></span>  
+			   			<br>
+						<span class="jiathis_txt">分享到：</span>  
+						<a class="jiathis_button_weixin">微信</a>   
+						<a href="http://www.jiathis.com/share"  class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>  
+						<a class="jiathis_counter_style"></a> </div>   
+						<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1" charset="utf-8"></script>  
+						</div>  
 			   		</div>
 			   	 </div>
 		   	 </div>

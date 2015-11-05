@@ -36,7 +36,7 @@
 				<div align="right" style="font-size: x-small; margin-top: 30px;">
 					<a href="#">忘记密码</a>&ensp;|
 					<a href="/view/register.html">注册</a>&ensp;|
-					<a href="#">联系我们</a>
+					<a href="mailto:471026023@qq.com?subject=ccc&body=xxx yyy">联系我们</a>
 				</div>
 			</div>
 		</div>
