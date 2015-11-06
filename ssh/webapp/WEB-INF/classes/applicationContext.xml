@@ -20,13 +20,8 @@
     	<property name="jdbcUrl" value="${jdbc.url}"/>
     	<property name="user" value="${jdbc.userName}"/>
     	<property name="password" value="${jdbc.password}"/>
-    	
-    	<property name="maxPoolSize" value="20"/>
-    	<property name="minPoolSize" value="2"/>
-    	<property name="initialPoolSize" value="2"/>
-    	<property name="checkoutTimeout" value="3000"/>  
-    	<property name="acquireIncrement" value="2"/> 
-    	<property name="autoCommitOnClose" value="false"/>
+    	<property name="initialPoolSize" value="4" />  
+        <property name="idleConnectionTestPeriod" value="1800" /> 
     </bean>  
     
     <!-- sessionFactory -->          

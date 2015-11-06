@@ -8,6 +8,8 @@
 <jsp:include page="/view/context.jsp" />
 <link href="/css/homepage.css" rel="stylesheet">
  <%@taglib prefix="s" uri="/struts-tags"%> 
+<script src="/js/jquery-validation-1.14.0/lib/jquery.js" type="text/javascript"></script>
+<script src="/js/jquery-validation-1.14.0/dist/jquery.validate.min.js" type="text/javascript"></script>
 <title>新用户注册</title>
 </head>
 <body>

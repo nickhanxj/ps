@@ -59,12 +59,12 @@
 			   			<span id="enshrine" onclick="doAction('enshrine')" style="margin-left: 30px; cursor:pointer;" class="glyphicon glyphicon-book" title="enshrine">(${blog.enshrineTimes})</span>
 			   			<span style="font-family: 'Microsoft YaHei', arial, tahoma, 宋体, sans-serif;"><div id="ckepop"></span>  
 			   			<br>
-						<span class="jiathis_txt">分享到：</span>  
-						<a class="jiathis_button_weixin">微信</a>   
-						<a href="http://www.jiathis.com/share"  class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>  
-						<a class="jiathis_counter_style"></a> </div>   
+						<span class="jiathis_txt" style="font-style: normal;">分享到：</span>  
+						<a class="jiathis_button_weixin" style="font-style: normal;">微信</a>   
+						<a href="http://www.jiathis.com/share" style="font-style: normal;"  class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>  
+						 </div>   
 						<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1" charset="utf-8"></script>  
-						</div>  
+					</div>  
 			   		</div>
 			   	 </div>
 		   	 </div>

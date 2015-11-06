@@ -1,16 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-  <%@taglib prefix="s" uri="/struts-tags"%>  
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<link href="/js/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet">
-<link href="/js/bootstrap-3.3.5/css/bootstrap.css" rel="stylesheet">
-<link rel="stylesheet" href="/js/bootstrap-3.3.5/css/font-awesome.min.css">
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<script type="text/javascript" src="/js/jquery-2.1.1.min.js"></script>
-<script src="/js/bootstrap-3.3.5/js/bootstrap.min.js"></script>
-</head>
-<body>
-</body>
-</html>
+<link href="/js/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="/js/bootstrap/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" href="/js/bootstrap/css/bootstrap-theme.css">
+<link rel="stylesheet" href="/js/jQuery-File-Upload-9.11.2/css/jquery.fileupload.css">
+<link rel="stylesheet" href="/js/jQuery-File-Upload-9.11.2/css/jquery.fileupload-ui.css">
+<script type="text/javascript" src="/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="/js/ajaxfileupload.js"></script>
+<script type="text/javascript" src="/js/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/js/jQuery-File-Upload-9.11.2/js/vendor/jquery.ui.widget.js"></script>
+<script type="text/javascript" src="/js/jQuery-File-Upload-9.11.2/js/jquery.fileupload.js"></script>
+<script type="text/javascript" src="/js/jQuery-File-Upload-9.11.2/js/jquery.iframe-transport.js"></script>

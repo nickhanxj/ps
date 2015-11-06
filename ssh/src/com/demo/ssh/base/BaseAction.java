@@ -28,4 +28,8 @@ public class BaseAction extends ActionSupport {
 		ActionContext.getContext().put(key, value);
 	}
 	
+	protected void putJson(Object value){
+		ActionContext.getContext().put(JSONDATA, value);
+	}
+	
 }

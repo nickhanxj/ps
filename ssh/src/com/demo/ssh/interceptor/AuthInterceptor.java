@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.struts2.ServletActionContext;
 
+import com.demo.ssh.action.CostRecordAction;
 import com.demo.ssh.action.UnAuthedResourceAction;
 import com.demo.ssh.action.UserAction;
 import com.demo.ssh.entity.User;
@@ -31,7 +32,9 @@ public class AuthInterceptor extends AbstractInterceptor {
 		// 如果是com.demo.ssh.action.UnAuthedResourceAction则直接放行：公共访问区域
 		if (action instanceof UnAuthedResourceAction) {
 			return invocation.invoke();
-		} else if (action instanceof UserAction) {
+		} else if(action instanceof CostRecordAction){
+			return invocation.invoke();
+		}else if (action instanceof UserAction) {
 			String method = invocation.getProxy().getMethod();
 			if ("register".equals(method) || "login".equals(method) || "ajaxLogin".equals(method)) {// 如果是登录或注册则直接放行
 				return invocation.invoke();

@@ -78,5 +78,12 @@
 			<result name="success">/WEB-INF/views/photo/upload.jsp</result>
 			<result name="phptolist">/WEB-INF/views/photo/photo_list.jsp</result>
 		</action>
+		
+		<action name="costAction_*" class="com.demo.ssh.action.CostRecordAction" method="{1}">
+			<result name="list">/WEB-INF/views/costrecords/list.jsp</result>
+			<result name="add">/WEB-INF/views/costrecords/add.jsp</result>
+			<result name="redirectList" type="redirectAction">/costAction_list</result>
+			<result name="statistics">/WEB-INF/views/costrecords/statistics.jsp</result>
+		</action>
 	</package>
 </struts>

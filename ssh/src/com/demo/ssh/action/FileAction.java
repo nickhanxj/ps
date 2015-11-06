@@ -1,8 +1,9 @@
 package com.demo.ssh.action;
 
 import java.io.File;
-import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.annotation.Resource;
@@ -31,18 +32,27 @@ public class FileAction extends BaseAction {
 	private AlbumService albumService;
 
 	public String uploadPhoto() {
+		System.out.println("file : "+file);
+		Map<String, Object> rMap = new HashMap<String, Object>();
 		String targetFolder = ServletActionContext.getServletContext()
 				.getRealPath("/upload/photo");
-		File destFile = new File(targetFolder, UUID.randomUUID().toString()
-				+ "." + getExtention(fileName));
+		File destFile = new File(targetFolder, UUID.randomUUID().toString()+ getExtention(fileName));
+		System.out.println("getExtention(fileName) : "+getExtention(fileName));
+		System.out.println("destFile: "+destFile);
+		System.out.println("file : "+file);
 		try {
 			FileUtils.copyFile(file, destFile);
+			rMap.put(STATUS, STATUS_SUCCESS);
+			rMap.put("url", "/upload/photo/"+destFile.getName());
 			ActionContext.getContext().put(MESSAGE, fileName + "--" + file);
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
+			rMap.put(STATUS, STATUS_ERROR);
+			rMap.put("url", null);
 			ActionContext.getContext().put(MESSAGE, "upload failed!");
 		}
-		return PHOTO_LIST;
+		putContext(JSONDATA, rMap);
+		return JSON;
 	}
 	
 	public String createAlbum(){
@@ -66,8 +76,9 @@ public class FileAction extends BaseAction {
 	}
 
 	private static String getExtention(String fileName) {
-		int pos = fileName.lastIndexOf(".");
-		return fileName.substring(pos);
+		return ".png";
+//		int pos = fileName.lastIndexOf(".");
+//		return fileName.substring(pos);
 	}
 
 	public String getFileName() {

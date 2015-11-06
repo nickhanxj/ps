@@ -1,5 +1,7 @@
 package com.demo.ssh.test;
 
+import static org.junit.Assert.*;
+
 import java.util.List;
 
 import org.apache.commons.codec.digest.DigestUtils;
@@ -11,6 +13,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.demo.ssh.entity.Blog;
 import com.demo.ssh.entity.User;
+import com.demo.ssh.service.CostRecordService;
 import com.demo.ssh.service.UserService;
 import com.nick.page.pageutil.Page;
 import com.nick.page.pageutil.PageUtil;
@@ -19,6 +22,8 @@ import com.nick.page.pageutil.PageUtil;
 public class UnitTest {
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private CostRecordService recordService;
 	
 	@Test
 	public void testAddUser() throws Exception {
@@ -33,7 +38,7 @@ public class UnitTest {
 	
 	@Test
 	public void testByte() throws Exception {
-		String s = "ÕâÊÇÒ»¸ö¼òµ¥µÄ×Ö·û´®£¡";
+		String s = "ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½òµ¥µï¿½ï¿½Ö·ï¿½";
 		byte[] bytes = s.getBytes();
 		System.out.println(bytes);
 		System.out.println(new String(bytes));
@@ -75,4 +80,5 @@ public class UnitTest {
 		System.out.println(page);
 		List<Blog> rows = page.getRows();
 	}
+	
 }

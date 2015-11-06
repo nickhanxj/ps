@@ -24,7 +24,7 @@
 					<s:textfield name="user.email"  cssClass="form-control user" placeholder="邮箱"></s:textfield>
 				</div>
 				<div class="form-group" style="margin-top: 40px;">
-					<s:password required="true" name="user.password"  cssClass="form-control glyphicon lock" placeholder="密码"/>
+					<s:password required="true" name="user.password"  cssClass="form-control lock" placeholder="密码"/>
 				</div>
 				<div style="color: red; font-size: x-small;margin-top: 30px;" align="center">
 					<s:actionerror/>

@@ -21,6 +21,7 @@
 				<a href="/file/album.html" class="ele" id="photo"><span class="glyphicon glyphicon-picture">&ensp;</span>相册</a>
 				<a href="/resource/music.html" class="ele" id="music"><span class="glyphicon glyphicon-music">&ensp;</span>音乐</a>
 				<a href="/resource/video.html" class="ele" id="video"><span class="glyphicon glyphicon-film">&ensp;</span>视频</a>
+				<a href="/cost/list.html" class="ele" id="cost"><span class="glyphicon glyphicon-film">&ensp;</span>消费记录</a>
 			</div>
 <!-- 			<div style="margin-left: 50px;" class="header-vertically header-content"> -->
 <!-- 				<input style="display: block; width: 200px; height: 35px;" placeholder="search something"> -->
@@ -48,12 +49,14 @@
 		var curUrl = window.location.href;
 		if(curUrl.indexOf("blog") > 0){
 			$("#blog").addClass("ac");
-		}else if(curUrl.indexOf("photo") > 0){
+		}else if(curUrl.indexOf("photo") > 0 || curUrl.indexOf("album") > 0){
 			$("#photo").addClass("ac");
 		}else if(curUrl.indexOf("music") > 0){
 			$("#music").addClass("ac");
 		}else if(curUrl.indexOf("video") > 0){
 			$("#video").addClass("ac");
+		}else if(curUrl.indexOf("cost") > 0){
+			$("#cost").addClass("ac");
 		}
 	});
 </script>

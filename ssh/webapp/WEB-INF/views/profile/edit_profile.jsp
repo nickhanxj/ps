@@ -32,9 +32,27 @@
 				  <li role="presentation" onclick="activeItem(this)"><a href="#">联系方式</a></li>
 				</ul>
 				<div style="text-align: left; padding-top: 5px;">
+					<table class="table table-condensed" style="width: 50%; margin-left: auto; margin-right: auto;">
+					<tr>
+						<td class="tabHead">上传头像:</td>
+						<td>
+						    <div class="row fileupload-buttonbar" style="padding-left:15px;">  
+							    <div class="thumbnail col-sm-6">  
+								    <img id="weixin_show" style="height:180px;margin-top:10px;margin-bottom:8px;"  src="/images/upload/defaultImg.jpg" data-holder-rendered="true">  
+								    <div class="progress progress-striped active" role="progressbar" aria-valuemin="10" aria-valuemax="100" aria-valuenow="0"><div id="weixin_progress" class="progress-bar progress-bar-success" style="width:0%;"></div></div>  
+								    <div class="caption" align="center">  
+								    <span id="weixin_upload" class="btn btn-primary fileinput-button">  
+								    <span>上传</span>  
+								    <input type="file" id="weixin_image" name="file" multiple>  
+								    </span>  
+								    <a id="weixin_cancle" href="javascript:void(0)" class="btn btn-warning" role="button" onclick="cancleUpload('weixin')" style="display:none">删除</a>  
+								    </div>  
+							    </div>  
+						    </div>  
+						</td>
+					</tr>
 					<s:form theme="simple" action="/userAction_updateUser">
 						<s:hidden name="id" value="%{#selectedUser.id}"/>
-					<table class="table table-condensed" style="width: 50%; margin-left: auto; margin-right: auto;">
 						<tr>
 							<td class="tabHead">用户名:</td>
 							<td><s:textfield name="user.userName" value="%{#selectedUser.userName}" cssClass="form-control edit-input"/></td>
@@ -104,5 +122,21 @@
 		}
 		$(t).addClass("active");
 	}
+	
+	$(function(){
+		$("#weixin_image").fileupload({  
+            url: '/file/uploadPhoto.html',  
+            sequentialUploads: true  
+        }).bind('fileuploadprogress', function (e, data) {  
+            var progress = parseInt(data.loaded / data.total * 100, 10);  
+            $("#weixin_progress").css('width',progress + '%');  
+            $("#weixin_progress").html(progress + '%');  
+        }).bind('fileuploaddone', function (e, data) { 
+        	console.debug(data.result.url);
+            $("#weixin_show").attr("src",data.result.url);  
+            $("#weixin_upload").css({display:"none"});  
+            $("#weixin_cancle").css({display:""});  
+        });  
+	});
 </script>
 </html>
