@@ -50,11 +50,11 @@
 				<div style="border: 2px solid lightblue; margin-top: 20px;">
 				<h3 style="text-align: center; width: 100%;"><b>统计信息（${cyear}年${cmonth}月）</b></h3>
 				<div style="width: 100%; text-align: center; font-weight: bold;">
-					月总消费: <font color="red">${monthTotal.monthTotal}</font>元
+					月总消费: <font color="green">${monthTotal.monthTotal}</font>&emsp;元
 				</div>
 				<c:set var="perTotal" value="${monthTotal.monthTotal/3}"/>
 				<div style="width: 100%; text-align: center; font-weight: bold;">
-					人均消费：<font color="blue">${perTotal}元</font>
+					人均消费：<font color="green">${perTotal}</font>&emsp;元
 				</div>
 				<div style=" width: 80%;margin-left: auto; margin-right: auto;">
 					<s:iterator value="result" var="result">
@@ -80,9 +80,20 @@
 								<td class="textright">未结算消费：</td>
 								<td class="textcenter">${result.statisticResult.unsettled}</td>
 							</tr>
-							<tr style="color: green; font-weight: bold;">
-								<td class="textright">本月应付：</td>
-								<td class="textcenter">${result.statisticResult.costTotal.csum - perTotal}</td>
+							<tr style="font-weight: bold;">
+								<c:set var="relCost" value="${result.statisticResult.costTotal.csum - perTotal}"/>
+								<c:if test="${relCost > 0}">
+									<td class="textright" style="color:blue;">本月应收(￥)：</td>
+									<td class="textcenter"  style="color:blue;">
+										${relCost}
+									</td>
+								</c:if>
+								<c:if test="${relCost < 0}">
+									<td class="textright" style="color:red;">本月应付(￥)：</td>
+									<td class="textcenter"  style="color:red;">
+										${relCost}
+									</td>
+								</c:if>
 							</tr>
 						</table>
 						<br>

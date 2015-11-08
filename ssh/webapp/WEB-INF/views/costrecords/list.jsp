@@ -62,6 +62,7 @@
 					<th>消费时间</th>
 					<th>状态</th>
 					<th>备注</th>
+					<th>附件</th>
 					<th>操作</th>
 				</tr>
 				<s:iterator value="records" var="record">
@@ -89,13 +90,49 @@
 							</c:if>
 						</td>
 						<td>${record.mark}</td>
-						<td><a href="#">修改</a>|<a href="#">结账</a></td>
+						<td>
+							<c:if test="${not empty record.attachment}">
+								<a href="#" data-toggle="modal" data-target="#myModal" onclick="getAttachment('${record.attachment}')" title="点击查看 ">查看附件</a>
+							</c:if>
+							<c:if test="${empty record.attachment}">
+								无附件
+							</c:if>
+						</td>
+						<td>
+							<a href="/cost/editRecord.html?recordId=${record.id}">修改</a>|
+							<a href="#">删除</a>
+						</td>
 					</tr>
 				</s:iterator>
 			</table>
 			<br>
 			<div style="width: 100%; text-align: right;"><a href="/cost/statistics.html" class="btn btn-success" id="view">查看统计信息</a></div>
 		</div>
+	</div>
+	<!-- 模态框（Modal） -->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" 
+	   aria-labelledby="myModalLabel" aria-hidden="true">
+	   <div class="modal-dialog" style="width: 600px; text-align: center;">
+	      <div class="modal-content">
+	         <div class="modal-header">
+	            <button type="button" class="close" 
+	               data-dismiss="modal" aria-hidden="true">
+	                  &times;
+	            </button>
+	            <h4 class="modal-title" id="myModalLabel">
+	        		       附件
+	            </h4>
+	         </div>
+	         <div class="modal-body">
+	         	<img alt="" src="" id="attachment" width="560px;">
+	         </div>
+	         <div class="modal-footer">
+	            <button type="button" class="btn btn-default" 
+	               data-dismiss="modal">关闭
+	            </button>
+	         </div>
+	      </div><!-- /.modal-content -->
+		</div><!-- /.modal -->
 	</div>
 	<s:include value="/view/footer.jsp"/>
 </body>
@@ -107,5 +144,9 @@
 		var url = "/cost/statistics.html?year="+year+"&month="+month;
 		$("#view").attr('href',url);
 	});
+	
+	function getAttachment(attachment){
+		$("#attachment").attr("src",attachment);
+	}
 </script>
 </html>

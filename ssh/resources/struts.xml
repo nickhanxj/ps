@@ -84,6 +84,7 @@
 			<result name="add">/WEB-INF/views/costrecords/add.jsp</result>
 			<result name="redirectList" type="redirectAction">/costAction_list</result>
 			<result name="statistics">/WEB-INF/views/costrecords/statistics.jsp</result>
+			<result name="edit">/WEB-INF/views/costrecords/edit.jsp</result>
 		</action>
 	</package>
 </struts>

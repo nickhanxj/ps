@@ -9,7 +9,7 @@
 <link href="/css/homepage.css" rel="stylesheet">
 <%@taglib prefix="s" uri="/struts-tags"%>
 <script type="text/javascript" src="/js/My97DatePicker/WdatePicker.js"></script>
-<title>新增消费记录</title>
+<title>编辑消费记录</title>
 <style type="text/css">
 	table {
 		width: 100%; 
@@ -37,43 +37,50 @@
 		</div>
 		<div class="body-container">
 			<div style="width: 100%;">
-				<s:form action="/cost/add.html" method="post">
-					<s:hidden name="record.attachment" id="attachment"/>
+				<s:form action="/cost/update.html" method="post">
+					<s:hidden name="record.attachment" value="%{#record.attachment}" id="attachment"/>
+					<s:hidden name="record.id" value="%{#record.id}"/>
 					<table>
 						<tr>
 							<td class="textright">消费人：</td>
 							<td class="textcenter">
-								<s:select name="record.user" list="#{1:'韩晓军',2:'胡丰盛',3:'李洪亮'}" cssStyle="width: 160px;"></s:select>
+								<s:select name="record.user" value="#record.user" list="#{1:'韩晓军',2:'胡丰盛',3:'李洪亮'}" cssStyle="width: 160px;"></s:select>
 							</td>
 						</tr>
 						<tr>
 							<td class="textright">消费金额：</td>
 							<td class="textcenter">
-								<s:textfield name="record.cost" placeholder="消费金额"/>
+								<s:textfield name="record.cost"  value="%{#record.cost}" placeholder="消费金额"/>
 							</td>
 						</tr>
 						<tr>
 							<td class="textright">消费用途：</td>
 							<td class="textcenter">
-								<s:textfield name="record.costFor" placeholder="消费用途"/>
+								<s:textfield name="record.costFor" value="%{#record.costFor}" placeholder="消费用途"/>
 							</td>
 						</tr>	
 						<tr>
 							<td class="textright">消费时间：</td>
 							<td class="textcenter">
-								<s:textfield name="record.costdate" onClick="WdatePicker()" readonly="true" placeholder="消费时间"/>
+								<s:textfield name="record.costdate" value="%{#record.costdate}" onClick="WdatePicker()" readonly="true" placeholder="消费时间"/>
 							</td>
 						</tr>
 						<tr>
 							<td class="textright">备注：</td>
 							<td class="textcenter">
-								<s:textarea name="record.mark" placeholder="消费备注" rows="5"/>
+								<s:textarea name="record.mark" value="%{#record.mark}" placeholder="消费备注" rows="5"/>
+							</td>
+						</tr>
+						<tr>
+							<td class="textright">附件：</td>
+							<td class="textcenter">
+								<img alt="" src="${record.attachment}" width="100px;" id="fujian">
 							</td>
 						</tr>
 						<tr>
 							<td class="textright">选择附件：</td>
 							<td class="textcenter">
-								<a href="javascript:void(0)" onclick="slideDown()" class="btn btn-info">上传附件</a>
+								<a href="javascript:void(0)" onclick="slideDown()" class="btn btn-info">重新上传附件</a>
 							</td>
 						</tr>
 						<tr>
@@ -114,7 +121,7 @@
 						</tr>
 						<tr>
 							<td colspan="2" class="textcenter">
-								<s:submit value="保存" cssClass="btn btn-success"/>
+								<s:submit value="更新" cssClass="btn btn-success"/>
 								<a href="/cost/list.html" class="btn btn-warning">取消</a>
 							</td>
 						</tr>				
@@ -138,6 +145,7 @@
 	    	console.debug(data.result.url);
 	    	$("#attachment").val(data.result.url);
 	        $("#weixin_show").attr("src",data.result.url);  
+	        $("#fujian").attr("src",data.result.url);  
 	        $("#weixin_upload").css({display:"none"});  
 	        $("#weixin_cancle").css({display:""}); 
 	        $("#uploadBtn").html("<font color='blue'>上传成功！</font>");

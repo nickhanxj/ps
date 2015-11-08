@@ -18,7 +18,8 @@ public class CostRecord {
 	private String costFor;// 消费项
 	private Date costdate;// 消费时间
 	private String mark;// 备注
-	private Integer status = 0;// 状态 0未结  1已结
+	private Integer status = 0;// 状态 0未结 1已结
+	private String attachment;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -87,6 +88,22 @@ public class CostRecord {
 
 	public void setStatus(Integer status) {
 		this.status = status;
+	}
+
+	public String getAttachment() {
+		return attachment;
+	}
+
+	public void setAttachment(String attachment) {
+		this.attachment = attachment;
+	}
+
+	@Override
+	public String toString() {
+		return "CostRecord [id=" + id + ", user=" + user + ", cost=" + cost
+				+ ", costFor=" + costFor + ", costdate=" + costdate + ", mark="
+				+ mark + ", status=" + status + ", attachment=" + attachment
+				+ "]";
 	}
 
 }
