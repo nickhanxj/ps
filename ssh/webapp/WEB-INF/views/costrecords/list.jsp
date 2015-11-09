@@ -41,15 +41,16 @@
 			</p>
 		</div>
 		<div class="body-container">
-			<div>
-				<s:form action="/cost/list.html" theme="simple">
+			<div style="border-bottom: 1px dotted gray; padding-bottom: 10px;">
+				<s:form action="/cost/list.html" theme="simple" id="searchForm">
 				<a href="/cost/addRecord.html" class="btn btn-info">新增记录</a>
 				<span style="float:right;">
-				<s:textfield name="sStartTime" readonly="true" onClick="WdatePicker()" placeholder="开始时间"/>
-				至<s:textfield name="sEndTime" readonly="true" onClick="WdatePicker()" placeholder="结束时间"/>
-				<s:select name="sUserName" list="#{1:'韩晓军',2:'胡丰盛',3:'李洪亮'}" cssStyle="width: 160px;"></s:select>
-				<s:textfield name="sCostFor" placeholder="消费用途"/>
-				<s:submit value="搜索" cssClass="btn btn-info"></s:submit>
+				<s:textfield name="startTime" readonly="true" onClick="WdatePicker()" placeholder="开始时间" id="startTime"/>
+				至<s:textfield name="endTime" readonly="true" onClick="WdatePicker()" placeholder="结束时间" id="endTime"/>
+				<s:select name="userName" list="#{0:'--选择消费人--',1:'韩晓军',2:'胡丰盛',3:'李洪亮'}" cssStyle="width: 160px;" id="userName"></s:select>
+				<s:textfield name="costFor" placeholder="消费用途" id="costFor"/>
+				<s:submit value="查询" cssClass="btn btn-info"></s:submit>
+				<a href="javascript:void(0)" onclick="resetForm()" class="btn btn-info">重置</a>
 				</span>
 				</s:form>
 			</div>
@@ -100,7 +101,11 @@
 						</td>
 						<td>
 							<a href="/cost/editRecord.html?recordId=${record.id}">修改</a>|
-							<a href="#">删除</a>
+<%-- 							<a href="/cost/delete.html?recordId=${record.id}">删除</a> --%>
+							<a href="javascript:void(0)" onclick="confirmDelete(${record.id})">删除</a>
+							<c:if test="${record.status == 0}">
+							|<a href="javascript:void(0)" onclick="checkout(${record.id},${record.user},'${record.costFor}','${record.cost}','${record.costdate}','${record.mark}')">结账</a>
+							</c:if>
 						</td>
 					</tr>
 				</s:iterator>
@@ -134,6 +139,81 @@
 	      </div><!-- /.modal-content -->
 		</div><!-- /.modal -->
 	</div>
+	<a href="#" data-toggle="modal" style="display: none;" data-target="#nopermission" id="noPermissionBtn">warning</a>
+	<div class="modal fade" id="nopermission" tabindex="-1" role="dialog" 
+	   aria-labelledby="myModalLabel" aria-hidden="true">
+	   <div class="modal-dialog" style="width: 600px; text-align: center;">
+	      <div class="modal-content">
+	         <div class="modal-header">
+	            <button type="button" class="close" 
+	               data-dismiss="modal" aria-hidden="true">
+	                  &times;
+	            </button>
+	            <h4 class="modal-title" id="myModalLabel">
+	        		    警告
+	            </h4>
+	         </div>
+	         <div class="modal-body">
+	         	未授权操作！
+	         </div>
+	         <div class="modal-footer">
+	            <button type="button" class="btn btn-default" 
+	               data-dismiss="modal">关闭
+	            </button>
+	         </div>
+	      </div><!-- /.modal-content -->
+		</div><!-- /.modal -->
+	</div>
+	<a href="#" data-toggle="modal" style="display: none;" data-target="#deleteSuccess" id="deleteSuccessBtn">warning</a>
+	<div class="modal fade" id="deleteSuccess" tabindex="-1" role="dialog" 
+	   aria-labelledby="myModalLabel" aria-hidden="true">
+	   <div class="modal-dialog" style="width: 600px; text-align: center;">
+	      <div class="modal-content">
+	         <div class="modal-header">
+	            <button type="button" class="close" 
+	               data-dismiss="modal" aria-hidden="true">
+	                  &times;
+	            </button>
+	            <h4 class="modal-title" id="myModalLabel">
+	        		    提示
+	            </h4>
+	         </div>
+	         <div class="modal-body">
+	         	删除成功！
+	         </div>
+	         <div class="modal-footer">
+	            <button type="button" class="btn btn-default" 
+	               data-dismiss="modal">关闭
+	            </button>
+	         </div>
+	      </div><!-- /.modal-content -->
+		</div><!-- /.modal -->
+	</div>
+	<a href="#" data-toggle="modal" style="display: none;" data-target="#checkoutSuccess" id="checkoutSuccessBtn">warning</a>
+	<div class="modal fade" id="checkoutSuccess" tabindex="-1" role="dialog" 
+	   aria-labelledby="myModalLabel" aria-hidden="true">
+	   <div class="modal-dialog" style="width: 600px; text-align: center;">
+	      <div class="modal-content">
+	         <div class="modal-header">
+	            <button type="button" class="close" 
+	               data-dismiss="modal" aria-hidden="true" onclick="refreshPage()">
+	                  &times;
+	            </button>
+	            <h4 class="modal-title" id="myModalLabel">
+	        		    提示
+	            </h4>
+	         </div>
+	         <div class="modal-body" id="checkoutMsg">
+	         	结账成功！
+	         </div>
+	         <div class="modal-footer">
+	            <button type="button" class="btn btn-default" 
+	               data-dismiss="modal" onclick="refreshPage()">关闭
+	            </button>
+	         </div>
+	      </div><!-- /.modal-content -->
+		</div><!-- /.modal -->
+	</div>
 	<s:include value="/view/footer.jsp"/>
 </body>
 <script type="text/javascript">
@@ -147,6 +227,81 @@
 	
 	function getAttachment(attachment){
 		$("#attachment").attr("src",attachment);
+	}
+	
+	function confirmDelete(recordId){
+		$.confirm({
+		    title: '警告',
+		    content: '确认删除该消费记录?删除之后不能恢复！',
+		    confirmButton:'确认',
+		    cancelButton:'取消',
+		    confirm: function(){
+		    	$.ajax({
+		    		url:"/cost/delete.html",
+		    		type: "POST",
+		    		data: {"recordId":recordId},
+		    		success: function(data){
+		    			if(data.status == 1){
+		    				$("#deleteSuccessBtn").click();
+		    				setTimeout(function () { 
+			    				var url = window.location.href;
+			    				window.location.href = url;
+						    }, 1000);
+		    			}else{
+		    				$("#noPermissionBtn").click();
+		    			}
+		    		}
+		    	});
+		    },
+		    cancel: function(){
+		    }
+		});
+	}
+	
+	function checkout(recordId,user,costFor,cost,costdate,mark){
+		var username = "";
+		if(user == 1){
+			username = "韩晓军";
+		}else if(user == 2){
+			username = "胡丰盛";
+		}else if(user == 3){
+			username = "李洪亮";
+		}
+		$.confirm({
+		    title: '请确认账单',
+		    content: '消费人：'+username+'<br/>消费金额：'+cost+'<br/>消费用途：'+costFor+'<br/>消费日期：'+costdate+'<br/>备注：'+mark,
+		    confirmButton:'确认结账',
+		    cancelButton:'取消',
+		    confirm: function(){
+		    	$.ajax({
+		    		url:"/cost/checkout.html",
+		    		type: "POST",
+		    		data: {"recordId":recordId},
+		    		success: function(data){
+		    			if(data.status == 1){
+		    				$("#checkoutMsg").html(data.msg);
+		    				$("#checkoutSuccessBtn").click();
+		    			}else{
+		    				$("#noPermissionBtn").click();
+		    			}
+		    		}
+		    	});
+		    },
+		    cancel: function(){
+		    }
+		});
+	}
+	
+	function resetForm(){
+		$("#startTime").val("");
+		$("#endTime").val("");
+		$("#userName").val(0);
+		$("#costFor").val("");
+	}
+	
+	function refreshPage(){
+		var url = window.location.href;
+		window.location.href = url;
 	}
 </script>
 </html>

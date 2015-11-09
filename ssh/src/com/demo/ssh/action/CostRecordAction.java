@@ -1,8 +1,8 @@
 package com.demo.ssh.action;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,33 +27,35 @@ public class CostRecordAction extends BaseAction {
 	private CostRecord record;
 	private String year;
 	private String month;
-	private Date sStartTime;
-	private Date sEndTime;
-	private String sUserName;
-	private String sCostFor;
+	private String startTime;
+	private String endTime;
+	private String userName;
+	private String costFor;
 	private String fileName;
 	private File file;
 	private Long recordId;
 
+	//记录列表
 	public String list() {
-		Map<String, Object> params = new HashMap<String, Object>();
-		if (sStartTime != null) {
-			params.put("startTime", sStartTime);
+		Map<String, String> params = new HashMap<String, String>();
+		if (StringUtils.isNotBlank(startTime)) {
+			params.put("startTime", startTime);
 		}
-		if (sEndTime != null) {
-			params.put("endTime", sEndTime);
+		if (StringUtils.isNotBlank(endTime)) {
+			params.put("endTime", endTime);
 		}
-		if (StringUtils.isNotBlank(sUserName)) {
-			params.put("user", sUserName);
+		if (StringUtils.isNotBlank(userName)) {
+			params.put("user", userName);
 		}
-		if (StringUtils.isNotBlank(sCostFor)) {
-			params.put("costFor", sCostFor);
+		if (StringUtils.isNotBlank(costFor)) {
+			params.put("costFor", costFor);
 		}
 		Page<CostRecord> all = recordService.selectListByPage(1, 15, params);
 		putContext("records", all.getRows());
 		return "list";
 	}
 
+	//附件上传
 	public String uploadPhoto() {
 		Map<String, Object> rMap = new HashMap<String, Object>();
 		String targetFolder = ServletActionContext.getServletContext()
@@ -82,16 +84,62 @@ public class CostRecordAction extends BaseAction {
 		// return fileName.substring(pos);
 	}
 
+	// 逻辑删除
+	public String delete() {
+		Map<String, Object> rMap = new HashMap<String, Object>();
+		CostRecord costRecord = recordService.getById(recordId);
+		costRecord.setDeleted(1);
+		try {
+			recordService.updateRecord(costRecord);
+			rMap.put(STATUS, STATUS_SUCCESS);
+		} catch (Exception e) {
+			e.printStackTrace();
+			rMap.put(STATUS, STATUS_ERROR);
+		}
+		putContext(JSONDATA, rMap);
+		return JSON;
+	}
+	
+	//结账
+	public String checkout() {
+		Map<String, Object> rMap = new HashMap<String, Object>();
+		CostRecord costRecord = recordService.getById(recordId);
+		costRecord.setStatus(1);
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		try {
+			recordService.updateRecord(costRecord);
+			rMap.put(STATUS, STATUS_SUCCESS);
+			String userName = "";
+			if("1".equals(costRecord.getUser())){
+				userName = "韩晓军";
+			}else if("2".equals(costRecord.getUser())){
+				userName = "胡丰盛";
+			}else if("3".equals(costRecord.getUser())){
+				userName = "李洪亮";
+			}
+			String msg = "【"+userName+"】发生于["+dateFormat.format(costRecord.getCostdate())+"]的消费为 "+costRecord.getCost()+" 元的消费记录已结帐！";
+			rMap.put("msg", msg);
+		} catch (Exception e) {
+			e.printStackTrace();
+			rMap.put(STATUS, STATUS_ERROR);
+		}
+		putContext(JSONDATA, rMap);
+		return JSON;
+	}
+	
+	//到新增页面
 	public String addRecord() {
 		return "add";
 	}
 
+	//到编辑页面
 	public String editRecord() {
 		CostRecord costRecord = recordService.getById(recordId);
 		putContext("record", costRecord);
 		return "edit";
 	}
 
+	//统计信息
 	public String statistics() {
 		Map<String, Object> monthTotal = recordService.monthTotal(year, month);
 		putContext("monthTotal", monthTotal);
@@ -118,18 +166,19 @@ public class CostRecordAction extends BaseAction {
 		return "statistics";
 	}
 
+	//新增
 	public String add() {
 		// 保存
 		recordService.addRecord(record);
 		return "redirectList";
 	}
 
+	//编辑
 	public String update() {
-		System.out.println("record: "+record);
 		recordService.updateRecord(record);
 		return "redirectList";
 	}
-
+	
 	public CostRecord getRecord() {
 		return record;
 	}
@@ -154,36 +203,36 @@ public class CostRecordAction extends BaseAction {
 		this.month = month;
 	}
 
-	public Date getsStartTime() {
-		return sStartTime;
+	public String getStartTime() {
+		return startTime;
 	}
 
-	public void setsStartTime(Date sStartTime) {
-		this.sStartTime = sStartTime;
+	public void setStartTime(String startTime) {
+		this.startTime = startTime;
 	}
 
-	public Date getsEndTime() {
-		return sEndTime;
+	public String getEndTime() {
+		return endTime;
 	}
 
-	public void setsEndTime(Date sEndTime) {
-		this.sEndTime = sEndTime;
+	public void setEndTime(String endTime) {
+		this.endTime = endTime;
 	}
 
-	public String getsUserName() {
-		return sUserName;
+	public String getUserName() {
+		return userName;
 	}
 
-	public void setsUserName(String sUserName) {
-		this.sUserName = sUserName;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
-	public String getsCostFor() {
-		return sCostFor;
+	public String getCostFor() {
+		return costFor;
 	}
 
-	public void setsCostFor(String sCostFor) {
-		this.sCostFor = sCostFor;
+	public void setCostFor(String costFor) {
+		this.costFor = costFor;
 	}
 
 	public String getFileName() {

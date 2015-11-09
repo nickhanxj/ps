@@ -5,7 +5,9 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.demo.ssh.dao.CostRecordDao;
 import com.demo.ssh.entity.CostRecord;
@@ -13,6 +15,7 @@ import com.nick.page.pageutil.Page;
 import com.nick.page.pageutil.PageUtil;
 
 @Service
+@Transactional
 public class CostRecordService {
 	@Resource
 	private CostRecordDao recordDao;
@@ -26,7 +29,7 @@ public class CostRecordService {
 	}
 	
 	public void updateRecord(CostRecord record){
-		recordDao.update(record);
+		recordDao.updateRecord(record);
 	}
 	
 	public Map<String, Object> monthTotal(String year, String month){
@@ -37,12 +40,21 @@ public class CostRecordService {
 		return recordDao.statisticPerson(year, month, user);
 	}
 	
-	public Page<CostRecord> selectListByPage(int currentPage, int pageSize, Map<String, Object> params){
+	public Page<CostRecord> selectListByPage(int currentPage, int pageSize, Map<String, String> params){
 		StringBuffer extraParams = new StringBuffer();
-		if(params.get("startTime") != null){
-			
+		if(StringUtils.isNotBlank(params.get("startTime"))){
+			extraParams.append(" and cr.costdate >= '"+params.get("startTime")+"' ");
 		}
-		StringBuffer baseHql = new StringBuffer("from CostRecord cr order by cr.costdate desc");
+		if(StringUtils.isNotBlank(params.get("endTime"))){
+			extraParams.append(" and cr.costdate <= '"+params.get("endTime")+"' ");
+		}
+		if(StringUtils.isNotBlank(params.get("user")) && !"0".equals(params.get("user"))){
+			extraParams.append(" and cr.user = "+params.get("user")+" ");
+		}
+		if(StringUtils.isNotBlank(params.get("costFor"))){
+			extraParams.append(" and cr.costFor like '%"+params.get("costFor")+"%' ");
+		}
+		StringBuffer baseHql = new StringBuffer("from CostRecord cr where cr.deleted = 0 "+extraParams.toString()+" order by cr.costdate desc");
 		Page<CostRecord> page = new Page<CostRecord>();
 		page.setCurrentPage(currentPage);
 		page.setPageSize(pageSize);

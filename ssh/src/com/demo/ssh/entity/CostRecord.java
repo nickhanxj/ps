@@ -20,6 +20,7 @@ public class CostRecord {
 	private String mark;// 备注
 	private Integer status = 0;// 状态 0未结 1已结
 	private String attachment;
+	private Integer deleted = 0; // 是否删除 0未删 1已删
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -98,12 +99,12 @@ public class CostRecord {
 		this.attachment = attachment;
 	}
 
-	@Override
-	public String toString() {
-		return "CostRecord [id=" + id + ", user=" + user + ", cost=" + cost
-				+ ", costFor=" + costFor + ", costdate=" + costdate + ", mark="
-				+ mark + ", status=" + status + ", attachment=" + attachment
-				+ "]";
+	public Integer getDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(Integer deleted) {
+		this.deleted = deleted;
 	}
 
 }

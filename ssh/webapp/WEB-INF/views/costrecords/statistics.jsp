@@ -14,7 +14,7 @@
 <style type="text/css">
 	table {
 		width: 100%; 
-		border: 2px dashed gray;
+		border: 2px solid #9AC0CD;
 	}
 	table tr{
 		height: 50px;
@@ -25,6 +25,17 @@
 	}
 	.textcenter{
 		text-align: center;
+	}
+	
+	.subTable{
+		border: 1px solid #9AC0CD; 
+		width: 70%; 
+		margin-left: auto; 
+		margin-right: auto;
+	}
+	
+	.subTableLine{
+		border: 1px solid #9AC0CD; 
 	}
 </style>
 </head>
@@ -57,12 +68,16 @@
 					人均消费：<font color="green">${perTotal}</font>&emsp;元
 				</div>
 				<div style=" width: 80%;margin-left: auto; margin-right: auto;">
-					<s:iterator value="result" var="result">
+					<s:iterator value="result" var="result" status="status">
 						<div>${result.user}:</div>
 						<table>
 							<tr>
 								<td class="textright">消费总次数：</td>
-								<td class="textcenter">${result.statisticResult.costTimes}</td>
+								<td class="textcenter">
+									<a href="javascript:void(0);" class="btn" title="点击查看" onclick="tableSlideDown('${status.index}_tab',this)">
+									${result.statisticResult.costTimes}
+									</a>
+								</td>
 							</tr>
 							<tr>
 								<td class="textright">消费总额(￥)：</td>
@@ -88,12 +103,61 @@
 										${relCost}
 									</td>
 								</c:if>
+								<c:if test="${relCost == 0}">
+									<td class="textright" style="color:black;">本月收支平衡：</td>
+									<td class="textcenter"  style="color:black;">
+										${relCost}
+									</td>
+								</c:if>
 								<c:if test="${relCost < 0}">
 									<td class="textright" style="color:red;">本月应付(￥)：</td>
 									<td class="textcenter"  style="color:red;">
 										${relCost}
 									</td>
 								</c:if>
+							</tr>
+							<tr>
+								<td colspan="2">
+									<div style="display: none;" id="${status.index}_tab">
+									<table class="subTable" id="subTable">
+										<tr >
+											<th class="subTableLine">消费人</th>
+											<th class="subTableLine">消费金额（元）</th>
+											<th class="subTableLine">消费用途</th>
+											<th class="subTableLine">消费时间</th>
+											<th class="subTableLine">状态</th>
+											<th class="subTableLine">备注</th>
+										</tr>
+										<c:forEach items="${result.statisticResult.records}" var="record">
+											<tr>
+												<td class="subTableLine">
+													<c:if test="${record.user == 1}">
+														韩晓军
+													</c:if>
+													<c:if test="${record.user == 2}">
+														胡丰盛
+													</c:if>
+													<c:if test="${record.user == 3}">
+														李洪亮
+													</c:if>
+												</td>
+												<td class="subTableLine">${record.cost}</td>
+												<td class="subTableLine">${record.costFor}</td>
+												<td class="subTableLine">${record.costdate}</td>
+												<td class="subTableLine">
+													<c:if test="${record.status == 0}">
+														未结
+													</c:if>
+													<c:if test="${record.status == 1}">
+														<font color="green">已结</font>
+													</c:if>
+												</td>
+												<td class="subTableLine">${record.mark}</td>
+											</tr>
+										</c:forEach>
+									</table>
+									</div>
+								</td>
 							</tr>
 						</table>
 						<br>
@@ -105,4 +169,15 @@
 	</div>
 	<s:include value="/view/footer.jsp"/>
 </body>
+<script type="text/javascript">
+	function tableSlideDown(tableId,t){
+		$('#'+tableId).slideDown(1000);
+		$(t).attr("onclick","tableSlideUp('"+tableId+"',this)");
+	}
+	
+	function tableSlideUp(tableId,t){
+		$('#'+tableId).slideUp(1000);
+		$(t).attr("onclick","tableSlideDown('"+tableId+"',this)");
+	}
+</script>
 </html>

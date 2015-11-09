@@ -9,10 +9,10 @@ import org.apache.struts2.ServletActionContext;
 import com.demo.ssh.action.CostRecordAction;
 import com.demo.ssh.action.UnAuthedResourceAction;
 import com.demo.ssh.action.UserAction;
+import com.demo.ssh.base.BaseAction;
 import com.demo.ssh.entity.User;
 import com.demo.ssh.util.LoggerManager;
 import com.opensymphony.xwork2.Action;
-import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
 
@@ -22,6 +22,7 @@ import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
  * @author john
  * 
  */
+@SuppressWarnings("all")
 public class AuthInterceptor extends AbstractInterceptor {
 	private static final long serialVersionUID = 1L;
 	private String authUser = "authUser";
@@ -33,7 +34,24 @@ public class AuthInterceptor extends AbstractInterceptor {
 		if (action instanceof UnAuthedResourceAction) {
 			return invocation.invoke();
 		} else if(action instanceof CostRecordAction){
-			return invocation.invoke();
+			String method = invocation.getProxy().getMethod();
+			if("delete".equals(method) || "checkout".equals(method)){
+				Map<String, Object> session = invocation.getInvocationContext()
+						.getSession();
+				User user = (User) session.get(authUser);
+				if(user == null){
+					invocation.getInvocationContext().getContext().put(BaseAction.JSONDATA, "未授权的操作!");
+					return BaseAction.JSON;
+				}
+				if("admin".equals(user.getUserName())){
+					return invocation.invoke();
+				}else{
+					invocation.getInvocationContext().getContext().put(BaseAction.JSONDATA, "未授权的操作!");
+				}
+				return BaseAction.JSON;
+			}else{
+				return invocation.invoke();
+			}
 		}else if (action instanceof UserAction) {
 			String method = invocation.getProxy().getMethod();
 			if ("register".equals(method) || "login".equals(method) || "ajaxLogin".equals(method)) {// 如果是登录或注册则直接放行

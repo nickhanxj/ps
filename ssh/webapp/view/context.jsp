@@ -3,9 +3,12 @@
 <link rel="stylesheet" href="/js/bootstrap/css/bootstrap-theme.css">
 <link rel="stylesheet" href="/js/jQuery-File-Upload-9.11.2/css/jquery.fileupload.css">
 <link rel="stylesheet" href="/js/jQuery-File-Upload-9.11.2/css/jquery.fileupload-ui.css">
+<link href="/js/jquery-confirm/css/jquery-confirm.css" rel="stylesheet">
 <script type="text/javascript" src="/js/jquery/jquery.js"></script>
 <script type="text/javascript" src="/js/ajaxfileupload.js"></script>
 <script type="text/javascript" src="/js/bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="/js/jQuery-File-Upload-9.11.2/js/vendor/jquery.ui.widget.js"></script>
 <script type="text/javascript" src="/js/jQuery-File-Upload-9.11.2/js/jquery.fileupload.js"></script>
 <script type="text/javascript" src="/js/jQuery-File-Upload-9.11.2/js/jquery.iframe-transport.js"></script>
+<script type="text/javascript" src="/js/jquery-confirm/js/jquery-confirm.js"></script>
+<script type="text/javascript" src="/js/jquery-confirm/dist/jquery-confirm.min.js"></script>

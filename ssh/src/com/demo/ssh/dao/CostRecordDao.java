@@ -21,10 +21,14 @@ public class CostRecordDao extends BaseDao<CostRecord> {
 		return getSession().createQuery(hql).list();
 	}
 	
+	public void updateRecord(CostRecord record){
+		getSession().update(record);
+	}
+	
 	//计算月消费总额
 	public Map<String, Object> monthTotal(String year, String month){
 		Map<String, Object> rMap = new HashMap<String, Object>();
-		String byYearAndMonth = " and year(tc.costdate) = "+year+" and month(tc.costdate) = "+month;
+		String byYearAndMonth = " and year(tc.costdate) = "+year+" and month(tc.costdate) = "+month +" and tc.deleted = 0";
 		//月消费总额
 		String totalCostPerMonthSql = "select sum(cost) from t_costrecord tc where 1 = 1 "+byYearAndMonth;
 		SQLQuery totalCostPerMonth = getSession().createSQLQuery(totalCostPerMonthSql);
@@ -34,7 +38,7 @@ public class CostRecordDao extends BaseDao<CostRecord> {
 	
 	//根据消费人统计查询信息
 	public Map<String, Object> statisticPerson(String year, String month, String user){
-		String byYearAndMonth = " and year(tc.costdate) = "+year+" and month(tc.costdate) = "+month;
+		String byYearAndMonth = " and year(tc.costdate) = "+year+" and month(tc.costdate) = "+month +" and tc.deleted = 0";
 		Map<String, Object> rMap = new HashMap<String, Object>();
 		
 		String costTimesSql = "select count(*) from t_costrecord tc where tc.user = "+user+byYearAndMonth;
@@ -49,6 +53,10 @@ public class CostRecordDao extends BaseDao<CostRecord> {
 		rMap.put("settled", getSession().createSQLQuery(settledSql).uniqueResult());//已结消费
 		String unsettledSql = "select count(*) from t_costrecord tc where tc.status = 0 and tc.user = "+user+byYearAndMonth;
 		rMap.put("unsettled", getSession().createSQLQuery(unsettledSql).uniqueResult());//未结消费
+		
+		String costRecordSql = "select * from t_costrecord tc where tc.user = "+user+byYearAndMonth;//当月消费记录
+		List records = getSession().createSQLQuery(costRecordSql).addEntity(CostRecord.class).list();
+		rMap.put("records", records);
 		return rMap;
 	}
 }
