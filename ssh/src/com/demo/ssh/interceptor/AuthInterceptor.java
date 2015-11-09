@@ -35,10 +35,16 @@ public class AuthInterceptor extends AbstractInterceptor {
 			return invocation.invoke();
 		} else if(action instanceof CostRecordAction){
 			String method = invocation.getProxy().getMethod();
+			Map<String, Object> session = invocation.getInvocationContext()
+					.getSession();
+			User user = (User) session.get(authUser);
+			if("addRecord".equals(method) || "add".equals(method) || "editRecord".equals(method) || "update".equals(method)){
+				if(user == null){
+					invocation.getInvocationContext().getContext().put("msg", "请登录后再操作!");
+					return Action.LOGIN;
+				}
+			}
 			if("delete".equals(method) || "checkout".equals(method)){
-				Map<String, Object> session = invocation.getInvocationContext()
-						.getSession();
-				User user = (User) session.get(authUser);
 				if(user == null){
 					invocation.getInvocationContext().getContext().put(BaseAction.JSONDATA, "未授权的操作!");
 					return BaseAction.JSON;
