@@ -37,6 +37,16 @@
 	.subTableLine{
 		border: 1px solid #9AC0CD; 
 	}
+	
+	#tempId a:VISITED {
+		color: #9AC0CD;
+	}
+	#tempId a:HOVER {
+		color: #9AC0CD;
+	}
+	#tempId a:LINK {
+		color: #9AC0CD;
+	}
 </style>
 </head>
 <body>
@@ -60,12 +70,47 @@
 			<br>
 				<div style="border: 2px solid lightblue; margin-top: 20px;">
 				<h3 style="text-align: center; width: 100%;"><b>统计信息（${cyear}年${cmonth}月）</b></h3>
-				<div style="width: 100%; text-align: center; font-weight: bold;">
+				<div style=" width: 80%;margin-left: auto; margin-right: auto;">
+					<table>
+						<tr style="background-color: #8FBC8F">
+							<th class="textright">统计条目</th>
+							<th class="textcenter">金额(￥)</th>
+						</tr>
+						<tr>
+							<td class="textright">月总消费</td>
+							<td class="textcenter"><font color="green">${monthTotal.monthTotal}</font>&emsp;</td>
+						</tr>
+						<tr>
+							<td class="textright">已结算消费总额</td>
+							<td class="textcenter"><font color="green">${monthTotal.monthTotal - monthTotal.monthTotalExceptSettled}</font>&emsp;</td>
+						</tr>
+						<tr>
+							<td class="textright">扣除已结算月总消费</td>
+							<td class="textcenter"><font color="green">${monthTotal.monthTotalExceptSettled}</font>&emsp;</td>
+						</tr>
+						<tr>
+							<td class="textright">人均消费</td>
+							<td class="textcenter">
+								<c:set var="perTotal" value="${monthTotal.monthTotalExceptSettled/3}"/>
+								<font color="green">${perTotal}</font>&emsp;
+							</td>
+						</tr>
+					</table>
+				</div>
+				<%-- <div style="width: 100%; text-align: center; font-weight: bold;">
 					月总消费: <font color="green">${monthTotal.monthTotal}</font>&emsp;元
 				</div>
-				<c:set var="perTotal" value="${monthTotal.monthTotal/3}"/>
+				<div style="width: 100%; text-align: center; font-weight: bold;">
+					已结算消费总额: <font color="green">${monthTotal.monthTotal - monthTotal.monthTotalExceptSettled}</font>&emsp;元
+				</div>
+				<div style="width: 100%; text-align: center; font-weight: bold;">
+					扣除已结算月总消费: <font color="green">${monthTotal.monthTotalExceptSettled}</font>&emsp;元
+				</div>
 				<div style="width: 100%; text-align: center; font-weight: bold;">
 					人均消费：<font color="green">${perTotal}</font>&emsp;元
+				</div> --%>
+				<div style="width: 90%; text-align: right; font-weight: normal; margin-top: 10px; font-size: xx-small;color: blue;">
+					注：已结算消费只做历史记录，以便查询。在人均消费和每人当月应付金额的统计中已经扣除已结算消费。
 				</div>
 				<div style=" width: 80%;margin-left: auto; margin-right: auto;">
 					<s:iterator value="result" var="result" status="status">
@@ -73,30 +118,82 @@
 						<table>
 							<tr>
 								<td class="textright">消费总次数：</td>
-								<td class="textcenter">
-									<a href="javascript:void(0);" class="btn" title="点击查看" onclick="tableSlideDown('${status.index}_tab',this)">
-									${result.statisticResult.costTimes}
-									</a>
+								<td class="textcenter" id="tempId">
+									<c:set value="${result.statisticResult.costTimes}" var="costtimes"/>
+									${costtimes}
+									(<a href="javascript:void(0);" id="${status.index}_tab_view" class="btn" title="点击查看" onclick="tableSlideDown('${status.index}_tab',this)">
+									查看
+									</a>)
 								</td>
 							</tr>
 							<tr>
 								<td class="textright">消费总额(￥)：</td>
-								<td class="textcenter">${result.statisticResult.costTotal.csum}</td>
+								<td class="textcenter">
+									<c:if test="${costtimes == 0}">
+										暂无
+									</c:if>
+									<c:if test="${costtimes > 0}">
+										${result.statisticResult.costTotal.csum}
+									</c:if>
+								</td>
+							</tr>
+							<tr>
+								<td class="textright">已结算消费金额(￥)：</td>
+								<td class="textcenter">
+									<c:if test="${costtimes == 0}">
+										暂无
+									</c:if>
+									<c:if test="${costtimes > 0}">
+										${result.statisticResult.settledCost}
+									</c:if>
+								</td>
+							</tr>
+							<tr>
+								<td class="textright">未结算消费金额(￥)：</td>
+								<td class="textcenter">
+									<c:if test="${costtimes == 0}">
+										暂无
+									</c:if>
+									<c:if test="${costtimes > 0}">
+										${result.statisticResult.unsettledCost}
+									</c:if>
+								</td>
 							</tr>
 							<tr>
 								<td class="textright">每次平均消费(￥)：</td>
-								<td class="textcenter">${result.statisticResult.costTotal.cavg}</td>
+								<td class="textcenter">
+									<c:if test="${costtimes == 0}">
+										暂无
+									</c:if>
+									<c:if test="${costtimes > 0}">
+										${result.statisticResult.costTotal.cavg}
+									</c:if>
+								</td>
 							</tr>
 							<tr>
-								<td class="textright">已结算消费：</td>
-								<td class="textcenter">${result.statisticResult.settled}</td>
+								<td class="textright">已结算消费数：</td>
+								<td class="textcenter">
+									<c:if test="${costtimes == 0}">
+										暂无
+									</c:if>
+									<c:if test="${costtimes > 0}">
+										${result.statisticResult.settled}
+									</c:if>
+								</td>
 							</tr>
 							<tr>
-								<td class="textright">未结算消费：</td>
-								<td class="textcenter">${result.statisticResult.unsettled}</td>
+								<td class="textright">未结算消费数：</td>
+								<td class="textcenter">
+									<c:if test="${costtimes == 0}">
+										暂无
+									</c:if>
+									<c:if test="${costtimes > 0}">
+										${result.statisticResult.unsettled}
+									</c:if>
+								</td>
 							</tr>
 							<tr style="font-weight: bold;">
-								<c:set var="relCost" value="${result.statisticResult.costTotal.csum - perTotal}"/>
+								<c:set var="relCost" value="${result.statisticResult.unsettledCost - perTotal}"/>
 								<c:if test="${relCost > 0}">
 									<td class="textright" style="color:blue;">本月应收(￥)：</td>
 									<td class="textcenter"  style="color:blue;">
@@ -172,11 +269,13 @@
 <script type="text/javascript">
 	function tableSlideDown(tableId,t){
 		$('#'+tableId).slideDown(1000);
+		$("#"+tableId+"_view").html("收起");
 		$(t).attr("onclick","tableSlideUp('"+tableId+"',this)");
 	}
 	
 	function tableSlideUp(tableId,t){
 		$('#'+tableId).slideUp(1000);
+		$("#"+tableId+"_view").html("查看");
 		$(t).attr("onclick","tableSlideDown('"+tableId+"',this)");
 	}
 </script>
