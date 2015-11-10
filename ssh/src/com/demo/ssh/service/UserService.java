@@ -26,7 +26,11 @@ public class UserService {
 		return userDao.selectUserById(id);
 	}
 	
-	//ÅĞ¶ÏÓÃ»§ÃûÊÇ·ñ´æÔÚ
+	public User getUserByName(String userName){
+		return userDao.getByName(userName);
+	}
+	
+	//ï¿½Ğ¶ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½
 	public boolean hasExist(String userName){
 		User user = new User();
 		user.setUserName(userName);
@@ -37,7 +41,7 @@ public class UserService {
 		return false;
 	}
 	
-	//ÓÃ»§µÇÂ¼ÊÚÈ¨
+	//ï¿½Ã»ï¿½ï¿½ï¿½Â¼ï¿½ï¿½È¨
 	public User authUser(User user){
 		return userDao.getUserByCondition(user);
 	}

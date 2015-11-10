@@ -8,6 +8,9 @@
 <jsp:include page="/view/context.jsp" />
 <link href="/css/homepage.css" rel="stylesheet">
  <%@taglib prefix="s" uri="/struts-tags"%> 
+<link rel="stylesheet" type="text/css" href="/css/default.css">
+<link rel="stylesheet" type="text/css" href="/css/styles.css">
+ 
 <title>帐号登录</title>
 </head>
 <body >
@@ -19,13 +22,21 @@
 		<div style="margin-left: auto; margin-right: auto; width: 40%; height:400px;  margin-top: 150px; background: rgba(255,255,255, 1); -webkit-border-radius: 15px;-moz-border-radius: 15px;">
 			<div style="padding: 15px;">
 				<div style="width: 100%; text-align: center;"><img alt="" src="/images/favicon.ico"> </div>
-				<div style="width: 100%; text-align: center;font-size: 20px; font-family: cursive; font-weight: bold; border-bottom: 1px dotted gray; padding-bottom: 15px; padding-top: 10px;">登录</div>
-				<div class="form-group" style="margin-top: 30px;">
-					<s:textfield name="user.email"  cssClass="form-control user" placeholder="邮箱"></s:textfield>
-				</div>
-				<div class="form-group" style="margin-top: 40px;">
-					<s:password required="true" name="user.password"  cssClass="form-control lock" placeholder="密码"/>
-				</div>
+				<div style="width: 100%; text-align: center;font-size: 20px; font-family: cursive; font-weight: bold;  padding-bottom: 15px; padding-top: 10px;">登录</div>
+<!-- 				<div class="form-group" style="margin-top: 30px;"> -->
+<%-- 					<s:textfield name="user.email"  cssClass="form-control user" placeholder="邮箱"></s:textfield> --%>
+<!-- 				</div> -->
+<!-- 				<div class="form-group" style="margin-top: 40px;"> -->
+<%-- 					<s:password required="true" name="user.password"  cssClass="form-control lock" placeholder="密码"/> --%>
+<!-- 				</div> -->
+				<div class="form-group">
+				    <input required="required" name="email" class="form-control"/>
+				    <label class="form-label">邮　箱    </label>
+				  </div>
+				  <div class="form-group">
+				    <input type="password" name="password" required="required" class="form-control"/>
+				    <label class="form-label">密　码</label>
+				   </div>
 				<div style="color: red; font-size: x-small;margin-top: 30px;" align="center">
 					<s:actionerror/>
 					${error}

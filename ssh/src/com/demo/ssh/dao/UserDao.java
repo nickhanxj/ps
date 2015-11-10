@@ -23,6 +23,15 @@ public class UserDao extends BaseDao<User>{
 	public void updateUser(User user) {
 		getSession().update(user);
 	}
+	
+	public User getByName(String userName){
+		String hql = "from User u where u.userName = '"+userName+"'";
+		List list = getSession().createQuery(hql).list();
+		if(list.size() > 0){
+			return (User) list.get(0);
+		}
+		return null;
+	}
 
 	public User getUserByCondition(User user) {
 		String userName = user.getEmail();

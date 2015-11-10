@@ -25,6 +25,8 @@ public class UserAction extends BaseAction {
 	private User user;
 	private String id;
 	private String pendingUrl = "/view/homepage.html";
+	private String email;
+	private String password;
 
 	public String register() {
 		LoggerManager.info("新用户注册...");
@@ -56,35 +58,40 @@ public class UserAction extends BaseAction {
 				}
 			}
 		}
+		User queryedUser = userService.getUserByName(user.getUserName());
+		ActionContext.getContext().getSession().put("authUser", queryedUser);
 		return SUCCESS;
 	}
 
 	public String login() {
-		//获取登陆前准备访问的url
-		if(StringUtils.isNotBlank(pendingUrl)){
+		// 获取登陆前准备访问的url
+		if (StringUtils.isNotBlank(pendingUrl)) {
 			int index = pendingUrl.indexOf("/");
-			System.out.println("pendingUrl : "+pendingUrl);
-			pendingUrl = pendingUrl.substring(index+2);
+			LoggerManager.info("pendingUrl : " + pendingUrl);
+			pendingUrl = pendingUrl.substring(index + 2);
 			pendingUrl = pendingUrl.substring(pendingUrl.indexOf("/"));
-			if(pendingUrl.indexOf("login") > 0 || pendingUrl.indexOf("logout") > 0){
+			if (pendingUrl.indexOf("login") > 0
+					|| pendingUrl.indexOf("logout") > 0) {
 				pendingUrl = "/view/homepage.html";
 			}
 		}
 		HttpServletRequest request = ServletActionContext.getRequest();
-		user.setPassword(DigestUtils.md5Hex(user.getPassword()));
+		user = new User();
+		user.setPassword(DigestUtils.md5Hex(password));
+		user.setEmail(email);
 		if (StringUtils.isBlank(user.getEmail())
 				|| StringUtils.isBlank(user.getPassword())) {
 			addActionError("帐号或者密码不能为空！");
-			LoggerManager.error("用户【" + user.getEmail() + "】登录失败（"
-					+ new Date() + "）。原因：登录信息不完整。");
+			LoggerManager.error("用户【" + user.getEmail() + "】登录失败（" + new Date()
+					+ "）。原因：登录信息不完整。");
 			return LOGIN;
 		}
 		User authUser = userService.authUser(user);
 		if (authUser == null) {
 			addActionError("帐号或密码错误！");
 			// user = authUser;
-			LoggerManager.error("用户【" + user.getEmail() + "】登录失败（"
-					+ new Date() + "）。原因：帐号与密码不匹配。");
+			LoggerManager.error("用户【" + user.getEmail() + "】登录失败（" + new Date()
+					+ "）。原因：帐号与密码不匹配。");
 			return LOGIN;
 		}
 		ActionContext.getContext().getSession().put("authUser", authUser);
@@ -98,14 +105,14 @@ public class UserAction extends BaseAction {
 				+ ")！");
 		return SUCCESS;
 	}
-	
-	public String ajaxLogin(){
-		Map<String,Object> result = new HashMap<String,Object>();
-		//获取登陆前准备访问的url
+
+	public String ajaxLogin() {
+		Map<String, Object> result = new HashMap<String, Object>();
+		// 获取登陆前准备访问的url
 		int index = pendingUrl.indexOf("/");
-		pendingUrl = pendingUrl.substring(index+2);
+		pendingUrl = pendingUrl.substring(index + 2);
 		pendingUrl = pendingUrl.substring(pendingUrl.indexOf("/"));
-		if(pendingUrl.indexOf("login") > 0 || pendingUrl.indexOf("logout") > 0){
+		if (pendingUrl.indexOf("login") > 0 || pendingUrl.indexOf("logout") > 0) {
 			pendingUrl = "/view/homepage.html";
 		}
 		HttpServletRequest request = ServletActionContext.getRequest();
@@ -113,8 +120,8 @@ public class UserAction extends BaseAction {
 		if (StringUtils.isBlank(user.getEmail())
 				|| StringUtils.isBlank(user.getPassword())) {
 			addActionError("用户名或者密码不能为空！");
-			LoggerManager.error("用户【" + user.getEmail() + "】登录失败（"
-					+ new Date() + "）。原因：登录信息不完整。");
+			LoggerManager.error("用户【" + user.getEmail() + "】登录失败（" + new Date()
+					+ "）。原因：登录信息不完整。");
 			result.put(STATUS, STATUS_ERROR);
 			result.put(MESSAGE, "用户名或者密码不能为空！");
 			putContext(JSONDATA, result);
@@ -124,8 +131,8 @@ public class UserAction extends BaseAction {
 		if (authUser == null) {
 			addActionError("用户名或密码错误！");
 			// user = authUser;
-			LoggerManager.error("用户【" + user.getEmail() + "】登录失败（"
-					+ new Date() + "）。原因：用户名与密码不匹配。");
+			LoggerManager.error("用户【" + user.getEmail() + "】登录失败（" + new Date()
+					+ "）。原因：用户名与密码不匹配。");
 			result.put(STATUS, STATUS_ERROR);
 			result.put(MESSAGE, "用户名或密码错误！");
 			putContext(JSONDATA, result);
@@ -206,6 +213,22 @@ public class UserAction extends BaseAction {
 
 	public void setPendingUrl(String pendingUrl) {
 		this.pendingUrl = pendingUrl;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 }

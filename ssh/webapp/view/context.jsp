@@ -4,6 +4,7 @@
 <link rel="stylesheet" href="/js/jQuery-File-Upload-9.11.2/css/jquery.fileupload.css">
 <link rel="stylesheet" href="/js/jQuery-File-Upload-9.11.2/css/jquery.fileupload-ui.css">
 <link href="/js/jquery-confirm/css/jquery-confirm.css" rel="stylesheet">
+<link href="/js/Reboxlightbox/css/jquery-rebox.css" rel="stylesheet">
 <script type="text/javascript" src="/js/jquery/jquery.js"></script>
 <script type="text/javascript" src="/js/ajaxfileupload.js"></script>
 <script type="text/javascript" src="/js/bootstrap/js/bootstrap.min.js"></script>
@@ -12,3 +13,4 @@
 <script type="text/javascript" src="/js/jQuery-File-Upload-9.11.2/js/jquery.iframe-transport.js"></script>
 <script type="text/javascript" src="/js/jquery-confirm/js/jquery-confirm.js"></script>
 <script type="text/javascript" src="/js/jquery-confirm/dist/jquery-confirm.min.js"></script>
+<script type="text/javascript" src="/js/Reboxlightbox/js/jquery-rebox.js"></script>

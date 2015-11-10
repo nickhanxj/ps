@@ -32,6 +32,7 @@
 </style>
 </head>
 <body>
+	<div id="gallery2" class="gallery">
 	<s:include value="/view/header.jsp"/>
 	<div class="main-container">
 		<div class="body-head">
@@ -93,7 +94,9 @@
 						<td>${record.mark}</td>
 						<td>
 							<c:if test="${not empty record.attachment}">
-								<a href="#" data-toggle="modal" data-target="#myModal" onclick="getAttachment('${record.attachment}')" title="点击查看 ">查看附件</a>
+<%-- 								<a href="#" data-toggle="modal" data-target="#myModal" onclick="getAttachment('${record.attachment}')" title="点击查看 ">查看附件</a> --%>
+								
+									<a href="${record.attachment}" cmd="attachment"  title="${record.costdate}-${record.costFor}">查看附件</a>
 							</c:if>
 							<c:if test="${empty record.attachment}">
 								无附件
@@ -215,6 +218,7 @@
 		</div><!-- /.modal -->
 	</div>
 	<s:include value="/view/footer.jsp"/>
+	</div>
 </body>
 <script type="text/javascript">
 	$(function(){
@@ -298,6 +302,9 @@
 		$("#userName").val(0);
 		$("#costFor").val("");
 	}
+	
+	$('#gallery2').rebox({ selector: 'a[cmd=attachment]' });
+
 	
 	function refreshPage(){
 		var url = window.location.href;
