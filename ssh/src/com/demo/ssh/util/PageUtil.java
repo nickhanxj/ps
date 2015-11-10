@@ -30,6 +30,7 @@ public class PageUtil<T> {
 		page.setTotalRow(countTotal(clz, customizedHql));
 		page.setFirstPage(isFirstPage(currentPage));
 		page.setLastPage(isLastPage(page));
+		page.setTotalPage(countTotalPage(page.getTotalRow(), pageSize));
 		session.close();
 		sessionFactory.close();
 		return page;
@@ -42,6 +43,16 @@ public class PageUtil<T> {
 		}
 		return session.createQuery(customizedHql).list().size();
 
+	}
+	
+	private int countTotalPage(int totalRow, int pageSize){
+		int totalPage = 1;
+		if(totalRow%pageSize == 0){
+			totalPage = totalRow / pageSize;
+		}else{
+			totalPage = (totalRow / pageSize) + 1;
+		}
+		return totalPage;
 	}
 
 	private boolean isFirstPage(int currentPage) {

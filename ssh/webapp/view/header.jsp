@@ -36,9 +36,10 @@
 					</div>
 				</s:if>
 				<s:else>
-					<div style="float: right; margin: 6px 100px 6px;font-size: 14px; font-family: monospace;" class="header-content" >
-						<a href="/user/personalCenter.html?id=${authUser.id}" title="Detail Infomation!" style="font-family: '微软雅黑'; color: white;"><img alt="" src="/upload/photo/photo.gif" height="36px" width="36px" style="">${authUser.userName}</a>
-						<b style="color: white;">|</b>&ensp;
+					<div style="float: right; margin: 18px 100px 6px;font-size: 14px; font-family: monospace;" class="header-content" >
+<%-- 						<a href="/user/personalCenter.html?id=${authUser.id}" title="Detail Infomation!" style="font-family: '微软雅黑'; color: white;"><img alt="" src="/upload/photo/photo.gif" height="36px" width="36px" style="">${authUser.userName}</a> --%>
+							<a href="/user/personalCenter.html?id=${authUser.id}" title="Detail Infomation!" style="font-family: '微软雅黑'; color: white;">${authUser.userName}</a>
+						<b style="color: white;">|</b>
 						<a href="/user/logout.html" title="Logout" style="color: white; font-family: '微软雅黑';"><span class="glyphicon"></span>退出</a>
 					</div>
 				</s:else>

@@ -11,8 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.demo.ssh.dao.CostRecordDao;
 import com.demo.ssh.entity.CostRecord;
-import com.nick.page.pageutil.Page;
-import com.nick.page.pageutil.PageUtil;
+import com.demo.ssh.util.Page;
+import com.demo.ssh.util.PageUtil;
 
 @Service
 @Transactional

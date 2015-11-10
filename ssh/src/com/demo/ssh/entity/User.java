@@ -17,6 +17,7 @@ public class User {
 	@Column(name = "id", nullable = false, unique = true)
 	private long id;
 	private String userName;
+	private String trueName;
 	private String password;
 	private String email;
 	private String phoneNumber;
@@ -140,6 +141,14 @@ public class User {
 
 	public void setFriends(String friends) {
 		this.friends = friends;
+	}
+
+	public String getTrueName() {
+		return trueName;
+	}
+
+	public void setTrueName(String trueName) {
+		this.trueName = trueName;
 	}
 
 	@Override

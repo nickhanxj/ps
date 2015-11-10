@@ -30,36 +30,38 @@ public class UserAction extends BaseAction {
 
 	public String register() {
 		LoggerManager.info("新用户注册...");
-		if (StringUtils.isBlank(user.getUserName())
-				|| StringUtils.isBlank(user.getPassword())) {
+		if (StringUtils.isBlank(user.getUserName()) || StringUtils.isBlank(user.getPassword())) {
 			addActionError("用户名或者密码不能为空！");
 			LoggerManager.error("新用户【" + user.getUserName() + "】注册失败：信息不完整！");
 		} else {
 			boolean hasExist = userService.hasExist(user.getUserName());
+			boolean trueNameHasExist = userService.trueNameHasExist(user.getTrueName());
 			if (hasExist) {
 				addActionError("该用户名已存在，请使用其他用户名！");
-				LoggerManager.error("新用户【" + user.getUserName()
-						+ "】注册失败：用户名已存在！");
-			} else {
+				LoggerManager.error("新用户【" + user.getUserName() + "】注册失败：用户名已存在！");
+				return REGISTER;
+			} else if(trueNameHasExist){
+				addActionError("该真实姓名已经注册过！");
+				LoggerManager.error("【" + user.getTrueName() + "】注册失败：该真实姓名已注册过！");
+				return REGISTER;
+			}else {
 				try {
 					user.setRegisterDate(new Date());
 					String md5Hex = DigestUtils.md5Hex(user.getPassword());
 					user.setPassword(md5Hex);
 					userService.addUser(user);
 					addActionMessage("注册成功！");
-					LoggerManager.info("新用户注册成功：【" + user.getUserName() + "--"
-							+ user.getEmail() + "】");
+					LoggerManager.info("新用户注册成功：【" + user.getUserName() + "--" + user.getEmail() + "】");
+					User queryedUser = userService.getUserByName(user.getUserName());
+					ActionContext.getContext().getSession().put("authUser", queryedUser);
 				} catch (Exception e) {
 					addActionError(e.getMessage());
 					e.printStackTrace();
-					LoggerManager.error("新用户【" + user.getUserName() + "】注册失败："
-							+ e.getMessage());
+					LoggerManager.error("新用户【" + user.getUserName() + "】注册失败：" + e.getMessage());
 					return REGISTER;
 				}
 			}
 		}
-		User queryedUser = userService.getUserByName(user.getUserName());
-		ActionContext.getContext().getSession().put("authUser", queryedUser);
 		return SUCCESS;
 	}
 
@@ -70,8 +72,7 @@ public class UserAction extends BaseAction {
 			LoggerManager.info("pendingUrl : " + pendingUrl);
 			pendingUrl = pendingUrl.substring(index + 2);
 			pendingUrl = pendingUrl.substring(pendingUrl.indexOf("/"));
-			if (pendingUrl.indexOf("login") > 0
-					|| pendingUrl.indexOf("logout") > 0) {
+			if (pendingUrl.indexOf("login") > 0 || pendingUrl.indexOf("logout") > 0) {
 				pendingUrl = "/view/homepage.html";
 			}
 		}
@@ -79,19 +80,16 @@ public class UserAction extends BaseAction {
 		user = new User();
 		user.setPassword(DigestUtils.md5Hex(password));
 		user.setEmail(email);
-		if (StringUtils.isBlank(user.getEmail())
-				|| StringUtils.isBlank(user.getPassword())) {
+		if (StringUtils.isBlank(user.getEmail()) || StringUtils.isBlank(user.getPassword())) {
 			addActionError("帐号或者密码不能为空！");
-			LoggerManager.error("用户【" + user.getEmail() + "】登录失败（" + new Date()
-					+ "）。原因：登录信息不完整。");
+			LoggerManager.error("用户【" + user.getEmail() + "】登录失败（" + new Date() + "）。原因：登录信息不完整。");
 			return LOGIN;
 		}
 		User authUser = userService.authUser(user);
 		if (authUser == null) {
 			addActionError("帐号或密码错误！");
 			// user = authUser;
-			LoggerManager.error("用户【" + user.getEmail() + "】登录失败（" + new Date()
-					+ "）。原因：帐号与密码不匹配。");
+			LoggerManager.error("用户【" + user.getEmail() + "】登录失败（" + new Date() + "）。原因：帐号与密码不匹配。");
 			return LOGIN;
 		}
 		ActionContext.getContext().getSession().put("authUser", authUser);
@@ -101,8 +99,7 @@ public class UserAction extends BaseAction {
 		authUser.setLastLoginIp(authUser.getCurLoginIp());
 		authUser.setCurLoginIp(request.getRemoteAddr());
 		userService.updateUser(authUser);
-		LoggerManager.info("用户【" + user.getEmail() + "】登录成功(" + new Date()
-				+ ")！");
+		LoggerManager.info("用户【" + user.getEmail() + "】登录成功(" + new Date() + ")！");
 		return SUCCESS;
 	}
 
@@ -117,11 +114,9 @@ public class UserAction extends BaseAction {
 		}
 		HttpServletRequest request = ServletActionContext.getRequest();
 		user.setPassword(DigestUtils.md5Hex(user.getPassword()));
-		if (StringUtils.isBlank(user.getEmail())
-				|| StringUtils.isBlank(user.getPassword())) {
+		if (StringUtils.isBlank(user.getEmail()) || StringUtils.isBlank(user.getPassword())) {
 			addActionError("用户名或者密码不能为空！");
-			LoggerManager.error("用户【" + user.getEmail() + "】登录失败（" + new Date()
-					+ "）。原因：登录信息不完整。");
+			LoggerManager.error("用户【" + user.getEmail() + "】登录失败（" + new Date() + "）。原因：登录信息不完整。");
 			result.put(STATUS, STATUS_ERROR);
 			result.put(MESSAGE, "用户名或者密码不能为空！");
 			putContext(JSONDATA, result);
@@ -131,8 +126,7 @@ public class UserAction extends BaseAction {
 		if (authUser == null) {
 			addActionError("用户名或密码错误！");
 			// user = authUser;
-			LoggerManager.error("用户【" + user.getEmail() + "】登录失败（" + new Date()
-					+ "）。原因：用户名与密码不匹配。");
+			LoggerManager.error("用户【" + user.getEmail() + "】登录失败（" + new Date() + "）。原因：用户名与密码不匹配。");
 			result.put(STATUS, STATUS_ERROR);
 			result.put(MESSAGE, "用户名或密码错误！");
 			putContext(JSONDATA, result);
@@ -145,8 +139,7 @@ public class UserAction extends BaseAction {
 		authUser.setLastLoginIp(authUser.getCurLoginIp());
 		authUser.setCurLoginIp(request.getRemoteAddr());
 		userService.updateUser(authUser);
-		LoggerManager.info("用户【" + user.getEmail() + "】登录成功(" + new Date()
-				+ ")！");
+		LoggerManager.info("用户【" + user.getEmail() + "】登录成功(" + new Date() + ")！");
 		result.put(STATUS, STATUS_SUCCESS);
 		putContext(JSONDATA, result);
 		return JSON;
@@ -163,6 +156,7 @@ public class UserAction extends BaseAction {
 		selectedUser.setEmail(user.getEmail());
 		selectedUser.setPhoneNumber(user.getPhoneNumber());
 		selectedUser.setSex(user.getSex());
+		selectedUser.setTrueName(user.getTrueName());
 		userService.updateUser(selectedUser);
 		LoggerManager.info("用户【" + user.getUserName() + "】更新个人信息成功("
 				+ new Date() + ")！");

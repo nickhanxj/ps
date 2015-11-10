@@ -1,5 +1,6 @@
 package com.demo.ssh.interceptor;
 
+import java.util.Arrays;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,7 +26,10 @@ import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
 @SuppressWarnings("all")
 public class AuthInterceptor extends AbstractInterceptor {
 	private static final long serialVersionUID = 1L;
+	private static final String UNAUTH = "unauth";
 	private String authUser = "authUser";
+	private static final String[] checkAuthMethod= {"addRecord","add","editRecord","update"};
+	private static final String[] authedUser = {"韩晓军","胡丰盛","李洪亮"};
 
 	@Override
 	public String intercept(ActionInvocation invocation) throws Exception {
@@ -38,14 +42,13 @@ public class AuthInterceptor extends AbstractInterceptor {
 			Map<String, Object> session = invocation.getInvocationContext()
 					.getSession();
 			User user = (User) session.get(authUser);
-			if("addRecord".equals(method) || "add".equals(method) || "editRecord".equals(method) || "update".equals(method)){
-				if(user == null){
-					invocation.getInvocationContext().getContext().put("msg", "请登录后再操作!");
-					return Action.LOGIN;
+			if(Arrays.asList(checkAuthMethod).contains(method)){
+				if(user == null || !Arrays.asList(authedUser).contains(user.getTrueName())){
+					return UNAUTH;
 				}
 			}
 			if("delete".equals(method) || "checkout".equals(method)){
-				if(user == null){
+				if(user == null || !Arrays.asList(authedUser).contains(user.getTrueName())){
 					invocation.getInvocationContext().getContext().put(BaseAction.JSONDATA, "未授权的操作!");
 					return BaseAction.JSON;
 				}

@@ -10,6 +10,7 @@ public class Page<T> {
 	private boolean isFirstPage;
 	private boolean isLastPage;
 	private String customizedHql;
+	private int totalPage;
 
 	public int getCurrentPage() {
 		return currentPage;
@@ -67,12 +68,21 @@ public class Page<T> {
 		this.customizedHql = customizedHql;
 	}
 
+	public int getTotalPage() {
+		return totalPage;
+	}
+
+	public void setTotalPage(int totalPage) {
+		this.totalPage = totalPage;
+	}
+
 	@Override
 	public String toString() {
 		return "Page [currentPage=" + currentPage + ", pageSize=" + pageSize
 				+ ", totalRow=" + totalRow + ", rows=" + rows
 				+ ", isFirstPage=" + isFirstPage + ", isLastPage=" + isLastPage
-				+ ", customizedHql=" + customizedHql + "]";
+				+ ", customizedHql=" + customizedHql + ", totalPage="
+				+ totalPage + "]";
 	}
 
 }

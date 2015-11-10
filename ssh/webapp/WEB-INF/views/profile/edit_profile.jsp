@@ -58,6 +58,10 @@
 							<td><s:textfield name="user.userName" value="%{#selectedUser.userName}" cssClass="form-control edit-input"/></td>
 						</tr>
 						<tr>
+							<td class="tabHead">真实姓名:</td>
+							<td><s:textfield name="user.trueName" value="%{#selectedUser.trueName}" cssClass="form-control edit-input"/></td>
+						</tr>
+						<tr>
 							<td class="tabHead">邮箱:</td>
 							<td><s:textfield name="user.email" value="%{#selectedUser.email}" cssClass="form-control edit-input"/></td>
 						</tr>

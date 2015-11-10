@@ -38,6 +38,10 @@
 							<td>${selectedUser.userName}</td>
 						</tr>
 						<tr>
+							<td class="tabHead">真实姓名:</td>
+							<td>${selectedUser.trueName}</td>
+						</tr>
+						<tr>
 							<td class="tabHead">邮箱:</td>
 							<td>${selectedUser.email}</td>
 						</tr>

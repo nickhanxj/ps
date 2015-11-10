@@ -47,6 +47,25 @@
 	#tempId a:LINK {
 		color: #9AC0CD;
 	}
+	
+	.btn{
+		background-color: #E3E3E3;
+	}
+	
+	.searchParam{
+		width: 80px; 
+		height:32px;
+	}
+	
+/* 	#searchDiv a:VISITED { */
+/* 		color: gray; */
+/* 	} */
+/* 	#searchDiv a:HOVER { */
+/* 		color: #103858; */
+/* 	} */
+/* 	#searchDiv a:LINK { */
+/* 		color: gray; */
+/* 	} */
 </style>
 </head>
 <body>
@@ -59,12 +78,12 @@
 			</p>
 		</div>
 		<div class="body-container">
-			<div style="width: 100%;"><a href="/cost/list.html" class="btn btn-info">&lt;&lt;返回列表</a></div>
+			<div style="width: 100%;"><a href="/cost/list.html" class="btn btn-small">&lt;&lt;返回列表</a></div>
 			<div style="width: 100%;text-align: right;">
 				<s:form action="/cost/statistics.html" method="post">
-					<s:textfield name="year" placeholder="年份"/>年
-					<s:textfield name="month" placeholder="月份"/>月
-					<s:submit value="查看统计信息" cssClass="btn btn-info"/>
+					<s:textfield name="year" placeholder="年份" cssClass="searchParam"/>年
+					<s:textfield name="month" placeholder="月份" cssClass="searchParam"/>月
+					<s:submit value="查看统计信息" cssClass="btn btn-small"/>
 				</s:form>
 			</div>
 			<br>
@@ -121,7 +140,7 @@
 								<td class="textcenter" id="tempId">
 									<c:set value="${result.statisticResult.costTimes}" var="costtimes"/>
 									${costtimes}
-									(<a href="javascript:void(0);" id="${status.index}_tab_view" class="btn" title="点击查看" onclick="tableSlideDown('${status.index}_tab',this)">
+									(<a href="javascript:void(0);" id="${status.index}_tab_view"  title="点击查看" onclick="tableSlideDown('${status.index}_tab',this)">
 									查看
 									</a>)
 								</td>

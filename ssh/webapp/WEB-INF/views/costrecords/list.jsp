@@ -14,7 +14,7 @@
 <style type="text/css">
 	table {
 		width: 100%;
-		border: 1px solid gray;
+		border: 1px solid lightgray;
 	}
 	table tr{
 		padding: 5px;
@@ -22,12 +22,33 @@
 	}
 	table th{
 		text-align: center;
-		border: 1px dashed gray;
-		background-color: lightblue;
+		border: 1px solid lightgray;
+		padding:5px;
+/* 		background-color: lightblue; */
 	}
 	table td{
 		text-align: center;
-		border: 1px dashed gray;
+		padding:10px;
+		border: 1px solid lightgray;
+	}
+	
+	.btn{
+		background-color: #E3E3E3;
+	}
+	
+	#searchDiv a:VISITED {
+		color: gray;
+	}
+	#searchDiv a:HOVER {
+		color: #103858;
+	}
+	#searchDiv a:LINK {
+		color: gray;
+	}
+	
+	.searchParam{
+		width: 160px; 
+		height:32px;
 	}
 </style>
 </head>
@@ -42,16 +63,19 @@
 			</p>
 		</div>
 		<div class="body-container">
-			<div style="border-bottom: 1px dotted gray; padding-bottom: 10px;">
+			<div style="border-bottom: 0px dotted gray; padding-bottom: 10px;" id="searchDiv">
 				<s:form action="/cost/list.html" theme="simple" id="searchForm">
-				<a href="/cost/addRecord.html" class="btn btn-info">新增记录</a>
+				<s:hidden name="currentPage" value="1" id="currentPageId"/>
+<%-- 				<s:hidden name="pageSize" value="1"/> --%>
+				<a href="/cost/addRecord.html"  class="btn btn-small">新增记录</a>
+				<a href="/cost/statistics.html" class="btn btn-small" id="view">查看统计信息</a>
 				<span style="float:right;">
-				<s:textfield name="startTime" readonly="true" onClick="WdatePicker()" placeholder="开始时间" id="startTime"/>
-				至<s:textfield name="endTime" readonly="true" onClick="WdatePicker()" placeholder="结束时间" id="endTime"/>
-				<s:select name="userName" list="#{0:'--选择消费人--',1:'韩晓军',2:'胡丰盛',3:'李洪亮'}" cssStyle="width: 160px;" id="userName"></s:select>
-				<s:textfield name="costFor" placeholder="消费用途" id="costFor"/>
-				<s:submit value="查询" cssClass="btn btn-info"></s:submit>
-				<a href="javascript:void(0)" onclick="resetForm()" class="btn btn-info">重置</a>
+				<s:textfield name="startTime" readonly="true" onClick="WdatePicker()" cssClass="searchParam" placeholder="开始时间" id="startTime"/>
+				至<s:textfield name="endTime" readonly="true" onClick="WdatePicker()" cssClass="searchParam" placeholder="结束时间" id="endTime"/>
+				<s:select name="userName" list="#{0:'--选择消费人--',1:'韩晓军',2:'胡丰盛',3:'李洪亮'}" cssClass="searchParam" id="userName"></s:select>
+				<s:textfield name="costFor" placeholder="消费用途" id="costFor" cssClass="searchParam"/>
+				<s:submit value="查询" cssClass="btn btn-small" id="searchBtn"></s:submit>
+				<a href="javascript:void(0)" onclick="resetForm()" class="btn btn-small">重置</a>
 				</span>
 				</s:form>
 			</div>
@@ -67,7 +91,7 @@
 					<th>附件</th>
 					<th>操作</th>
 				</tr>
-				<s:iterator value="records" var="record">
+				<s:iterator value="%{#records.rows}" var="record">
 					<tr>
 						<td>
 							<c:if test="${record.user == 1}">
@@ -103,18 +127,39 @@
 							</c:if>
 						</td>
 						<td>
-							<a href="/cost/editRecord.html?recordId=${record.id}">修改</a>|
+							<a href="/cost/editRecord.html?recordId=${record.id}" title="修改"><span class="glyphicon glyphicon-pencil"></span></a>&ensp;|
 <%-- 							<a href="/cost/delete.html?recordId=${record.id}">删除</a> --%>
-							<a href="javascript:void(0)" onclick="confirmDelete(${record.id})">删除</a>
+							<a href="javascript:void(0)" onclick="confirmDelete(${record.id})" title="删除"><span class="glyphicon glyphicon-trash"></span></a>
 							<c:if test="${record.status == 0}">
-							|<a href="javascript:void(0)" onclick="checkout(${record.id},${record.user},'${record.costFor}','${record.cost}','${record.costdate}','${record.mark}')">结账</a>
+							|&ensp;<a href="javascript:void(0)" onclick="checkout(${record.id},${record.user},'${record.costFor}','${record.cost}','${record.costdate}','${record.mark}')" title="结账"><span class="glyphicon glyphicon-shopping-cart"></span></a>
 							</c:if>
 						</td>
 					</tr>
 				</s:iterator>
 			</table>
+<%-- 			<s:debug></s:debug> --%>
+			<!-- 分页 -->
+			<ul class="pagination" style="float: right;">
+			<s:if test="%{#records.isFirstPage}">
+			</s:if>
+			<s:else>
+			  <li><a href="#" onclick="gotoPage(1);">&laquo;</a></li>
+			</s:else>
+			<c:forEach begin="1" end="${records.totalPage}" varStatus="status">
+				<c:if test="${records.currentPage == status.index}">
+					  <li class="active"><a href="#" onclick="gotoPage(this);">${status.index}</a></li>
+				</c:if>
+				<c:if test="${records.currentPage != status.index}">
+					  <li><a href="#" onclick="gotoPage(${status.index});">${status.index}</a></li>
+				</c:if>
+			 </c:forEach>
+			  <li><a href="#" onclick="gotoPage(${records.totalPage});">&raquo;</a></li>
+			</ul>
 			<br>
-			<div style="width: 100%; text-align: right;"><a href="/cost/statistics.html" class="btn btn-success" id="view">查看统计信息</a></div>
+			<div style="width: 100%; text-align: center; margin-top: 7px;">
+				共查询到 ${records.totalRow} 条记录
+<!-- 				<a href="/cost/graphic.html" class="btn btn-success" id="view">查看图形报表</a> -->
+			</div>
 		</div>
 	</div>
 	<!-- 模态框（Modal） -->
@@ -157,7 +202,7 @@
 	            </h4>
 	         </div>
 	         <div class="modal-body">
-	         	未授权操作！
+	         	<s:include value="/view/unauthorized.jsp"></s:include>
 	         </div>
 	         <div class="modal-footer">
 	            <button type="button" class="btn btn-default" 
@@ -170,7 +215,7 @@
 	<a href="#" data-toggle="modal" style="display: none;" data-target="#deleteSuccess" id="deleteSuccessBtn">warning</a>
 	<div class="modal fade" id="deleteSuccess" tabindex="-1" role="dialog" 
 	   aria-labelledby="myModalLabel" aria-hidden="true">
-	   <div class="modal-dialog" style="width: 600px; text-align: center;">
+	   <div class="modal-dialog" style="width: 300px; text-align: center;">
 	      <div class="modal-content">
 	         <div class="modal-header">
 	            <button type="button" class="close" 
@@ -195,7 +240,7 @@
 	<a href="#" data-toggle="modal" style="display: none;" data-target="#checkoutSuccess" id="checkoutSuccessBtn">warning</a>
 	<div class="modal fade" id="checkoutSuccess" tabindex="-1" role="dialog" 
 	   aria-labelledby="myModalLabel" aria-hidden="true">
-	   <div class="modal-dialog" style="width: 600px; text-align: center;">
+	   <div class="modal-dialog" style="width: 300px; text-align: center;">
 	      <div class="modal-content">
 	         <div class="modal-header">
 	            <button type="button" class="close" 
@@ -310,5 +355,11 @@
 		var url = window.location.href;
 		window.location.href = url;
 	}
+	
+	function gotoPage(page){
+		$("#currentPageId").val(page);
+		$("#searchBtn").click();
+	}
+	
 </script>
 </html>

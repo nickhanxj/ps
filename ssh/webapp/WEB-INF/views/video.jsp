@@ -20,6 +20,8 @@
 			moment of your life. 
 			</p>
 		</div>
+		<div class="body-container">
+		</div>
 	</div>
 	<s:include value="/view/footer.jsp"/>
 </body>

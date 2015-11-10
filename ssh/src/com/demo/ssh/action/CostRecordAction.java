@@ -17,7 +17,7 @@ import org.apache.struts2.ServletActionContext;
 import com.demo.ssh.base.BaseAction;
 import com.demo.ssh.entity.CostRecord;
 import com.demo.ssh.service.CostRecordService;
-import com.nick.page.pageutil.Page;
+import com.demo.ssh.util.Page;
 import com.opensymphony.xwork2.ActionContext;
 
 public class CostRecordAction extends BaseAction {
@@ -34,8 +34,10 @@ public class CostRecordAction extends BaseAction {
 	private String fileName;
 	private File file;
 	private Long recordId;
+	private Integer pageSize = 10;
+	private Integer currentPage = 1;
 
-	//记录列表
+	// 记录列表
 	public String list() {
 		Map<String, String> params = new HashMap<String, String>();
 		if (StringUtils.isNotBlank(startTime)) {
@@ -50,12 +52,12 @@ public class CostRecordAction extends BaseAction {
 		if (StringUtils.isNotBlank(costFor)) {
 			params.put("costFor", costFor);
 		}
-		Page<CostRecord> all = recordService.selectListByPage(1, 15, params);
-		putContext("records", all.getRows());
+		Page<CostRecord> all = recordService.selectListByPage(currentPage, pageSize, params);
+		putContext("records", all);
 		return "list";
 	}
 
-	//附件上传
+	// 附件上传
 	public String uploadPhoto() {
 		Map<String, Object> rMap = new HashMap<String, Object>();
 		String targetFolder = ServletActionContext.getServletContext()
@@ -99,8 +101,8 @@ public class CostRecordAction extends BaseAction {
 		putContext(JSONDATA, rMap);
 		return JSON;
 	}
-	
-	//结账
+
+	// 结账
 	public String checkout() {
 		Map<String, Object> rMap = new HashMap<String, Object>();
 		CostRecord costRecord = recordService.getById(recordId);
@@ -110,14 +112,16 @@ public class CostRecordAction extends BaseAction {
 			recordService.updateRecord(costRecord);
 			rMap.put(STATUS, STATUS_SUCCESS);
 			String userName = "";
-			if("1".equals(costRecord.getUser())){
+			if ("1".equals(costRecord.getUser())) {
 				userName = "韩晓军";
-			}else if("2".equals(costRecord.getUser())){
+			} else if ("2".equals(costRecord.getUser())) {
 				userName = "胡丰盛";
-			}else if("3".equals(costRecord.getUser())){
+			} else if ("3".equals(costRecord.getUser())) {
 				userName = "李洪亮";
 			}
-			String msg = "【"+userName+"】发生于["+dateFormat.format(costRecord.getCostdate())+"]的消费为 "+costRecord.getCost()+" 元的消费记录已结帐！";
+			String msg = "【" + userName + "】发生于["
+					+ dateFormat.format(costRecord.getCostdate()) + "]的消费为 "
+					+ costRecord.getCost() + " 元的消费记录已结帐！";
 			rMap.put("msg", msg);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -126,20 +130,20 @@ public class CostRecordAction extends BaseAction {
 		putContext(JSONDATA, rMap);
 		return JSON;
 	}
-	
-	//到新增页面
+
+	// 到新增页面
 	public String addRecord() {
 		return "add";
 	}
 
-	//到编辑页面
+	// 到编辑页面
 	public String editRecord() {
 		CostRecord costRecord = recordService.getById(recordId);
 		putContext("record", costRecord);
 		return "edit";
 	}
 
-	//统计信息
+	// 统计信息
 	public String statistics() {
 		Map<String, Object> monthTotal = recordService.monthTotal(year, month);
 		putContext("monthTotal", monthTotal);
@@ -166,19 +170,25 @@ public class CostRecordAction extends BaseAction {
 		return "statistics";
 	}
 
-	//新增
+	// 图形报表
+	public String graphic() {
+
+		return "graphic";
+	}
+
+	// 新增
 	public String add() {
 		// 保存
 		recordService.addRecord(record);
 		return "redirectList";
 	}
 
-	//编辑
+	// 编辑
 	public String update() {
 		recordService.updateRecord(record);
 		return "redirectList";
 	}
-	
+
 	public CostRecord getRecord() {
 		return record;
 	}
@@ -257,6 +267,22 @@ public class CostRecordAction extends BaseAction {
 
 	public void setRecordId(Long recordId) {
 		this.recordId = recordId;
+	}
+
+	public Integer getPageSize() {
+		return pageSize;
+	}
+
+	public void setPageSize(Integer pageSize) {
+		this.pageSize = pageSize;
+	}
+
+	public Integer getCurrentPage() {
+		return currentPage;
+	}
+
+	public void setCurrentPage(Integer currentPage) {
+		this.currentPage = currentPage;
 	}
 
 }

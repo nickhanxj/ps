@@ -32,13 +32,15 @@ public class UserService {
 	
 	//�ж��û����Ƿ����
 	public boolean hasExist(String userName){
-		User user = new User();
-		user.setUserName(userName);
-		User u = userDao.getUserByCondition(user);
+		User u = userDao.getByName(userName);
 		if(u != null){
 			return true;
 		}
 		return false;
+	}
+	
+	public boolean trueNameHasExist(String trueName){
+		return userDao.trueNameHasExist(trueName);
 	}
 	
 	//�û���¼��Ȩ
