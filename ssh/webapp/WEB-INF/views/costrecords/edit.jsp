@@ -24,6 +24,37 @@
 	.textcenter{
 		text-align: center;
 	}
+	/*手机*/
+	 @media screen and (max-width:600px){
+	 	.body-container{
+	 		width: 100%;
+	 	}
+	 	.textright{
+			display: none;
+		}
+		#uploadDiv{
+	 		border: 1px solid lightblue; 
+	 		width: 100%; 
+	 		margin-left: auto; 
+	 		margin-right: auto;
+	 	}
+	 }
+	 /*平板*/
+	 @media screen and (min-width:600px) and (max-width:960px){
+	
+	 }
+	 /*PC*/
+	 @media screen and (min-width:960px){
+	 	#uploadDiv{
+	 		border: 1px solid lightblue; 
+	 		width: 50%; 
+	 		margin-left: auto; 
+	 		margin-right: auto;
+	 	}
+	 }
+	 #uploadDiv{
+ 		display: none;
+ 	}
 </style>
 </head>
 <body>
@@ -85,7 +116,7 @@
 						</tr>
 						<tr>
 							<td colspan="2"class="textcenter" >
-								<div id="uploadDiv" style="border: 1px solid lightblue; width: 50%; margin-left: auto; margin-right: auto;display: none;">
+								<div id="uploadDiv">
 									<div class="modal-header">
 						            <button type="button" class="close" 
 						               data-dismiss="modal" aria-hidden="true" onclick="javascript:$('#uploadDiv').slideUp(1000);">

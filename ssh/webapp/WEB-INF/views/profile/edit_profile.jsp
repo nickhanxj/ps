@@ -20,7 +20,7 @@
 	<s:include value="/view/header.jsp" />
 	<div class="main-container">
 		<div class="body-head">
-			<h1 class="body-head-title">Personal Information Center</h1>
+			<h1 class="body-head-title">Personal</h1>
 			<p class="body-head-text">You can check or edit your personal
 				information here!</p>
 		</div>
@@ -29,6 +29,7 @@
 				<ul class="nav nav-tabs">
 				  <li role="presentation" onclick="activeItem(this)"><a href="/user/personalCenter.html?id=${authUser.id}">基本信息</a></li>
 				  <li class="active" role="presentation" onclick="activeItem(this)"><a href="/user/editProfile.html?id=${authUser.id}">修改资料</a></li>
+				  <li role="presentation" onclick="activeItem(this)"><a href="/user/resetPasswordPage.html">修改密码</a></li>
 				  <li role="presentation" onclick="activeItem(this)"><a href="#">联系方式</a></li>
 				</ul>
 				<div style="text-align: left; padding-top: 5px;">

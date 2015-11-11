@@ -49,6 +49,7 @@
 			<result name="editProfile">/WEB-INF/views/profile/edit_profile.jsp</result>
 			<result name="reloadInfo" type="redirectAction">/userAction_personalCenter</result>
 			<result name="homepage" type="redirectAction">viewAction_homepage</result>
+			<result name="resetPassword">/WEB-INF/views/profile/resetPassword.jsp</result>
 		</action>
 		
 		<action name="resourceAction_*" class="com.demo.ssh.action.ResourceAction" method="{1}">

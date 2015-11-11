@@ -42,6 +42,26 @@ public class UserDao extends BaseDao<User>{
 		return false;
 	}
 	
+	public boolean validateBaseInfo(String email, String phone, String trueName){
+		StringBuffer hql = new StringBuffer("from User u where u.email= '"+email+"' and ");
+		if(StringUtils.isBlank(phone) && StringUtils.isBlank(trueName)){
+			return false;
+		}else{
+			hql.append(" (u.phoneNumber = '"+phone+"' or u.trueName = '"+trueName+"')");
+		} 
+		User user = (User) getSession().createQuery(hql.toString()).uniqueResult();
+		if(user == null){
+			return false;
+		}
+		return true;
+	}
+	
+	public User getUserByEmail(String email){
+		String hql = "from User u where u.email = '"+email+"'";
+		User user = (User) getSession().createQuery(hql).uniqueResult();
+		return user;
+	}
+	
 	
 
 	public User getUserByCondition(User user) {

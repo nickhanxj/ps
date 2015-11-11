@@ -28,8 +28,14 @@ public class AuthInterceptor extends AbstractInterceptor {
 	private static final long serialVersionUID = 1L;
 	private static final String UNAUTH = "unauth";
 	private String authUser = "authUser";
+	//消费记录action中需要权限验证的method
 	private static final String[] checkAuthMethod= {"addRecord","add","editRecord","update"};
+	//可以对消费记录进行增加和修改的用户
 	private static final String[] authedUser = {"韩晓军","胡丰盛","李洪亮"};
+	//可以对消费记录进行删除与结账的用户
+	private static final String[] authedUserForDelete = {"admin"};
+	//用户action中不需要权限拦截的method
+	private static final String[] userUnauthMethod= {"register","login","ajaxLogin","validateBaseInfo","resetPassword"};
 
 	@Override
 	public String intercept(ActionInvocation invocation) throws Exception {
@@ -52,7 +58,7 @@ public class AuthInterceptor extends AbstractInterceptor {
 					invocation.getInvocationContext().getContext().put(BaseAction.JSONDATA, "未授权的操作!");
 					return BaseAction.JSON;
 				}
-				if("admin".equals(user.getUserName())){
+				if(Arrays.asList(authedUserForDelete).contains(user.getUserName())){
 					return invocation.invoke();
 				}else{
 					invocation.getInvocationContext().getContext().put(BaseAction.JSONDATA, "未授权的操作!");
@@ -63,7 +69,7 @@ public class AuthInterceptor extends AbstractInterceptor {
 			}
 		}else if (action instanceof UserAction) {
 			String method = invocation.getProxy().getMethod();
-			if ("register".equals(method) || "login".equals(method) || "ajaxLogin".equals(method)) {// 如果是登录或注册则直接放行
+			if (Arrays.asList(userUnauthMethod).contains(method)) {
 				return invocation.invoke();
 			} else {
 				Map<String, Object> session = invocation.getInvocationContext()
