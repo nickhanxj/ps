@@ -30,6 +30,14 @@ public class UserService {
 		return userDao.getByName(userName);
 	}
 	
+	public boolean validateBaseInfo(String email, String phone, String trueName){
+		return userDao.validateBaseInfo(email, phone, trueName);
+	}
+	
+	public User getUserByEmail(String email){
+		return userDao.getUserByEmail(email);
+	}
+	
 	//�ж��û����Ƿ����
 	public boolean hasExist(String userName){
 		User u = userDao.getByName(userName);

@@ -7,9 +7,44 @@
 <jsp:include page="/view/context.jsp"/>
 <link href="/css/homepage.css" rel="stylesheet">
 <%@taglib prefix="s" uri="/struts-tags"%>
+<style type="text/css">
+	/*手机*/
+	@media screen and (max-width:600px){
+		#gotop{
+			display:none; 
+			position:fixed; 
+			right:20px; 
+			bottom:50px; 
+			cursor: pointer;
+		}
+		#quickLinks{
+			display: none;
+		}
+	}
+	/*平板*/
+	@media screen and (min-width:600px) and (max-width:960px){
+		#gotop{
+			display:none; 
+			position:fixed; 
+			right:20px; 
+			bottom:60px; 
+			cursor: pointer;
+		}
+	}
+	/*PC*/
+	@media screen and (min-width:960px){
+		#gotop{
+			display:none; 
+			position:fixed; 
+			right:20px; 
+			bottom:140px; 
+			cursor: pointer;
+		}
+	}
+</style>
 </head>
 <body>
-	<a id="gotop" title="Back to top" style="display:none; position:fixed; right:20px; bottom:140px; cursor: pointer;">
+	<a id="gotop" title="Back to top">
 		<img alt="" src="/images/gototop.png" width="40px" height="40px;">
 	</a>
 	<div class="foot vertically">
@@ -17,7 +52,7 @@
 		<div align="center">All rights deserved</div>
 		<div align="center" id="curTime">Author: Nick</div>
 		<div align="center">Current version: v1.0</div>
-		<div align="center">
+		<div align="center" id="quickLinks">
 			快速链接:
 			<a value="www.baidu.com" href="javascript:void(0)" onclick="redirectUrl(this)" class="footer-a">百度</a>
 			<a value="www.qq.com" href="javascript:void(0)" onclick="redirectUrl(this)" class="footer-a">腾讯</a>

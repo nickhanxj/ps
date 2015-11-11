@@ -68,10 +68,27 @@
 	height: 100%;
 }
 
-.body-head{
-	height: 200px;
-	background-color: #BED8E0;
-}
+/*手机*/
+	@media screen and (max-width:600px){
+		.body-head{
+			height: 100px;
+			background-color: #BED8E0;
+		}
+	}
+	/*平板*/
+	@media screen and (min-width:600px) and (max-width:960px){
+		.body-head{
+			height: 200px;
+			background-color: #BED8E0;
+		}
+	}
+	/*PC*/
+	@media screen and (min-width:960px){
+		.body-head{
+			height: 200px;
+			background-color: #BED8E0;
+		}
+	}
 
 .edit-input{
 	width: 150px;

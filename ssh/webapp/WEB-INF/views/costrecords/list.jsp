@@ -12,6 +12,69 @@
 <%@taglib prefix="s" uri="/struts-tags"%>
 <title>消费记录列表</title>
 <style type="text/css">
+	/*手机*/
+	@media screen and (max-width:600px){
+		#searchParamsForm{
+			display: none;
+		}
+		#searchParamsFormRes{
+			display: none;
+		}
+		.searchParam{
+			width: 150px; 
+			height:32px;
+		}
+		#dataForm{
+			display: none;
+		}
+		#normal{
+			display: none;
+		}
+	}
+	/*平板*/
+	@media screen and (min-width:600px) and (max-width:960px){
+		#searchParamsForm{
+			display: none;
+		}
+		#searchParamsFormResForPhone{
+			display: none;
+		}
+		.searchParam{
+			width: 140px; 
+			height:32px;
+		}
+		#advancedQuery{
+			display: none;
+		}
+		#dataFormForPhone{
+			display: none;
+		}
+		#forPhone{
+			display: none;
+		}
+	}
+	/*PC*/
+	@media screen and (min-width:960px){
+		#searchParamsFormRes{
+			display: none;
+		}
+		#searchParamsFormResForPhone{
+			display: none;
+		}
+		.searchParam{
+			width: 150px; 
+			height:32px;
+		}
+		#advancedQuery{
+			display: none;
+		}
+		#dataFormForPhone{
+			display: none;
+		}
+		#forPhone{
+			display: none;
+		}
+	}
 	table {
 		width: 100%;
 		border: 1px solid lightgray;
@@ -45,11 +108,6 @@
 	#searchDiv a:LINK {
 		color: gray;
 	}
-	
-	.searchParam{
-		width: 160px; 
-		height:32px;
-	}
 </style>
 </head>
 <body>
@@ -64,23 +122,74 @@
 		</div>
 		<div class="body-container">
 			<div style="border-bottom: 0px dotted gray; padding-bottom: 10px;" id="searchDiv">
-				<s:form action="/cost/list.html" theme="simple" id="searchForm">
-				<s:hidden name="currentPage" value="1" id="currentPageId"/>
 <%-- 				<s:hidden name="pageSize" value="1"/> --%>
-				<a href="/cost/addRecord.html"  class="btn btn-small">新增记录</a>
-				<a href="/cost/statistics.html" class="btn btn-small" id="view">查看统计信息</a>
-				<span style="float:right;">
-				<s:textfield name="startTime" readonly="true" onClick="WdatePicker()" cssClass="searchParam" placeholder="开始时间" id="startTime"/>
-				至<s:textfield name="endTime" readonly="true" onClick="WdatePicker()" cssClass="searchParam" placeholder="结束时间" id="endTime"/>
-				<s:select name="userName" list="#{0:'--选择消费人--',1:'韩晓军',2:'胡丰盛',3:'李洪亮'}" cssClass="searchParam" id="userName"></s:select>
-				<s:textfield name="costFor" placeholder="消费用途" id="costFor" cssClass="searchParam"/>
-				<s:submit value="查询" cssClass="btn btn-small" id="searchBtn"></s:submit>
-				<a href="javascript:void(0)" onclick="resetForm()" class="btn btn-small">重置</a>
+				<span id="normal">
+					<a href="/cost/addRecord.html"  class="btn btn-small">新增记录</a>
+					<a href="/cost/statistics.html" id="viewNormal" class="btn btn-small">统计信息</a>
 				</span>
-				</s:form>
+				<span id="forPhone">
+					<a href="/cost/addRecord.html"  class="btn btn-small">新增</a>
+					<a href="/cost/statistics.html" id="view" class="btn btn-small">统计</a>
+					<span id="advancedQuery"><a href="javascript:void(0)" onclick="showQueryForm()"  class="btn btn-small" id="queryText">高级查询</a></span>
+				</span>
+				<span style="float:right;" id="searchParamsForm">
+					<s:form action="/cost/list.html" theme="simple" id="searchForm">
+					<s:hidden name="currentPage" value="1" id="currentPageId"/>
+					<s:textfield name="startTime" readonly="true" onClick="WdatePicker()" cssClass="searchParam" placeholder="开始时间" id="startTime"/>
+					至<s:textfield name="endTime" readonly="true" onClick="WdatePicker()" cssClass="searchParam" placeholder="结束时间" id="endTime"/>
+					<s:select name="userName" list="#{0:'--选择消费人--',1:'韩晓军',2:'胡丰盛',3:'李洪亮'}" cssClass="searchParam" id="userName"></s:select>
+					<s:textfield name="costFor" placeholder="消费用途" id="costFor" cssClass="searchParam"/>
+					<s:submit value="查询" cssClass="btn btn-small" id="searchBtn"></s:submit>
+					<a href="javascript:void(0)" onclick="resetForm()" class="btn btn-small">重置</a>
+					</s:form>
+				</span>
+				<!-- 0 收起  1展开 -->
+				<input value="0" type="hidden" id="queryStatus">
+				<div id="searchParamsFormResForPhone" style="display: none;">
+					<s:form action="/cost/list.html" theme="simple" id="searchForm">
+					<s:hidden name="currentPage" value="1" id="currentPageId"/>
+					<table style="margin-top: 10px; width: 100%;">
+						<tr>
+							<td><s:textfield name="startTime" readonly="true" onClick="WdatePicker()" cssClass="searchParam" placeholder="开始时间" id="startTime"/></td>
+						</tr>
+						<tr>
+							<td><s:textfield name="endTime" readonly="true" onClick="WdatePicker()" cssClass="searchParam" placeholder="结束时间" id="endTime"/></td>
+						</tr>
+						<tr>
+							<td><s:select name="userName" list="#{0:'--选择消费人--',1:'韩晓军',2:'胡丰盛',3:'李洪亮'}" cssClass="searchParam" id="userName"></s:select></td>
+						</tr>
+						<tr>
+							<td><s:textfield name="costFor" placeholder="消费用途" id="costFor" cssClass="searchParam"/></td>
+						</tr>
+						<tr>
+							<td>
+							<s:submit value="查询" cssClass="btn btn-small" id="searchBtn"></s:submit>
+							<a href="javascript:void(0)" onclick="resetForm()" class="btn btn-small">重置</a>
+							</td>
+						</tr>
+					</table>
+					</s:form>
+				</div>
+				<span id="searchParamsFormRes">
+					<s:form action="/cost/list.html" theme="simple" id="searchForm">
+					<s:hidden name="currentPage" value="1" id="currentPageId"/>
+					<table style="margin-top: 10px; width: 100%;">
+						<tr>
+							<td><s:textfield name="startTime" readonly="true" onClick="WdatePicker()" cssClass="searchParam" placeholder="开始时间" id="startTime"/></td>
+							<td><s:textfield name="endTime" readonly="true" onClick="WdatePicker()" cssClass="searchParam" placeholder="结束时间" id="endTime"/></td>
+							<td><s:submit value="查询" cssClass="btn btn-small" id="searchBtn"></s:submit></td>
+						</tr>
+						<tr>
+							<td><s:select name="userName" list="#{0:'--选择消费人--',1:'韩晓军',2:'胡丰盛',3:'李洪亮'}" cssClass="searchParam" id="userName"></s:select></td>
+							<td><s:textfield name="costFor" placeholder="消费用途" id="costFor" cssClass="searchParam"/></td>
+							<td><a href="javascript:void(0)" onclick="resetForm()" class="btn btn-small">重置</a></td>
+						</tr>
+					</table>
+					</s:form>
+				</span>
 			</div>
 			<br>
-			<table>
+			<table id="dataForm">
 				<tr>
 					<th>消费人</th>
 					<th>消费金额（元）</th>
@@ -133,6 +242,45 @@
 							<c:if test="${record.status == 0}">
 							|&ensp;<a href="javascript:void(0)" onclick="checkout(${record.id},${record.user},'${record.costFor}','${record.cost}','${record.costdate}','${record.mark}')" title="结账"><span class="glyphicon glyphicon-shopping-cart"></span></a>
 							</c:if>
+						</td>
+					</tr>
+				</s:iterator>
+			</table>
+			<table id="dataFormForPhone">
+				<tr>
+					<th>消费人</th>
+					<th>消费金额（元）</th>
+					<th>消费用途</th>
+					<th>附件</th>
+					<th>操作</th>
+				</tr>
+				<s:iterator value="%{#records.rows}" var="record">
+					<tr>
+						<td>
+							<c:if test="${record.user == 1}">
+								韩晓军
+							</c:if>
+							<c:if test="${record.user == 2}">
+								胡丰盛
+							</c:if>
+							<c:if test="${record.user == 3}">
+								李洪亮
+							</c:if>
+						</td>
+						<td>${record.cost}</td>
+						<td>${record.costFor}</td>
+						<td>
+							<c:if test="${not empty record.attachment}">
+<%-- 								<a href="#" data-toggle="modal" data-target="#myModal" onclick="getAttachment('${record.attachment}')" title="点击查看 ">查看附件</a> --%>
+								
+									<a href="${record.attachment}" cmd="attachment"  title="${record.costdate}-${record.costFor}">查看</a>
+							</c:if>
+							<c:if test="${empty record.attachment}">
+								无
+							</c:if>
+						</td>
+						<td>
+							<a href="/cost/editRecord.html?recordId=${record.id}" title="修改"><span class="glyphicon glyphicon-pencil"></span></a>
 						</td>
 					</tr>
 				</s:iterator>
@@ -272,6 +420,7 @@
 		var month = date.getMonth() + 1;
 		var url = "/cost/statistics.html?year="+year+"&month="+month;
 		$("#view").attr('href',url);
+		$("#viewNormal").attr('href',url);
 	});
 	
 	function getAttachment(attachment){
@@ -361,5 +510,17 @@
 		$("#searchBtn").click();
 	}
 	
+	function showQueryForm(){
+		var status = $("#queryStatus").val();
+		if(status == 0){
+			$("#searchParamsFormResForPhone").slideDown(500);
+			$("#queryText").html("收起");
+			$("#queryStatus").val(1);
+		}else if(status == 1){
+			$("#searchParamsFormResForPhone").slideUp(500);
+			$("#queryText").html("高级查询");
+			$("#queryStatus").val(0);
+		}
+	}
 </script>
 </html>

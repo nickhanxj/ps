@@ -12,6 +12,42 @@
 <%@taglib prefix="s" uri="/struts-tags"%>
 <title>消费统计信息</title>
 <style type="text/css">
+	/*手机*/
+	@media screen and (max-width:600px){
+		#normal{
+			display: none;
+		}
+		.searchParam{
+			width: 70px; 
+			height:32px;
+		}
+		table tr,td{
+			border: 1px solid #9AC0CD;
+		}
+		#viewPersonCost{
+			display: none;
+		}
+	}
+	/*平板*/
+	@media screen and (min-width:600px) and (max-width:960px){
+		.searchParam{
+			width: 100px; 
+			height:32px;
+		}
+		#forPhone{
+			display: none;
+		}
+	}
+	/*PC*/
+	@media screen and (min-width:960px){
+		.searchParam{
+			width: 100px; 
+			height:32px;
+		}
+		#forPhone{
+			display: none;
+		}
+	}
 	table {
 		width: 100%; 
 		border: 2px solid #9AC0CD;
@@ -52,10 +88,6 @@
 		background-color: #E3E3E3;
 	}
 	
-	.searchParam{
-		width: 80px; 
-		height:32px;
-	}
 	
 /* 	#searchDiv a:VISITED { */
 /* 		color: gray; */
@@ -79,12 +111,27 @@
 		</div>
 		<div class="body-container">
 			<div style="width: 100%;"><a href="/cost/list.html" class="btn btn-small">&lt;&lt;返回列表</a></div>
-			<div style="width: 100%;text-align: right;">
+			<div style="width: 100%;text-align: right; margin-top: 5px;">
+				<span id="normal">
 				<s:form action="/cost/statistics.html" method="post">
-					<s:textfield name="year" placeholder="年份" cssClass="searchParam"/>年
-					<s:textfield name="month" placeholder="月份" cssClass="searchParam"/>月
+					<s:select name="year" placeholder="年份" cssClass="searchParam"  value="%{#request.year}"
+					list="#{0:'--选择年--',2010:'2010年',2011:'2011年',2012:'2012年',2013:'2013年',2014:'2014年',2015:'2015年',2016:'2016年',2017:'2017年',2018:'2018年',2019:'2019年',2020:'2020年'}">
+					</s:select>
+					<s:select name="month" placeholder="月份" cssClass="searchParam" value="%{#request.month}"
+					list="#{0:'--选择月--',1:'1月',2:'2月',3:'3月',4:'4月',5:'5月',6:'6月',7:'7月',8:'8月',9:'9月',10:'10月',11:'11月',12:'12月'}"></s:select>
 					<s:submit value="查看统计信息" cssClass="btn btn-small"/>
 				</s:form>
+				</span>
+				<span id="forPhone" style="text-align: right;">
+				<s:form action="/cost/statistics.html" method="post">
+					<s:select name="year" placeholder="年份" cssClass="searchParam" 
+					list="#{0:'--年--',2010:'2010年',2011:'2011年',2012:'2012年',2013:'2013年',2014:'2014年',2015:'2015年',2016:'2016年',2017:'2017年',2018:'2018年',2019:'2019年',2020:'2020年'}">
+					</s:select>
+					<s:select name="month" placeholder="月份" cssClass="searchParam" 
+					list="#{0:'--月--',1:'1月',2:'2月',3:'3月',4:'4月',5:'5月',6:'6月',7:'7月',8:'8月',9:'9月',10:'10月',11:'11月',12:'12月'}"></s:select>
+					<s:submit value="查看" cssClass="btn btn-small"/>
+				</s:form>
+				</span>
 			</div>
 			<br>
 				<div style="border: 2px solid lightblue; margin-top: 20px;">
@@ -116,19 +163,7 @@
 						</tr>
 					</table>
 				</div>
-				<%-- <div style="width: 100%; text-align: center; font-weight: bold;">
-					月总消费: <font color="green">${monthTotal.monthTotal}</font>&emsp;元
-				</div>
-				<div style="width: 100%; text-align: center; font-weight: bold;">
-					已结算消费总额: <font color="green">${monthTotal.monthTotal - monthTotal.monthTotalExceptSettled}</font>&emsp;元
-				</div>
-				<div style="width: 100%; text-align: center; font-weight: bold;">
-					扣除已结算月总消费: <font color="green">${monthTotal.monthTotalExceptSettled}</font>&emsp;元
-				</div>
-				<div style="width: 100%; text-align: center; font-weight: bold;">
-					人均消费：<font color="green">${perTotal}</font>&emsp;元
-				</div> --%>
-				<div style="width: 90%; text-align: right; font-weight: normal; margin-top: 10px; font-size: xx-small;color: blue;">
+				<div style="width: 80%; text-align: right; margin-left:auto; margin-right:auto; font-weight: normal; margin-top: 10px; font-size: xx-small;color: blue;">
 					注：已结算消费只做历史记录，以便查询。在人均消费和每人当月应付金额的统计中已经扣除已结算消费。
 				</div>
 				<div style=" width: 80%;margin-left: auto; margin-right: auto;">
@@ -140,9 +175,9 @@
 								<td class="textcenter" id="tempId">
 									<c:set value="${result.statisticResult.costTimes}" var="costtimes"/>
 									${costtimes}
-									(<a href="javascript:void(0);" id="${status.index}_tab_view"  title="点击查看" onclick="tableSlideDown('${status.index}_tab',this)">
+									<span id="viewPersonCost">(<a href="javascript:void(0);" id="${status.index}_tab_view"  title="点击查看" onclick="tableSlideDown('${status.index}_tab',this)">
 									查看
-									</a>)
+									</a>)</span>
 								</td>
 							</tr>
 							<tr>

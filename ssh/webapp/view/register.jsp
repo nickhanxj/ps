@@ -10,12 +10,47 @@
  <%@taglib prefix="s" uri="/struts-tags"%> 
 <script src="/js/jquery-validation-1.14.0/lib/jquery.js" type="text/javascript"></script>
 <script src="/js/jquery-validation-1.14.0/dist/jquery.validate.min.js" type="text/javascript"></script>
+<style type="text/css">
+	/*手机*/
+	@media screen and (max-width:600px){
+		#registerDiv{
+			margin-left: auto; 
+			margin-right: auto;
+			margin-top: 60px; 
+			width: 90%; 
+		}
+	}
+	/*平板*/
+	@media screen and (min-width:600px) and (max-width:960px){
+		#registerDiv{
+			width: 80%; 
+			margin-left: auto; 
+			margin-right: auto; 
+			margin-top: 80px; 
+			background: rgba(255,255,255, 0.5);
+			-webkit-border-radius: 15px; 
+			-moz-border-radius: 15px;
+		}
+	}
+	/*PC*/
+	@media screen and (min-width:960px){
+		#registerDiv{
+			width: 50%; 
+			margin-left: auto; 
+			margin-right: auto; 
+			margin-top: 100px; 
+			background: rgba(255,255,255, 0.5);
+			-webkit-border-radius: 15px; 
+			-moz-border-radius: 15px;
+		}
+	}
+</style>
 <title>新用户注册</title>
 </head>
 <body>
 	<s:include value="/view/header.jsp"/>
 <!-- 	<img alt="" src="/images/backImg.jpg" class="back-img"> -->
-	<div style="width: 50%; margin-left: auto; margin-right: auto; margin-top: 100px; background: rgba(255,255,255, 0.5);-webkit-border-radius: 15px;-moz-border-radius: 15px;">
+	<div id="registerDiv">
 	<div style="padding: 15px;">
 	<s:form action="/userAction_register" theme="simple">
 	<div style="font-size: 20px; font-family: cursive; font-weight: bold;  padding-bottom: 15px; padding-top: 10px; text-align: center; -webkit-border-radius: 15px;-moz-border-radius: 15px;">
@@ -71,6 +106,11 @@
 	function validatePwd(){
 		var originPwd = $("#originPwd").val();
 		var rePwd = $("#rePwd").val();
+		if(originPwd.length < 6){
+			$("#errorField").html("密码长度至少大于6位");	
+		}else{
+			$("#errorField").html("");
+		}
 		if(originPwd && rePwd){
 			if(originPwd != rePwd){
 				$("#errorField").html("两次输入密码不一致");	

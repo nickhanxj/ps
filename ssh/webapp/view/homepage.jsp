@@ -8,6 +8,35 @@
 <jsp:include page="/view/context.jsp"/>
 <link href="/css/homepage.css" rel="stylesheet">
 <%@taglib prefix="s" uri="/struts-tags"%>
+<style type="text/css">
+	/*手机*/
+	 @media screen and (max-width:600px){
+	 	.blog{
+	 		width: 100%; 
+	 		margin-left: auto; 
+	 		margin-right: auto; 
+	 		overflow: hidden;
+	 	}
+	 }
+	 /*平板*/
+	 @media screen and (min-width:600px) and (max-width:960px){
+	
+	 }
+	 /*PC*/
+	 @media screen and (min-width:960px){
+	 	.blog-container{
+	 		width: 100%; 
+	 		margin-left: auto; 
+	 		margin-right: auto; 
+	 		overflow: hidden;
+	 	}
+	 	.blog{
+	 		width: 30%; 
+	 		border: 5px solid #CCCCCC; 
+	 		padding: 5px;
+	 	}
+	 }
+</style>
 <title>Private Space</title>
 </head>
 <body>
@@ -22,11 +51,8 @@
 			</p>
 		</div>
 		<div class="body-container">
-			<div style="width: 100%; margin-left: auto; margin-right: auto; overflow: hidden;" >
-<!-- 				<div style="width: 30%; border: 1px dotted gray; height: 300px;"> -->
-<!-- 					photos -->
-<!-- 				</div> -->
-				<div style="width: 30%; border: 5px solid #103858; margin-left: 65%; padding: 5px;">
+			<div class="blog-container" >
+				<div class="blog">
 					<div style="font-weight: bold;  border-bottom: 1px solid gray;" >最新博客</div>
 					<s:iterator value="%{#blogList}" var="blog">
 						<div style="height: auto; border-bottom: 1px dashed gray; width:90%; margin-left: auto; margin-right: auto;">
@@ -38,10 +64,8 @@
 						 </div>
 					</s:iterator>
 				</div>
-				<div style="width: 30%; border: 1px dotted gray;  float: left;">
-					videos<br>
-				</div>
-				<div style="width: 30%; border: 5px solid #103858; margin-left: 65%; padding: 5px; float: left;">
+				<br>
+				<div  class="blog">
 					<div style="font-weight: bold;  border-bottom: 1px solid gray;" >博客阅读排行榜</div>
 					<s:iterator value="%{#hotList}" var="blog">
 						<div style="height: auto; border-bottom: 1px dashed gray; width:90%; margin-left: auto; margin-right: auto;">
