@@ -62,7 +62,7 @@
 			<s:textfield name="user.userName"  cssClass="form-control" placeholder="请输入名称"></s:textfield>
 		</div>
 		<div class="form-group" style="margin-top: 15px;">
-			<label for="name">用户名:</label> 
+			<label for="name">真实姓名:</label> 
 			<s:textfield name="user.trueName"  cssClass="form-control" placeholder="请输入真实姓名"></s:textfield>
 		</div>
 		<div >
