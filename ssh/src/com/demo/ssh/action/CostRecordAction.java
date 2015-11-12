@@ -174,7 +174,6 @@ public class CostRecordAction extends BaseAction {
 		List<Map<String, Object>> rList = new ArrayList<Map<String, Object>>();
 		for (int i = 1; i <= 3; i++) {
 			Map<String, Object> rMap = new HashMap<String, Object>();
-			Map<String, Object> statisticResult = recordService.statisticPerson(year, month, i + "");
 			String username = "";
 			if (i == 1) {
 				username = "韩晓军";
@@ -183,10 +182,18 @@ public class CostRecordAction extends BaseAction {
 			} else if (i == 3) {
 				username = "李洪亮";
 			}
-			Float costTotal = (Float) statisticResult.get("costTotal");
-			Float[] data = {0f,0f,0f,0f,0f,0f,0f,0f,0f,0f,costTotal,0f};
-			rMap.put("name", username);
+			Object[] data = new Object[12];
+			for(int j = 1; j <= 12; j++){
+				Map<String, Object> statisticResult = recordService.statisticPerson(year, j+"", i + "");
+				Map<String, Object> costTotal = (Map<String, Object>) statisticResult.get("costTotal");
+				Object total = costTotal.get("csum");
+				if(total == null){
+					total = 0;
+				}
+				data[j-1] = total;
+			}
 			rMap.put("data", data);
+			rMap.put("name", username);
 			rList.add(rMap);
 		}
 		putContext(JSONDATA, rList);

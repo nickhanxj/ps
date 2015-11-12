@@ -9,6 +9,11 @@
 <%@taglib prefix="s" uri="/struts-tags"%>
 <jsp:include page="/view/context.jsp"/>
 <script type="text/javascript" src="/js/Highcharts-4.0.3/js/highcharts.js"></script>
+<style type="text/css">
+	.btn{
+		background-color: #E3E3E3;
+	}
+</style>
 </head>
 <body>
 	<s:include value="/view/header.jsp"/>
@@ -20,6 +25,13 @@
 			</p>
 		</div>
 		<div class="body-container">
+			<div>
+				<span onclick="init('column')" class="btn">柱形</span>
+				<span onclick="init('line')" class="btn">折线</span>
+				<span onclick="init('spline')" class="btn">弧线</span>
+				<span onclick="init('scatter')" class="btn">点</span>
+				<span onclick="init('area')" class="btn">区域</span>
+			</div>
 			<div id="container" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
 		</div>
 	</div>
@@ -30,6 +42,10 @@
 var chart;
 
 $(function() {
+	init("column");
+});
+
+function init(type){
 	var data;
 	$.ajax({
 		url: "/cost/graphic.html?year=2015&month=11",
@@ -46,7 +62,7 @@ $(function() {
 
 		renderTo: 'container',
 
-		type: 'column'
+		type: type
 
 	},
 
@@ -156,8 +172,7 @@ $(function() {
 	series: data
 
 	});
-
-});
+}
 
 </script>
 </html>
