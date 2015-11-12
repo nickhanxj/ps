@@ -51,7 +51,7 @@ public class CostRecordDao extends BaseDao<CostRecord> {
 		
 		String costTotalSql = "select sum(cost) csum,avg(cost) cavg from t_costrecord tc where tc.user = "+user+byYearAndMonth;
 		Query costTotal = getSession().createSQLQuery(costTotalSql).setResultTransformer(CriteriaSpecification.ALIAS_TO_ENTITY_MAP);
-		rMap.put("costTotal", costTotal.uniqueResult());//消费总金额  日均消费
+		rMap.put("costTotal", costTotal.uniqueResult());//消费总金额 
 		
 		String settledSql = "select count(*) from t_costrecord tc where tc.status = 1 and tc.user = "+user+byYearAndMonth;
 		rMap.put("settled", getSession().createSQLQuery(settledSql).uniqueResult());//已结消费数

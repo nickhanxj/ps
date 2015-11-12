@@ -30,6 +30,13 @@
 var chart;
 
 $(function() {
+	$.ajax({
+		url: "/cost/graphic.html?year=2015&month=11",
+		type: "GET",
+		success: function(data){
+			console.debug(data);
+		}
+	});
 
 	chart = new Highcharts.Chart({
 

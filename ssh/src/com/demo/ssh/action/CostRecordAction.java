@@ -150,8 +150,7 @@ public class CostRecordAction extends BaseAction {
 		List<Map<String, Object>> rList = new ArrayList<Map<String, Object>>();
 		for (int i = 1; i <= 3; i++) {
 			Map<String, Object> rMap = new HashMap<String, Object>();
-			Map<String, Object> statisticResult = recordService
-					.statisticPerson(year, month, i + "");
+			Map<String, Object> statisticResult = recordService.statisticPerson(year, month, i + "");
 			String username = "";
 			if (i == 1) {
 				username = "韩晓军";
@@ -172,8 +171,26 @@ public class CostRecordAction extends BaseAction {
 
 	// 图形报表
 	public String graphic() {
-
-		return "graphic";
+		List<Map<String, Object>> rList = new ArrayList<Map<String, Object>>();
+		for (int i = 1; i <= 3; i++) {
+			Map<String, Object> rMap = new HashMap<String, Object>();
+			Map<String, Object> statisticResult = recordService.statisticPerson(year, month, i + "");
+			String username = "";
+			if (i == 1) {
+				username = "韩晓军";
+			} else if (i == 2) {
+				username = "胡丰盛";
+			} else if (i == 3) {
+				username = "李洪亮";
+			}
+			Float costTotal = (Float) statisticResult.get("costTotal");
+			Float[] data = {0f,0f,0f,0f,0f,0f,0f,0f,0f,0f,costTotal,0f};
+			rMap.put("name", username);
+			rMap.put("data", data);
+			rList.add(rMap);
+		}
+		putContext(JSONDATA, rList);
+		return JSON;
 	}
 
 	// 新增

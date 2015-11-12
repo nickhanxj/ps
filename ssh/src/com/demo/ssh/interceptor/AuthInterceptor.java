@@ -48,6 +48,9 @@ public class AuthInterceptor extends AbstractInterceptor {
 			String method = invocation.getProxy().getMethod();
 			Map<String, Object> session = invocation.getInvocationContext().getSession();
 			User user = (User) session.get(authUser);
+			if("graphic".equals(method)){
+				return invocation.invoke();
+			}
 			if(user == null){
 				invocation.getInvocationContext().getContext().put(Action.ERROR, redirectLoginMsg);
 				return Action.LOGIN;
