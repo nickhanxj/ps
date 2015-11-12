@@ -19,6 +19,7 @@ import com.opensymphony.xwork2.ActionContext;
 
 public class UserAction extends BaseAction {
 	private static final long serialVersionUID = 1L;
+	private static final String ERRORMSG = "errorMsg";
 
 	@Resource
 	private UserService userService;
@@ -40,17 +41,14 @@ public class UserAction extends BaseAction {
 			LoggerManager.error("新用户【" + user.getUserName() + "】注册失败：信息不完整！");
 		} else {
 			boolean hasExist = userService.hasExist(user.getUserName());
-			boolean trueNameHasExist = userService.trueNameHasExist(user
-					.getTrueName());
+			boolean trueNameHasExist = userService.trueNameHasExist(user.getTrueName());
 			if (hasExist) {
-				addActionError("该用户名已存在，请使用其他用户名！");
-				LoggerManager.error("新用户【" + user.getUserName()
-						+ "】注册失败：用户名已存在！");
+				putContext(ERRORMSG, "该用户名已存在，请使用其他用户名！");
+				LoggerManager.error("新用户【" + user.getUserName()+ "】注册失败：用户名已存在！");
 				return REGISTER;
 			} else if (trueNameHasExist) {
-				addActionError("该真实姓名已经注册过！");
-				LoggerManager.error("【" + user.getTrueName()
-						+ "】注册失败：该真实姓名已注册过！");
+				putContext(ERRORMSG, "该真实姓名已经注册过！");
+				LoggerManager.error("【" + user.getTrueName()+ "】注册失败：该真实姓名已注册过！");
 				return REGISTER;
 			} else {
 				try {
@@ -178,6 +176,11 @@ public class UserAction extends BaseAction {
 		selectedUser.setPhoneNumber(user.getPhoneNumber());
 		selectedUser.setSex(user.getSex());
 		selectedUser.setTrueName(user.getTrueName());
+		boolean trueNameHasExist = userService.trueNameHasExist(user.getTrueName());
+		if(trueNameHasExist){
+			putContext(ERRORMSG, "该真实姓名已经存在！");
+			return ERROR;
+		}
 		userService.updateUser(selectedUser);
 		LoggerManager.info("用户【" + user.getUserName() + "】更新个人信息成功("
 				+ new Date() + ")！");

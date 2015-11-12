@@ -8,6 +8,10 @@
 <jsp:include page="/view/context.jsp"/>
 <link href="/css/homepage.css" rel="stylesheet">
 <%@taglib prefix="s" uri="/struts-tags"%>
+<link href="/js/jquery-Upload/css/default.css" rel="stylesheet">
+<link href="/js/jquery-Upload/css/fileinput.css" rel="stylesheet">
+<script type="text/javascript" src="/js/jquery-Upload/js/fileinput.js"></script>
+<script type="text/javascript" src="/js/jquery-Upload/js/fileinput_locale_zh.js"></script>
 <!-- fileupload -->
 <title>File Upload</title>
 </head>
@@ -21,19 +25,11 @@
 			</p>
 		</div>
 		<div class="body-container" style="clear: both;">
-			<s:form action="/file/upload.html" method="post" enctype="multipart/form-data" theme="simple">
-				<s:hidden placeholder="File Name" name="fileName" id="fileName"/><br><br>
-				<div style="border: 2px dashed #99D3F5; width: 300px; height:30px; float: left; text-align: center;" id="showFile">
-				ssss
-				</div>
-				<div style="float: left; margin-left: 100px; margin-right: 10px;">
-					<a href="javascript:;" class="file" >select file
-		    			<input type="file" name="file" id="fileInput">
-					</a>
-				</div>
-					<s:submit value="upload" cssClass="file"></s:submit>
-				<br><br>
-			</s:form>
+			 <form enctype="multipart/form-data">
+				<div class="form-group">
+	                 <input id="file-1" type="file" multiple class="file" data-overwrite-initial="false" data-min-file-count="2">
+	             </div>
+             </form>
 		</div>
 	</div>
 	<s:include value="/view/footer.jsp"/>
@@ -46,6 +42,19 @@
 			$("#showFile").html(fileName);
 			console.debug(fileName);
 		});
+		
+		$("#file-1").fileinput({
+	        uploadUrl: '#', // you must set a valid URL here else you will get an error
+	        allowedFileExtensions : ['jpg', 'png','gif'],
+	        overwriteInitial: false,
+	        maxFileSize: 1000,
+	        maxFilesNum: 10,
+	        //allowedFileTypes: ['image', 'video', 'flash'],
+	        slugCallback: function(filename) {
+	            return filename.replace('(', '_').replace(']', '_');
+	        }
+		});
+
 	});
 </script>
 </html>

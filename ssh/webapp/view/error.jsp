@@ -13,7 +13,7 @@
 <body>
 	<h1 style="color: red;">Internal Error!</h1>
 	<p>
-		Error:${error}
+		Error:${errorMsg}
 	</p>
 	<a href="/view/homepage.jsp">&lt;Back to homepage</a>
 </body>

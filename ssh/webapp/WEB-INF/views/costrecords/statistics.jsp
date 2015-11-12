@@ -18,7 +18,7 @@
 			display: none;
 		}
 		.searchParam{
-			width: 70px; 
+			width: 35%; 
 			height:32px;
 		}
 		table tr,td{
@@ -46,6 +46,11 @@
 		}
 		#forPhone{
 			display: none;
+		}
+		.statisticItem{
+			width: 80%;
+			margin-left: auto; 
+			margin-right: auto;
 		}
 	}
 	table {
@@ -136,7 +141,7 @@
 			<br>
 				<div style="border: 2px solid lightblue; margin-top: 20px;">
 				<h3 style="text-align: center; width: 100%;"><b>统计信息（${cyear}年${cmonth}月）</b></h3>
-				<div style=" width: 80%;margin-left: auto; margin-right: auto;">
+				<div class="statisticItem">
 					<table>
 						<tr style="background-color: #8FBC8F">
 							<th class="textright">统计条目</th>
@@ -166,7 +171,7 @@
 				<div style="width: 80%; text-align: right; margin-left:auto; margin-right:auto; font-weight: normal; margin-top: 10px; font-size: xx-small;color: blue;">
 					注：已结算消费只做历史记录，以便查询。在人均消费和每人当月应付金额的统计中已经扣除已结算消费。
 				</div>
-				<div style=" width: 80%;margin-left: auto; margin-right: auto;">
+				<div class="statisticItem">
 					<s:iterator value="result" var="result" status="status">
 						<div>${result.user}:</div>
 						<table>

@@ -37,13 +37,13 @@
 	 	}
 	 }
 </style>
-<title>Private Space</title>
+<title>Personal Space</title>
 </head>
 <body>
 	<s:include value="/view/header.jsp"/>
 	<div class="main-container">
 		<div class="body-head">
-			<h1 class="body-head-title">Private Space</h1>  
+			<h1 class="body-head-title">Personal Space</h1>  
 			<p class="body-head-text">
 			This is a place where you can place your personal files(videos, photos, musics etc) and manage your resources,
 			and also you can take record your daily mood here and some interesting things of your daily life. It's a harbour

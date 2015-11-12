@@ -40,11 +40,11 @@
 		}
 		#function{
  			padding-top: 15px;
-			margin-right: 30px;
+			margin-right: 5px;
 		}
 		#logo{
-			margin-top: 5px;
-			margin-left: 30px;
+			margin-top: 0px;
+			margin-left: 5px;
 		}
 		.body-head-text{
 			padding-top: 0px;
@@ -60,7 +60,7 @@
 		}
 	}
 	/*平板*/
-	@media screen and (min-width:600px) and (max-width:960px){
+	@media screen and (min-width:600px) and (max-width:1140px){
 		#navItems{
 			display: none;
 		}
@@ -79,7 +79,7 @@
 		}
 	}
 	/*PC*/
-	@media screen and (min-width:960px){
+	@media screen and (min-width:1140px){
 		#navItemsRes{
 			display: none;
 		}
@@ -100,11 +100,11 @@
 				<a href="/view/homepage.html" style="color: white;">
 					<img alt="" src="/images/favicon_bak3.ico" width="30px;">
 					<span id="title">
-					Private Space
+					Personal Space
 					</span>
 				</a>
 			</div>
-			<div style="margin-left: 100px;" id="navItems" class="header-vertically header-content">
+			<div style="margin-left: 50px;" id="navItems" class="header-vertically header-content">
 				<a href="/blog/list.html" class="ele" id="blog"><span class="glyphicon glyphicon-paperclip" style="">&ensp;</span>博客</a>
 				<a href="/file/album.html" class="ele" id="photo"><span class="glyphicon glyphicon-picture">&ensp;</span>相册</a>
 				<a href="/resource/music.html" class="ele" id="music"><span class="glyphicon glyphicon-music">&ensp;</span>音乐</a>

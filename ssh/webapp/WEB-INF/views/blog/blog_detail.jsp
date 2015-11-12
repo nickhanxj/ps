@@ -10,6 +10,20 @@
 <jsp:include page="/view/context.jsp"/>
 <link href="/css/homepage.css" rel="stylesheet">
 <%@taglib prefix="s" uri="/struts-tags"%>
+<style type="text/css">
+	/*手机*/
+	 @media screen and (max-width:600px){
+	 
+	 }
+	 /*平板*/
+	 @media screen and (min-width:600px) and (max-width:960px){
+	
+	 }
+	 /*PC*/
+	 @media screen and (min-width:960px){
+	 
+	 }
+</style>
 </head>
 <body>
 	<s:include value="/view/header.jsp"/>
@@ -30,15 +44,15 @@
 			         <b>${blog.title}</b>
 			      </h3>
 			   </div>
-			   <div class="panel-body">
+			   <div class="panel-body" style="word-break: break-all;word-wrap: break-word;">
 			  		${blog.content}
 			   </div>
 			   <hr>
 			   <div class="panel panel-default">
 			   	 <div class="panel-body" style="font-style: italic; font-weight: bold;">
-			   		<div style="color: #36648B; margin-left: 100px; margin-right: 100px;" >
+			   		<div style="color: #36648B; margin-left: 0px; margin-right: 0px;" >
 			   			<b>阅读(${blog.readedTimes})</b>
-	   					<span style="color: black;font-weight:normal;margin-left: 200px;">posted @ ${blog.publishDate} by *${blog.user.userName}*</span>
+	   					<span style="color: black;font-weight:normal;margin-left: 20px;">posted @ ${blog.publishDate} by *${blog.user.userName}*</span>
 	   					<c:if test="${not empty blog.lastEditDate}">
 	   						<span style="color: black;font-weight:normal;">(last edit: ${blog.lastEditDate})</span>
 	   					</c:if>
@@ -46,19 +60,18 @@
 	   					<s:set value="%{#blog.user.id}" var="bloguser"/>
 	   					<s:set value="%{#session.authUser.id}" var="sessionuser"/>
 	   					<c:if test="${bloguser == sessionuser}">
-		   					<a href="/blog/edit.html?id=${blog.id}" style="float: right; font-style: normal; color: red;" title="edit your blog--${blog.title}"><span class="glyphicon glyphicon-pencil"></span></a>
+		   					<a href="/blog/edit.html?id=${blog.id}" style="float: right; font-style: normal; color: red;" title="编辑博客--${blog.title}"><span class="glyphicon glyphicon-pencil"></span></a>
 	   					</c:if>
 			   		</div>
 			   		<br>
-			   		<div class="alert alert-success" id="successMsg" style="display: none;"></div>
-			   		<div class="alert alert-danger" id="failedMsg" style="display: none;"></div>
-			   		<div style="float:right;margin-right: 100px;">
+			   		<div style="float:right;margin-right: 0px;">
 						<span id="praise" onclick="doAction('1')" class="glyphicon glyphicon-thumbs-up" style="margin-left: 30px; cursor:pointer;" title="praise">(${blog.praisedTimes})</span>
 						<span id="disSuggest" onclick="doAction('2')" class="glyphicon glyphicon-thumbs-down" style="margin-left: 30px; cursor:pointer;" title="disSuggest">(${blog.disSuggestTimes})</span>
-<%-- 			   			<span id="share" onclick="doAction('share')" class="glyphicon glyphicon-share" style="margin-left: 30px; cursor:pointer;" title="share">(${blog.shredTimes})</span> --%>
 			   			<span id="enshrine" onclick="doAction('enshrine')" style="margin-left: 30px; cursor:pointer;" class="glyphicon glyphicon-book" title="enshrine">(${blog.enshrineTimes})</span>
 			   			<span style="font-family: 'Microsoft YaHei', arial, tahoma, 宋体, sans-serif;"><div id="ckepop"></span>  
 			   			<br>
+			   			<div class="alert alert-success" id="successMsg" style="display: none;"></div>
+			   			<div class="alert alert-danger" id="failedMsg" style="display: none;"></div>
 						<span class="jiathis_txt" style="font-style: normal;">分享到：</span>  
 						<a class="jiathis_button_weixin" style="font-style: normal;">微信</a>   
 						<a href="http://www.jiathis.com/share" style="font-style: normal;"  class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>  
@@ -116,16 +129,16 @@
 					   	 		<s:iterator value="%{#comments}" var="comment" status="status">
 						   	 		<div class="comments">
 						   	 			<div><a href="#">${comment.user.userName}</a>&emsp;${comment.pubTime}</div>
-						   	 			<span style="margin-left: 50px;">${comment.content}</span>
+						   	 			<p>${comment.content}</p>
 						   	 			<br><span style="float:right;">#${status.count}</span>
 						   	 		</div>
 					   	 		</s:iterator>
 				   	 		</s:else>
 				   	 	<br>
 				   	 	<b>发表我的评论:</b>
-				   	 	<div style="padding-left: 100px;">
+				   	 	<div class="mycommentarea">
 				   	 		<s:form theme="simple" action="/blog/saveCommnets.html?id=%{#blog.id}">
-						   	 	<s:textarea cols="100" rows="5" name="comment.content"></s:textarea>
+						   	 	<s:textarea wrap="" name="comment.content" cssClass="newComment"></s:textarea>
 						   	 	<br>
 						   	 	<s:if test="#session.authUser != null">
 							   	 	<s:submit value="发表评论" cssClass="btn"></s:submit>

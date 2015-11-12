@@ -92,7 +92,7 @@
 			已有账号？直接<a href="/view/login.html">登录</a>
 		</div>
 		<div style="color: red;" align="center" id="errorField">
-			<s:actionerror/>
+			${errorMsg}
 		</div>
 		<div style="color: green;" align="center">
 			<s:actionmessage/>
