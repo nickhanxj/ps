@@ -196,7 +196,14 @@ public class CostRecordAction extends BaseAction {
 			rMap.put("name", username);
 			rList.add(rMap);
 		}
-		putContext(JSONDATA, rList);
+		putJson(rList);
+		return JSON;
+	}
+	
+	//时间轴统计图数据
+	public String timing(){
+		ArrayList day = recordService.statisticCostByDay(year, month);
+		putJson(day);
 		return JSON;
 	}
 
@@ -211,6 +218,16 @@ public class CostRecordAction extends BaseAction {
 	public String update() {
 		recordService.updateRecord(record);
 		return "redirectList";
+	}
+	
+	//时间走势图
+	public String timeChart(){
+		return "timeChart";
+	}
+	
+	//个人消费图
+	public String perPersonCostChart(){
+		return "perPersonCostChart";
 	}
 
 	public CostRecord getRecord() {

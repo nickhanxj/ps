@@ -88,6 +88,8 @@
 			<result name="statistics">/WEB-INF/views/costrecords/statistics.jsp</result>
 			<result name="edit">/WEB-INF/views/costrecords/edit.jsp</result>
 			<result name="graphic">/WEB-INF/views/costrecords/graphics.jsp</result>
+			<result name="timeChart">/WEB-INF/views/costrecords/timechart.jsp</result>
+			<result name="perPersonCostChart">/WEB-INF/views/costrecords/personcostchart.jsp</result>
 		</action>
 	</package>
 </struts>

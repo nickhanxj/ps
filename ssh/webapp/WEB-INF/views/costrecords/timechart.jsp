@@ -9,6 +9,11 @@
 <%@taglib prefix="s" uri="/struts-tags"%>
 <jsp:include page="/view/context.jsp"/>
 <script type="text/javascript" src="/js/Highcharts-4.0.3/js/highcharts.js"></script>
+<style type="text/css">
+	.btn{
+		background-color: #E3E3E3;
+	}
+</style>
 </head>
 <body>
 	<s:include value="/view/header.jsp"/>
@@ -20,6 +25,7 @@
 			</p>
 		</div>
 		<div class="body-container">
+			<div style="width: 100%;"><a href="/cost/list.html" class="btn btn-small">&lt;&lt;返回列表</a></div>
 			<div id="container" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
 		</div>
 	</div>

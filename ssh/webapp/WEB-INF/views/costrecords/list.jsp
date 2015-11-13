@@ -125,7 +125,9 @@
 <%-- 				<s:hidden name="pageSize" value="1"/> --%>
 				<span id="normal">
 					<a href="/cost/addRecord.html"  class="btn btn-small">新增记录</a>
-					<a href="/cost/statistics.html" id="viewNormal" class="btn btn-small">统计信息</a>
+					<a href="/cost/statistics.html" id="viewNormal" class="btn btn-small">表格统计信息</a>
+					<a href="/cost/perPersonCostChart.html" id="viewNormal" class="btn btn-small">每人/月消费统计图</a>
+					<a href="/cost/timeChart.html" id="viewNormal" class="btn btn-small">日消费折线图</a>
 				</span>
 				<span id="forPhone">
 					<a href="/cost/addRecord.html"  class="btn btn-small">新增</a>

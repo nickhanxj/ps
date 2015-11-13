@@ -1,5 +1,6 @@
 package com.demo.ssh.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -16,6 +17,7 @@ import com.demo.ssh.util.PageUtil;
 
 @Service
 @Transactional
+@SuppressWarnings("all")
 public class CostRecordService {
 	@Resource
 	private CostRecordDao recordDao;
@@ -38,6 +40,10 @@ public class CostRecordService {
 	
 	public Map<String, Object> statisticPerson(String year, String month, String user){
 		return recordDao.statisticPerson(year, month, user);
+	}
+	
+	public ArrayList statisticCostByDay(String year, String month){
+		return recordDao.statisticCostByDay(year, month);
 	}
 	
 	public Page<CostRecord> selectListByPage(int currentPage, int pageSize, Map<String, String> params){

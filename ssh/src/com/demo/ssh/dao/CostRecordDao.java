@@ -1,6 +1,7 @@
 package com.demo.ssh.dao;
 
-import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,6 +9,7 @@ import java.util.Map;
 import org.hibernate.Query;
 import org.hibernate.SQLQuery;
 import org.hibernate.criterion.CriteriaSpecification;
+import org.hibernate.transform.ResultTransformer;
 import org.springframework.stereotype.Repository;
 
 import com.demo.ssh.base.BaseDao;
@@ -23,6 +25,13 @@ public class CostRecordDao extends BaseDao<CostRecord> {
 	
 	public void updateRecord(CostRecord record){
 		getSession().update(record);
+	}
+	
+	//统计每天消费
+	public ArrayList statisticCostByDay(String year, String month){
+		String sql = "select sum(t.cost) from t_costrecord t GROUP BY t.costdate order by t.costdate";
+		ArrayList result = (ArrayList)getSession().createSQLQuery(sql).list();
+		return result;
 	}
 	
 	//计算月消费总额
