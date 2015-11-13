@@ -170,17 +170,17 @@ public class UserAction extends BaseAction {
 	}
 
 	public String updateUser() {
+		boolean trueNameHasExist = userService.trueNameHasExist(user.getTrueName());
+		if(trueNameHasExist){
+			putContext(ERRORMSG, "该真实姓名已经存在！");
+			return ERROR;
+		}
 		User selectedUser = userService.getUserByid(id);
 		selectedUser.setUserName(user.getUserName());
 		selectedUser.setEmail(user.getEmail());
 		selectedUser.setPhoneNumber(user.getPhoneNumber());
 		selectedUser.setSex(user.getSex());
 		selectedUser.setTrueName(user.getTrueName());
-		boolean trueNameHasExist = userService.trueNameHasExist(user.getTrueName());
-		if(trueNameHasExist){
-			putContext(ERRORMSG, "该真实姓名已经存在！");
-			return ERROR;
-		}
 		userService.updateUser(selectedUser);
 		LoggerManager.info("用户【" + user.getUserName() + "】更新个人信息成功("
 				+ new Date() + ")！");

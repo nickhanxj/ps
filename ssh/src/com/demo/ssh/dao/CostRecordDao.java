@@ -34,6 +34,16 @@ public class CostRecordDao extends BaseDao<CostRecord> {
 		return result;
 	}
 	
+	//统计每人每天消费--用于图表展示
+	public Map<String, Object> dailyCosyByPerson(String year, String month, String user){
+		String byYearAndMonth = " and year(tc.costdate) = "+year+" and month(tc.costdate) = "+month +" and tc.deleted = 0";
+		Map<String, Object> rMap = new HashMap<String, Object>();
+		String costTotalSql = "select sum(cost) csum,avg(cost) cavg from t_costrecord tc where tc.user = "+user+byYearAndMonth;
+		Query costTotal = getSession().createSQLQuery(costTotalSql).setResultTransformer(CriteriaSpecification.ALIAS_TO_ENTITY_MAP);
+		rMap.put("costTotal", costTotal.uniqueResult());//消费总金额 
+		return rMap;
+	}
+	
 	//计算月消费总额
 	public Map<String, Object> monthTotal(String year, String month){
 		Map<String, Object> rMap = new HashMap<String, Object>();
@@ -80,9 +90,19 @@ public class CostRecordDao extends BaseDao<CostRecord> {
 		}
 		rMap.put("unsettledCost", result2);//未结消费金额
 		
-		String costRecordSql = "select * from t_costrecord tc where tc.user = "+user+byYearAndMonth;//当月消费记录
+		String costRecordSql = "select * from t_costrecord tc where tc.user = "+user+byYearAndMonth + " order by tc.costdate desc";//当月消费记录
 		List records = getSession().createSQLQuery(costRecordSql).addEntity(CostRecord.class).list();
 		rMap.put("records", records);
 		return rMap;
+	}
+	
+	//检测前一天是否有消费记录
+	public boolean hasPreDayRecord(String date){
+		String hql = "from CostRecord cr where cr.costdate = '"+date+"'";
+		List list = getSession().createQuery(hql).list();
+		if(list.size() > 0){
+			return true;
+		}
+		return false;
 	}
 }

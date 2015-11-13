@@ -1,7 +1,6 @@
 package com.demo.ssh.action;
 
 import java.io.File;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,8 +16,8 @@ import com.demo.ssh.entity.Album;
 import com.demo.ssh.entity.Photo;
 import com.demo.ssh.service.AlbumService;
 import com.demo.ssh.service.PhotoService;
-import com.opensymphony.xwork2.ActionContext;
 
+@SuppressWarnings("all")
 public class FileAction extends BaseAction {
 	private static final long serialVersionUID = 1L;
 	private static final String PHOTO_LIST = "phptolist";

@@ -74,7 +74,7 @@
 						<tr>
 							<td class="textright">消费人：</td>
 							<td class="textcenter">
-								<s:select name="record.user" list="#{1:'韩晓军',2:'胡丰盛',3:'李洪亮'}" cssStyle="width: 160px;"></s:select>
+								<s:select name="record.user" list="#{0:'--请选择--',1:'韩晓军',2:'胡丰盛',3:'李洪亮'}" cssStyle="width: 160px;"></s:select>
 							</td>
 						</tr>
 						<tr>

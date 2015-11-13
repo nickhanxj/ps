@@ -205,6 +205,9 @@
 				<s:iterator value="%{#records.rows}" var="record">
 					<tr>
 						<td>
+							<c:if test="${record.user == 0}">
+								系统提示
+							</c:if>
 							<c:if test="${record.user == 1}">
 								韩晓军
 							</c:if>
@@ -216,7 +219,14 @@
 							</c:if>
 						</td>
 						<td>${record.cost}</td>
-						<td>${record.costFor}</td>
+						<td>
+							<c:if test="${record.user == 0}">
+								/
+							</c:if>
+							<c:if test="${record.user != 0}">
+								${record.costFor}
+							</c:if>
+						</td>
 						<td>${record.costdate}</td>
 						<td>
 							<c:if test="${record.status == 0}">
@@ -226,7 +236,14 @@
 								<font color="green">已结</font>
 							</c:if>
 						</td>
-						<td>${record.mark}</td>
+						<td>
+							<c:if test="${record.user == 0}">
+								当日无消费记录
+							</c:if>
+							<c:if test="${record.user != 0}">
+								${record.mark}
+							</c:if>
+						</td>
 						<td>
 							<c:if test="${not empty record.attachment}">
 <%-- 								<a href="#" data-toggle="modal" data-target="#myModal" onclick="getAttachment('${record.attachment}')" title="点击查看 ">查看附件</a> --%>

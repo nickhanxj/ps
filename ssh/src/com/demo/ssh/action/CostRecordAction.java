@@ -20,6 +20,7 @@ import com.demo.ssh.service.CostRecordService;
 import com.demo.ssh.util.Page;
 import com.opensymphony.xwork2.ActionContext;
 
+@SuppressWarnings("all")
 public class CostRecordAction extends BaseAction {
 	private static final long serialVersionUID = 1L;
 	@Resource
@@ -184,7 +185,7 @@ public class CostRecordAction extends BaseAction {
 			}
 			Object[] data = new Object[12];
 			for(int j = 1; j <= 12; j++){
-				Map<String, Object> statisticResult = recordService.statisticPerson(year, j+"", i + "");
+				Map<String, Object> statisticResult = recordService.dailyCosyByPerson(year, j+"", i + "");
 				Map<String, Object> costTotal = (Map<String, Object>) statisticResult.get("costTotal");
 				Object total = costTotal.get("csum");
 				if(total == null){

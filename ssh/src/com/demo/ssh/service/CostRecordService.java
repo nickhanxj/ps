@@ -46,6 +46,10 @@ public class CostRecordService {
 		return recordDao.statisticCostByDay(year, month);
 	}
 	
+	public Map<String, Object> dailyCosyByPerson(String year, String month, String user){
+		return recordDao.dailyCosyByPerson(year, month, user);
+	}
+	
 	public Page<CostRecord> selectListByPage(int currentPage, int pageSize, Map<String, String> params){
 		StringBuffer extraParams = new StringBuffer();
 		if(StringUtils.isNotBlank(params.get("startTime"))){
@@ -72,5 +76,9 @@ public class CostRecordService {
 	
 	public CostRecord getById(Long id){
 		return recordDao.getById(CostRecord.class, id);
+	}
+	
+	public boolean hasPreDayRecord(String date){
+		return recordDao.hasPreDayRecord(date);
 	}
 }

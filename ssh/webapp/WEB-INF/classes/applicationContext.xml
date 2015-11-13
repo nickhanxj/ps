@@ -48,4 +48,5 @@
     	<property name="sessionFactory" ref="sessionFactory"/>
     </bean>
     <tx:annotation-driven transaction-manager="txManager" proxy-target-class="true"/>
+    <import resource="classpath:quartz.xml"/>
 </beans>
