@@ -69,8 +69,7 @@ public class CostRecordService {
 		page.setCurrentPage(currentPage);
 		page.setPageSize(pageSize);
 		page.setCustomizedHql(baseHql.toString());
-		PageUtil<CostRecord> pageUtil = new PageUtil<CostRecord>();
-		Page<CostRecord> resultPage = pageUtil.selectByPage(page, CostRecord.class);
+		Page<CostRecord> resultPage = recordDao.selectByPage(page, CostRecord.class);
 		return resultPage;
 	}
 	

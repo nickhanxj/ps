@@ -10,8 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.demo.ssh.dao.BlogDao;
 import com.demo.ssh.entity.Blog;
-import com.nick.page.pageutil.Page;
-import com.nick.page.pageutil.PageUtil;
+import com.demo.ssh.util.Page;
 
 @Transactional
 @Service
@@ -52,8 +51,7 @@ public class BlogService {
 		page.setCurrentPage(currentPage);
 		page.setPageSize(pageSize);
 		page.setCustomizedHql("from Blog b order by b.publishDate desc");
-		PageUtil<Blog> pageUtil = new PageUtil<Blog>();
-		Page<Blog> resultPage = pageUtil.selectByPage(page, Blog.class);
+		Page<Blog> resultPage = dao.selectByPage(page, Blog.class);
 		return resultPage;
 	}
 	
@@ -62,8 +60,7 @@ public class BlogService {
 		page.setCurrentPage(currentPage);
 		page.setPageSize(pageSize);
 		page.setCustomizedHql("from Blog b where b.readedTimes >= 50 order by b.readedTimes desc");
-		PageUtil<Blog> pageUtil = new PageUtil<Blog>();
-		Page<Blog> resultPage = pageUtil.selectByPage(page, Blog.class);
+		Page<Blog> resultPage = dao.selectByPage(page, Blog.class);
 		return resultPage;
 	}
 	

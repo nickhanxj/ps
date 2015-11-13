@@ -16,7 +16,7 @@ import com.demo.ssh.entity.User;
 import com.demo.ssh.service.BlogCommentService;
 import com.demo.ssh.service.BlogPraiseService;
 import com.demo.ssh.service.BlogService;
-import com.nick.page.pageutil.Page;
+import com.demo.ssh.util.Page;
 import com.opensymphony.xwork2.ActionContext;
 
 public class UnAuthedResourceAction extends BaseAction {

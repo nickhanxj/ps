@@ -21,7 +21,7 @@ xsi:schemaLocation="
 	<bean id="checkTime" class="org.springframework.scheduling.quartz.CronTriggerBean">
 		<property name="jobDetail" ref="jobTask"/>
 		<!-- 每天晚上12点30执行 -->
-		<property name="cronExpression" value="50 20 13 * * ?"></property>
+		<property name="cronExpression" value="0 0 1 * * ?"></property>
 	</bean>
 	
 	<!-- 总管理类 -->
