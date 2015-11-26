@@ -65,6 +65,7 @@ public class CostRecordAction extends BaseAction {
 				.getRealPath("/upload/costrecord");
 		File destFile = new File(targetFolder, UUID.randomUUID().toString()
 				+ getExtention(fileName));
+		System.out.println("targetFolder: "+targetFolder);
 		try {
 			FileUtils.copyFile(file, destFile);
 			rMap.put(STATUS, STATUS_SUCCESS);
@@ -168,6 +169,32 @@ public class CostRecordAction extends BaseAction {
 		putContext("cmonth", month);
 		putContext("result", rList);
 		return "statistics";
+	}
+	
+	// 统计信息
+	public String statisticsForEmail() {
+		Map<String, Object> monthTotal = recordService.monthTotal(year, month);
+		putContext("monthTotal", monthTotal);
+		List<Map<String, Object>> rList = new ArrayList<Map<String, Object>>();
+		for (int i = 1; i <= 3; i++) {
+			Map<String, Object> rMap = new HashMap<String, Object>();
+			Map<String, Object> statisticResult = recordService.statisticPerson(year, month, i + "");
+			String username = "";
+			if (i == 1) {
+				username = "韩晓军";
+			} else if (i == 2) {
+				username = "胡丰盛";
+			} else if (i == 3) {
+				username = "李洪亮";
+			}
+			rMap.put("user", username);
+			rMap.put("statisticResult", statisticResult);
+			rList.add(rMap);
+		}
+		putContext("cyear", year);
+		putContext("cmonth", month);
+		putContext("result", rList);
+		return "statisticsForEmail";
 	}
 
 	// 图形报表

@@ -50,15 +50,17 @@
 
 .foot{
 	background-color: #2F3E4D; 
+/* 	background-color: #FFF;  */
 	height: 130px;
 	width: 100%;
-	color: white;
+	color: gray;
 /* 	position: absolute; */
+/* 	border-top: 1px solid lightgray; */
 	margin-bottom: 0px;
 }
 
 .footer-a{
-	color: white;
+	color: gray;
 	margin-left: 10px;
 }
 

@@ -52,12 +52,14 @@
 		<div align="center">All rights deserved</div>
 		<div align="center" id="curTime">Author: Nick</div>
 		<div align="center">Current version: v1.0</div>
+<!-- 		<div align="center"><img alt="" src="/images/QRCode.png" height="60px"> </div> -->
 		<div align="center" id="quickLinks">
 			快速链接:
 			<a value="www.baidu.com" href="javascript:void(0)" onclick="redirectUrl(this)" class="footer-a">百度</a>
 			<a value="www.qq.com" href="javascript:void(0)" onclick="redirectUrl(this)" class="footer-a">腾讯</a>
 			<a value="www.bing.com" href="javascript:void(0)" onclick="redirectUrl(this)" class="footer-a">必应</a>
 			<a value="www.sina.com" href="javascript:void(0)" onclick="redirectUrl(this)" class="footer-a">新浪</a>
+			<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1256822752'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s4.cnzz.com/z_stat.php%3Fid%3D1256822752%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
 		</div>
 	</div>
 </body>

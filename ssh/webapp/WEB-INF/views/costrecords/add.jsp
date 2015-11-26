@@ -126,7 +126,7 @@
 										    <div class="progress progress-striped active" role="progressbar" aria-valuemin="10" aria-valuemax="100" aria-valuenow="0"><div id="weixin_progress" class="progress-bar progress-bar-success" style="width:0%;"></div></div>  
 										    <div class="caption" align="center">  
 										    <span id="weixin_upload" class="btn btn-primary fileinput-button">  
-										    <span>上传</span>  
+										    <span>选择图片</span>  
 										    <input type="file" id="weixin_image" name="file" multiple>  
 										    </span>  
 										    <a id="weixin_cancle" href="javascript:void(0)" class="btn btn-warning" role="button" onclick="cancleUpload('weixin')" style="display:none">删除</a>  

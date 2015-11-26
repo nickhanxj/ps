@@ -1,5 +1,7 @@
 package com.demo.ssh.service;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -36,6 +38,10 @@ public class UserService {
 	
 	public User getUserByEmail(String email){
 		return userDao.getUserByEmail(email);
+	}
+	
+	public List<User> getAllUsers(){
+		return userDao.selectAll(User.class);
 	}
 	
 	//�ж��û����Ƿ����
