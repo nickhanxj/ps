@@ -92,5 +92,10 @@
 			<result name="timeChart">/WEB-INF/views/costrecords/timechart.jsp</result>
 			<result name="perPersonCostChart">/WEB-INF/views/costrecords/personcostchart.jsp</result>
 		</action>
+		<action name="backendAction_*" class="com.demo.ssh.action.BackendAction" method="{1}">
+			<result name="backend">/WEB-INF/views/backend/backend.jsp</result>
+			<result name="costgroup">/WEB-INF/views/backend/costgroup.jsp</result>
+			<result name="reloadCostgroup" type="redirectAction">backendAction_costgroup</result>
+		</action>
 	</package>
 </struts>

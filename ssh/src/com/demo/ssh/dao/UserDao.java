@@ -33,6 +33,15 @@ public class UserDao extends BaseDao<User>{
 		return null;
 	}
 	
+	public User getByTrueName(String trueName){
+		String hql = "from User u where u.trueName = '"+trueName+"'";
+		List list = getSession().createQuery(hql).list();
+		if(list.size() > 0){
+			return (User) list.get(0);
+		}
+		return null;
+	}
+	
 	public boolean trueNameHasExist(String trueName){
 		String hql = "from User u where u.trueName = '"+trueName+"'";
 		List list = getSession().createQuery(hql).list();

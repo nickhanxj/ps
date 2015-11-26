@@ -31,6 +31,10 @@ public class UserService {
 	public User getUserByName(String userName){
 		return userDao.getByName(userName);
 	}
+
+	public User getUserByTrueName(String trueName){
+		return userDao.getByTrueName(trueName);
+	}
 	
 	public boolean validateBaseInfo(String email, String phone, String trueName){
 		return userDao.validateBaseInfo(email, phone, trueName);
