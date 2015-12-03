@@ -61,5 +61,7 @@
 	<classpathentry kind="lib" path="webapp/WEB-INF/lib/hibernate3.3.1-slf4j-log4j12-1.5.2.jar"/>
 	<classpathentry kind="lib" path="webapp/WEB-INF/lib/pageutil.jar"/>
 	<classpathentry kind="lib" path="webapp/WEB-INF/lib/quartz-all-1.8.5.jar"/>
+	<classpathentry kind="lib" path="webapp/WEB-INF/lib/activation.jar"/>
+	<classpathentry kind="lib" path="webapp/WEB-INF/lib/mail.jar"/>
 	<classpathentry kind="output" path="webapp/WEB-INF/classes"/>
 </classpath>

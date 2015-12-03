@@ -33,7 +33,7 @@ public class MailSendQuartz {
 		String param = "year="+year+"&month="+month;
 		String sendHtml = HttpRequestUtil.sendGet(url, param);
 		System.out.println(sendHtml);
-		sendManager.doSendHtmlEmail(year+"年+"+month+"月消费账单", sendHtml, receiveUser);
+		sendManager.doSendHtmlEmail(year+"年"+month+"月消费账单", sendHtml, receiveUser);
 	}
 	
 	public static void main(String[] args) {
