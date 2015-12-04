@@ -97,5 +97,10 @@
 			<result name="costgroup">/WEB-INF/views/backend/costgroup.jsp</result>
 			<result name="reloadCostgroup" type="redirectAction">backendAction_costgroup</result>
 		</action>
+		<action name="backendSystemAction_*" class="com.demo.ssh.action.backend.BackendAction" method="{1}">
+			<result name="index">/WEB-INF/backendsystem/index.jsp</result>
+			<result name="userList">/WEB-INF/backendsystem/user_list.jsp</result>
+			<result name="costgroupList">/WEB-INF/backendsystem/costgroup_list.jsp</result>
+		</action>
 	</package>
 </struts>

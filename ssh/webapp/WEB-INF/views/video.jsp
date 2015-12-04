@@ -21,26 +21,19 @@
 			</p>
 		</div>
 		<div class="body-container">
-		<div id="playercontainer"></div>
-		<script type="text/javascript" src="/js/T5PlayerWebSDK/js/cyberplayer.min.js"></script>
-		<script type="text/javascript">
-			var player = cyberplayer("playercontainer").setup({
-				flashplayer : "/js/T5PlayerWebSDK/player/cyberplayer.flash.swf",
-				width : 680,
-				height : 400,
-				backcolor : "#FFFFFF",
-				stretching : "uniform",
-				file : "http://live.bestvcdn.net/live/ysrw/01.m3u8",
-				image : "/js/T5PlayerWebSDK/images/20120611174842_wKcxR.jpeg",
-				autoStart : false,
-				repeat : "always",
-				volume : 100,
-				controls : "over",
-				//ak 和 sk（sk 只需前 16 位）参数值需要开发者进行申请
-// 				ak : ak,
-// 				sk : sk
-			});
-</script> 
+			
+			<div id="a1" style="margin-left: auto; margin-right: auto; text-align: center;"></div>
+			<script type="text/javascript" src="/js/ckplayer/ckplayer.js" charset="utf-8"></script>
+			<script type="text/javascript">
+			    var flashvars={
+			        f:'http://movie.ks.js.cn/flv/other/1_0.mp4',
+			        c:0,
+			        loaded:'loadedHandler'
+			    };
+			    var video=['http://movie.ks.js.cn/flv/other/1_0.mp4->video/mp4'];
+			    CKobject.embed('/js/ckplayer/ckplayer.swf','a1','ckplayer_a1','600','400',false,flashvars,video);
+			</script>
+			
 		</div>
 	</div>
 	<s:include value="/view/footer.jsp"/>

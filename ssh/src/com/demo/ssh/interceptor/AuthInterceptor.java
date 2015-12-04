@@ -10,6 +10,7 @@ import org.apache.struts2.ServletActionContext;
 import com.demo.ssh.action.CostRecordAction;
 import com.demo.ssh.action.UnAuthedResourceAction;
 import com.demo.ssh.action.UserAction;
+import com.demo.ssh.action.backend.BackendAction;
 import com.demo.ssh.base.BaseAction;
 import com.demo.ssh.entity.User;
 import com.demo.ssh.util.LoggerManager;
@@ -42,7 +43,9 @@ public class AuthInterceptor extends AbstractInterceptor {
 	public String intercept(ActionInvocation invocation) throws Exception {
 		Action action = (Action) invocation.getAction();
 		// 如果是com.demo.ssh.action.UnAuthedResourceAction则直接放行：公共访问区域
-		if (action instanceof UnAuthedResourceAction) {
+		if(action instanceof BackendAction){
+			return invocation.invoke();
+		}else if (action instanceof UnAuthedResourceAction) {
 			return invocation.invoke();
 		} else if(action instanceof CostRecordAction){
 			String method = invocation.getProxy().getMethod();
