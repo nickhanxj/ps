@@ -21,4 +21,13 @@ public class CostGroupService {
 	public List<CostGroup> findAll(){
 		return groupDao.selectAll(CostGroup.class);
 	}
+	
+	public List<CostGroup> findByUserId(String userId){
+		return groupDao.findByUserId(userId);
+	}
+	
+	public CostGroup findById(Long groupId){
+		return groupDao.getById(CostGroup.class, groupId);
+	}
+	
 }

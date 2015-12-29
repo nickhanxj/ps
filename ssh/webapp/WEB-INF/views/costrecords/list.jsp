@@ -108,6 +108,21 @@
 	#searchDiv a:LINK {
 		color: gray;
 	}
+	.costgroup{
+		padding: 5px;
+		background-color: lightgray;
+		margin-left: 5px;
+		text-decoration: none;
+		color: gray;
+	}
+	.costgroup:HOVER {
+		background-color:lightblue;
+		border-radius:5px;
+	}
+	.curGroup{
+		background-color:lightblue;
+		border-radius:5px;
+	}
 </style>
 </head>
 <body>
@@ -121,25 +136,43 @@
 			</p>
 		</div>
 		<div class="body-container">
+			<div style="margin-bottom: 15px;">
+				我的消费组：
+				<c:forEach items="${groups}" var="group">
+					<c:if test="${groupId == group.id}">
+						<a class="costgroup curGroup" href="/cost/list.html?groupId=${group.id}">${group.groupName}</a>
+					</c:if>
+					<c:if test="${groupId != group.id}">
+						<a class="costgroup" href="/cost/list.html?groupId=${group.id}">${group.groupName}</a>
+					</c:if>
+				</c:forEach>
+			</div>
 			<div style="border-bottom: 0px dotted gray; padding-bottom: 10px;" id="searchDiv">
 <%-- 				<s:hidden name="pageSize" value="1"/> --%>
 				<span id="normal">
-					<a href="/cost/addRecord.html"  class="btn btn-small">新增记录</a>
-					<a href="/cost/statistics.html" id="viewNormal" class="btn btn-small">表格统计信息</a>
+					<a href="/cost/addRecord.html?groupId=${groupId}"  class="btn btn-small">新增记录</a>
+					<a href="/cost/statistics.html?groupId=${groupId}" id="viewNormal" class="btn btn-small">表格统计信息</a>
 					<a href="/cost/perPersonCostChart.html" id="viewNormal" class="btn btn-small">每人/月消费统计图</a>
 					<a href="/cost/timeChart.html" id="viewNormal" class="btn btn-small">日消费折线图</a>
 				</span>
 				<span id="forPhone">
-					<a href="/cost/addRecord.html"  class="btn btn-small">新增</a>
+					<a href="/cost/addRecord.html?groupId=${groupId}"  class="btn btn-small">新增</a>
 					<a href="/cost/statistics.html" id="view" class="btn btn-small">统计</a>
 					<span id="advancedQuery"><a href="javascript:void(0)" onclick="showQueryForm()"  class="btn btn-small" id="queryText">高级查询</a></span>
 				</span>
 				<span style="float:right;" id="searchParamsForm">
 					<s:form action="/cost/list.html" theme="simple" id="searchForm">
 					<s:hidden name="currentPage" value="1" id="currentPageId"/>
+					<input type="hidden" value="${groupId}" name="groupId">
 					<s:textfield name="startTime" readonly="true" onClick="WdatePicker()" cssClass="searchParam" placeholder="开始时间" id="startTime"/>
 					至<s:textfield name="endTime" readonly="true" onClick="WdatePicker()" cssClass="searchParam" placeholder="结束时间" id="endTime"/>
-					<s:select name="userName" list="#{0:'--选择消费人--',1:'韩晓军',2:'胡丰盛',3:'李洪亮'}" cssClass="searchParam" id="userName"></s:select>
+<%-- 					<s:select name="userName" list="#{0:'--选择消费人--',1:'韩晓军',2:'胡丰盛',3:'李洪亮'}" cssClass="searchParam" id="userName"></s:select> --%>
+					<select name="userName" class="searchParam" id="userName">
+						<option value="0">--选择消费人--</option>
+						<c:forEach items="${members}" var="member">
+							<option value="${member.memberName}">${member.memberName}</option>
+						</c:forEach>
+					</select>
 					<s:textfield name="costFor" placeholder="消费用途" id="costFor" cssClass="searchParam"/>
 					<s:submit value="查询" cssClass="btn btn-small" id="searchBtn"></s:submit>
 					<a href="javascript:void(0)" onclick="resetForm()" class="btn btn-small">重置</a>
@@ -158,7 +191,13 @@
 							<td><s:textfield name="endTime" readonly="true" onClick="WdatePicker()" cssClass="searchParam" placeholder="结束时间" id="endTime"/></td>
 						</tr>
 						<tr>
-							<td><s:select name="userName" list="#{0:'--选择消费人--',1:'韩晓军',2:'胡丰盛',3:'李洪亮'}" cssClass="searchParam" id="userName"></s:select></td>
+							<td>
+								<select name="userName" class="searchParam" id="userName">
+									<option value="0">--选择消费人--</option>
+									<c:forEach items="${members}" var="member">
+										<option value="${member.memberName}">${member.memberName}</option>
+									</c:forEach>
+								</select>
 						</tr>
 						<tr>
 							<td><s:textfield name="costFor" placeholder="消费用途" id="costFor" cssClass="searchParam"/></td>
@@ -182,7 +221,14 @@
 							<td><s:submit value="查询" cssClass="btn btn-small" id="searchBtn"></s:submit></td>
 						</tr>
 						<tr>
-							<td><s:select name="userName" list="#{0:'--选择消费人--',1:'韩晓军',2:'胡丰盛',3:'李洪亮'}" cssClass="searchParam" id="userName"></s:select></td>
+							<td>
+								<select name="userName" class="searchParam" id="userName">
+									<option value="0">--选择消费人--</option>
+									<c:forEach items="${members}" var="member">
+										<option value="${member.memberName}">${member.memberName}</option>
+									</c:forEach>
+								</select>
+							</td>
 							<td><s:textfield name="costFor" placeholder="消费用途" id="costFor" cssClass="searchParam"/></td>
 							<td><a href="javascript:void(0)" onclick="resetForm()" class="btn btn-small">重置</a></td>
 						</tr>
@@ -200,30 +246,22 @@
 					<th>状态</th>
 					<th>备注</th>
 					<th>附件</th>
-					<th>操作</th>
+<!-- 					<th>操作</th> -->
 				</tr>
 				<s:iterator value="%{#records.rows}" var="record">
 					<tr>
 						<td>
-							<c:if test="${record.user == 0}">
+							<c:if test="${record.user == '0'}">
 								系统提示
 							</c:if>
-							<c:if test="${record.user == 1}">
-								韩晓军
-							</c:if>
-							<c:if test="${record.user == 2}">
-								胡丰盛
-							</c:if>
-							<c:if test="${record.user == 3}">
-								李洪亮
-							</c:if>
+							${record.user}
 						</td>
 						<td>${record.cost}</td>
 						<td>
-							<c:if test="${record.user == 0}">
+							<c:if test="${record.user == '0'}">
 								/
 							</c:if>
-							<c:if test="${record.user != 0}">
+							<c:if test="${record.user != '0'}">
 								${record.costFor}
 							</c:if>
 						</td>
@@ -237,10 +275,10 @@
 							</c:if>
 						</td>
 						<td>
-							<c:if test="${record.user == 0}">
+							<c:if test="${record.user == '0'}">
 								当日无消费记录
 							</c:if>
-							<c:if test="${record.user != 0}">
+							<c:if test="${record.user != '0'}">
 								${record.mark}
 							</c:if>
 						</td>
@@ -254,14 +292,14 @@
 								无附件
 							</c:if>
 						</td>
-						<td>
-							<a href="/cost/editRecord.html?recordId=${record.id}" title="修改"><span class="glyphicon glyphicon-pencil"></span></a>&ensp;|
+<!-- 						<td> -->
+<%-- 							<a href="/cost/editRecord.html?recordId=${record.id}" title="修改"><span class="glyphicon glyphicon-pencil"></span></a>&ensp;| --%>
 <%-- 							<a href="/cost/delete.html?recordId=${record.id}">删除</a> --%>
-							<a href="javascript:void(0)" onclick="confirmDelete(${record.id})" title="删除"><span class="glyphicon glyphicon-trash"></span></a>
-							<c:if test="${record.status == 0}">
-							|&ensp;<a href="javascript:void(0)" onclick="checkout(${record.id},${record.user},'${record.costFor}','${record.cost}','${record.costdate}','${record.mark}')" title="结账"><span class="glyphicon glyphicon-shopping-cart"></span></a>
-							</c:if>
-						</td>
+<%-- 							<a href="javascript:void(0)" onclick="confirmDelete(${record.id})" title="删除"><span class="glyphicon glyphicon-trash"></span></a> --%>
+<%-- 							<c:if test="${record.status == 0}"> --%>
+<%-- 							|&ensp;<a href="javascript:void(0)" onclick="checkout(${record.id},${record.user},'${record.costFor}','${record.cost}','${record.costdate}','${record.mark}')" title="结账"><span class="glyphicon glyphicon-shopping-cart"></span></a> --%>
+<%-- 							</c:if> --%>
+<!-- 						</td> -->
 					</tr>
 				</s:iterator>
 			</table>
@@ -271,20 +309,12 @@
 					<th>消费金额（元）</th>
 					<th>消费用途</th>
 					<th>附件</th>
-					<th>操作</th>
+<!-- 					<th>操作</th> -->
 				</tr>
 				<s:iterator value="%{#records.rows}" var="record">
 					<tr>
 						<td>
-							<c:if test="${record.user == 1}">
-								韩晓军
-							</c:if>
-							<c:if test="${record.user == 2}">
-								胡丰盛
-							</c:if>
-							<c:if test="${record.user == 3}">
-								李洪亮
-							</c:if>
+							${record.user}
 						</td>
 						<td>${record.cost}</td>
 						<td>${record.costFor}</td>
@@ -298,9 +328,9 @@
 								无
 							</c:if>
 						</td>
-						<td>
-							<a href="/cost/editRecord.html?recordId=${record.id}" title="修改"><span class="glyphicon glyphicon-pencil"></span></a>
-						</td>
+<!-- 						<td> -->
+<%-- 							<a href="/cost/editRecord.html?recordId=${record.id}" title="修改"><span class="glyphicon glyphicon-pencil"></span></a> --%>
+<!-- 						</td> -->
 					</tr>
 				</s:iterator>
 			</table>
@@ -437,7 +467,7 @@
 		var date = new Date;
 		var year = date.getFullYear();
 		var month = date.getMonth() + 1;
-		var url = "/cost/statistics.html?year="+year+"&month="+month;
+		var url = "/cost/statistics.html?year="+year+"&month="+month+"&groupId="+${groupId};
 		$("#view").attr('href',url);
 		$("#viewNormal").attr('href',url);
 	});

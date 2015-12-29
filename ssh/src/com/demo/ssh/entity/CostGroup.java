@@ -1,17 +1,12 @@
 package com.demo.ssh.entity;
 
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -27,13 +22,8 @@ public class CostGroup {
 	private String groupName;
 	private String mark;
 	private Date createTime = new Date();
-	private Set<GroupMember> members = new HashSet<GroupMember>();
-	
-	public void addMember(GroupMember member){
-		member.setGroup(this);
-		this.members.add(member);
-	}
-	
+	private String signUser;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", nullable = false, unique = true)
@@ -69,13 +59,12 @@ public class CostGroup {
 		this.createTime = createTime;
 	}
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "group")
-	public Set<GroupMember> getMembers() {
-		return members;
+	public String getSignUser() {
+		return signUser;
 	}
 
-	public void setMembers(Set<GroupMember> members) {
-		this.members = members;
+	public void setSignUser(String signUser) {
+		this.signUser = signUser;
 	}
 
 }

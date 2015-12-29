@@ -84,7 +84,7 @@
 		<action name="costAction_*" class="com.demo.ssh.action.CostRecordAction" method="{1}">
 			<result name="list">/WEB-INF/views/costrecords/list.jsp</result>
 			<result name="add">/WEB-INF/views/costrecords/add.jsp</result>
-			<result name="redirectList" type="redirectAction">/costAction_list</result>
+			<result name="redirectList" type="redirectAction">/costAction_list?groupId=${groupId}</result>
 			<result name="statistics">/WEB-INF/views/costrecords/statistics.jsp</result>
 			<result name="statisticsForEmail">/WEB-INF/views/costrecords/statisticsForEmail.jsp</result>
 			<result name="edit">/WEB-INF/views/costrecords/edit.jsp</result>

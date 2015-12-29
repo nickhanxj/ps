@@ -34,8 +34,8 @@ public class CostRecordService {
 		recordDao.updateRecord(record);
 	}
 	
-	public Map<String, Object> monthTotal(String year, String month){
-		return recordDao.monthTotal(year, month);
+	public Map<String, Object> monthTotal(String year, String month,String groupId){
+		return recordDao.monthTotal(year, month, groupId);
 	}
 	
 	public Map<String, Object> statisticPerson(String year, String month, String user){
@@ -59,12 +59,12 @@ public class CostRecordService {
 			extraParams.append(" and cr.costdate <= '"+params.get("endTime")+"' ");
 		}
 		if(StringUtils.isNotBlank(params.get("user")) && !"0".equals(params.get("user"))){
-			extraParams.append(" and cr.user = "+params.get("user")+" ");
+			extraParams.append(" and cr.user = '"+params.get("user")+"' ");
 		}
 		if(StringUtils.isNotBlank(params.get("costFor"))){
 			extraParams.append(" and cr.costFor like '%"+params.get("costFor")+"%' ");
 		}
-		StringBuffer baseHql = new StringBuffer("from CostRecord cr where cr.deleted = 0 "+extraParams.toString()+" order by cr.costdate desc");
+		StringBuffer baseHql = new StringBuffer("from CostRecord cr where cr.deleted = 0 "+extraParams.toString()+" and cr.costGroup.id="+params.get("groupId")+" order by cr.costdate desc");
 		Page<CostRecord> page = new Page<CostRecord>();
 		page.setCurrentPage(currentPage);
 		page.setPageSize(pageSize);

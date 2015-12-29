@@ -115,7 +115,7 @@
 			</p>
 		</div>
 		<div class="body-container">
-			<div style="width: 100%;"><a href="/cost/list.html" class="btn btn-small">&lt;&lt;返回列表</a></div>
+			<div style="width: 100%;"><a href="/cost/list.html?groupId=${groupId}" class="btn btn-small">&lt;&lt;返回列表</a></div>
 			<div style="width: 100%;text-align: right; margin-top: 5px;">
 				<span id="normal">
 				<s:form action="/cost/statistics.html" method="post">
@@ -287,15 +287,7 @@
 										<c:forEach items="${result.statisticResult.records}" var="record">
 											<tr>
 												<td class="subTableLine">
-													<c:if test="${record.user == 1}">
-														韩晓军
-													</c:if>
-													<c:if test="${record.user == 2}">
-														胡丰盛
-													</c:if>
-													<c:if test="${record.user == 3}">
-														李洪亮
-													</c:if>
+													${record.user}
 												</td>
 												<td class="subTableLine">${record.cost}</td>
 												<td class="subTableLine">${record.costFor}</td>

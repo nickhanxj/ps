@@ -1,22 +1,18 @@
 package com.demo.ssh.entity;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="groupmember")
+@Table(name = "groupmember")
 public class GroupMember {
 	private Long id;
-	private User user;
-	private CostGroup group;
+	private String memberName;
+	private Long group_id;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,24 +25,20 @@ public class GroupMember {
 		this.id = id;
 	}
 
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "user_id")
-	public User getUser() {
-		return user;
+	public String getMemberName() {
+		return memberName;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setMemberName(String memberName) {
+		this.memberName = memberName;
 	}
 
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "group_id")
-	public CostGroup getGroup() {
-		return group;
+	public Long getGroup_id() {
+		return group_id;
 	}
 
-	public void setGroup(CostGroup group) {
-		this.group = group;
+	public void setGroup_id(Long group_id) {
+		this.group_id = group_id;
 	}
 
 }

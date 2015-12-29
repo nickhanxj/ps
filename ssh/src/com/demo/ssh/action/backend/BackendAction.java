@@ -41,8 +41,8 @@ public class BackendAction extends BaseAction {
 		for (String trueName : members) {
 			GroupMember member = new GroupMember();
 			User foundUser = userService.getUserByTrueName(trueName);
-			member.setUser(foundUser);
-			group.addMember(member);
+//			member.setUser(foundUser);
+//			group.addMember(member);
 		}
 		groupService.save(group);
 		return "reloadCostgroup";

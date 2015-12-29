@@ -15,8 +15,14 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.struts2.ServletActionContext;
 
 import com.demo.ssh.base.BaseAction;
+import com.demo.ssh.entity.CostGroup;
 import com.demo.ssh.entity.CostRecord;
+import com.demo.ssh.entity.GroupMember;
+import com.demo.ssh.entity.User;
+import com.demo.ssh.service.CostGroupService;
 import com.demo.ssh.service.CostRecordService;
+import com.demo.ssh.service.GroupMemberService;
+import com.demo.ssh.service.UserService;
 import com.demo.ssh.util.Page;
 import com.opensymphony.xwork2.ActionContext;
 
@@ -25,6 +31,12 @@ public class CostRecordAction extends BaseAction {
 	private static final long serialVersionUID = 1L;
 	@Resource
 	private CostRecordService recordService;
+	@Resource
+	private CostGroupService groupService;
+	@Resource
+	private UserService userService;
+	@Resource
+	private GroupMemberService memberService;
 	private CostRecord record;
 	private String year;
 	private String month;
@@ -35,6 +47,7 @@ public class CostRecordAction extends BaseAction {
 	private String fileName;
 	private File file;
 	private Long recordId;
+	private Long groupId;
 	private Integer pageSize = 10;
 	private Integer currentPage = 1;
 
@@ -53,8 +66,15 @@ public class CostRecordAction extends BaseAction {
 		if (StringUtils.isNotBlank(costFor)) {
 			params.put("costFor", costFor);
 		}
+		params.put("groupId", groupId+"");
 		Page<CostRecord> all = recordService.selectListByPage(currentPage, pageSize, params);
 		putContext("records", all);
+		//获取当前用户所在的消费组
+		List<CostGroup> groups = groupService.findByUserId(getSessionUser().getId()+"");
+		putContext("groups", groups);
+		//获取当前组内的组员
+		List<GroupMember> members = memberService.findByGroupId(groupId);
+		putContext("members", members);
 		return "list";
 	}
 
@@ -135,6 +155,9 @@ public class CostRecordAction extends BaseAction {
 
 	// 到新增页面
 	public String addRecord() {
+		//获取当前组内的组员
+		List<GroupMember> members = memberService.findByGroupId(groupId);
+		putContext("members", members);
 		return "add";
 	}
 
@@ -147,23 +170,19 @@ public class CostRecordAction extends BaseAction {
 
 	// 统计信息
 	public String statistics() {
-		Map<String, Object> monthTotal = recordService.monthTotal(year, month);
+		Map<String, Object> monthTotal = recordService.monthTotal(year, month, groupId.toString());
 		putContext("monthTotal", monthTotal);
 		List<Map<String, Object>> rList = new ArrayList<Map<String, Object>>();
-		for (int i = 1; i <= 3; i++) {
-			Map<String, Object> rMap = new HashMap<String, Object>();
-			Map<String, Object> statisticResult = recordService.statisticPerson(year, month, i + "");
-			String username = "";
-			if (i == 1) {
-				username = "韩晓军";
-			} else if (i == 2) {
-				username = "胡丰盛";
-			} else if (i == 3) {
-				username = "李洪亮";
+		
+		if(groupId != null){
+			List<GroupMember> members = memberService.findByGroupId(Long.valueOf(groupId));
+			for (GroupMember groupMember : members) {
+				Map<String, Object> rMap = new HashMap<String, Object>();
+				Map<String, Object> statisticResult = recordService.statisticPerson(year, month, groupMember.getMemberName());
+				rMap.put("user", groupMember.getMemberName());
+				rMap.put("statisticResult", statisticResult);
+				rList.add(rMap);
 			}
-			rMap.put("user", username);
-			rMap.put("statisticResult", statisticResult);
-			rList.add(rMap);
 		}
 		putContext("cyear", year);
 		putContext("cmonth", month);
@@ -173,7 +192,7 @@ public class CostRecordAction extends BaseAction {
 	
 	// 统计信息
 	public String statisticsForEmail() {
-		Map<String, Object> monthTotal = recordService.monthTotal(year, month);
+		Map<String, Object> monthTotal = recordService.monthTotal(year, month, groupId.toString());
 		putContext("monthTotal", monthTotal);
 		List<Map<String, Object>> rList = new ArrayList<Map<String, Object>>();
 		for (int i = 1; i <= 3; i++) {
@@ -238,6 +257,9 @@ public class CostRecordAction extends BaseAction {
 	// 新增
 	public String add() {
 		// 保存
+		CostGroup group = new CostGroup();
+		group.setId(groupId);
+		record.setCostGroup(group);
 		recordService.addRecord(record);
 		return "redirectList";
 	}
@@ -352,6 +374,14 @@ public class CostRecordAction extends BaseAction {
 
 	public void setCurrentPage(Integer currentPage) {
 		this.currentPage = currentPage;
+	}
+
+	public Long getGroupId() {
+		return groupId;
+	}
+
+	public void setGroupId(Long groupId) {
+		this.groupId = groupId;
 	}
 
 }

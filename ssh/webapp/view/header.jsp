@@ -110,9 +110,9 @@
 				<a href="/resource/music.html" class="ele" id="music"><span class="glyphicon glyphicon-music">&ensp;</span>音乐</a>
 				<a href="/resource/video.html" class="ele" id="video"><span class="glyphicon glyphicon-film">&ensp;</span>视频</a>
 				<a href="/cost/list.html" class="ele" id="cost"><span class="glyphicon glyphicon-usd">&ensp;</span>消费记录</a>
-				<s:if test="%{#session.authUser.type == 0}">
-					<a href="/backend/backend.html" class="ele" id="backend"><span class="glyphicon glyphicon-th-large">&ensp;</span>后台管理</a>
-				</s:if>
+<%-- 				<s:if test="%{#session.authUser.type == 0}"> --%>
+<%-- 					<a href="/backend/backend.html" class="ele" id="backend"><span class="glyphicon glyphicon-th-large">&ensp;</span>后台管理</a> --%>
+<%-- 				</s:if> --%>
 			</div>
 			<ul style="list-style-type: none;" id="menuRes">
 				<li style="margin-top: 5px;"><a href="/blog/list.html" class="ele" id="blog"><span class="glyphicon glyphicon-paperclip" style="">&ensp;</span>博客</a></li>
