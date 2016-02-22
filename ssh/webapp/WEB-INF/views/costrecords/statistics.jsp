@@ -124,6 +124,7 @@
 					</s:select>
 					<s:select name="month" placeholder="月份" cssClass="searchParam" value="%{#request.month}"
 					list="#{0:'--选择月--',1:'1月',2:'2月',3:'3月',4:'4月',5:'5月',6:'6月',7:'7月',8:'8月',9:'9月',10:'10月',11:'11月',12:'12月'}"></s:select>
+					<s:hidden name="groupId" value="%{#request.groupId}"/>
 					<s:submit value="查看统计信息" cssClass="btn btn-small"/>
 				</s:form>
 				</span>
@@ -162,7 +163,7 @@
 						<tr>
 							<td class="textright">人均消费</td>
 							<td class="textcenter">
-								<c:set var="perTotal" value="${monthTotal.monthTotalExceptSettled/3}"/>
+								<c:set var="perTotal" value="${monthTotal.monthTotalExceptSettled/count}"/>
 								<font color="green">${perTotal}</font>&emsp;
 							</td>
 						</tr>

@@ -47,7 +47,7 @@ public class CostRecordAction extends BaseAction {
 	private String fileName;
 	private File file;
 	private Long recordId;
-	private Long groupId;
+	private String groupId;
 	private Integer pageSize = 10;
 	private Integer currentPage = 1;
 
@@ -73,7 +73,10 @@ public class CostRecordAction extends BaseAction {
 		List<CostGroup> groups = groupService.findByUserId(getSessionUser().getId()+"");
 		putContext("groups", groups);
 		//获取当前组内的组员
-		List<GroupMember> members = memberService.findByGroupId(groupId);
+		List<GroupMember> members = new ArrayList<GroupMember>();
+		if(StringUtils.isNotBlank(groupId)){
+			members = memberService.findByGroupId(Long.valueOf(groupId));
+		}
 		putContext("members", members);
 		return "list";
 	}
@@ -156,7 +159,7 @@ public class CostRecordAction extends BaseAction {
 	// 到新增页面
 	public String addRecord() {
 		//获取当前组内的组员
-		List<GroupMember> members = memberService.findByGroupId(groupId);
+		List<GroupMember> members = memberService.findByGroupId(Long.valueOf(groupId));
 		putContext("members", members);
 		return "add";
 	}
@@ -187,6 +190,7 @@ public class CostRecordAction extends BaseAction {
 		putContext("cyear", year);
 		putContext("cmonth", month);
 		putContext("result", rList);
+		putContext("count", rList.size());
 		return "statistics";
 	}
 	
@@ -195,20 +199,16 @@ public class CostRecordAction extends BaseAction {
 		Map<String, Object> monthTotal = recordService.monthTotal(year, month, groupId.toString());
 		putContext("monthTotal", monthTotal);
 		List<Map<String, Object>> rList = new ArrayList<Map<String, Object>>();
-		for (int i = 1; i <= 3; i++) {
-			Map<String, Object> rMap = new HashMap<String, Object>();
-			Map<String, Object> statisticResult = recordService.statisticPerson(year, month, i + "");
-			String username = "";
-			if (i == 1) {
-				username = "韩晓军";
-			} else if (i == 2) {
-				username = "胡丰盛";
-			} else if (i == 3) {
-				username = "李洪亮";
+		
+		if(groupId != null){
+			List<GroupMember> members = memberService.findByGroupId(Long.valueOf(groupId));
+			for (GroupMember groupMember : members) {
+				Map<String, Object> rMap = new HashMap<String, Object>();
+				Map<String, Object> statisticResult = recordService.statisticPerson(year, month, groupMember.getMemberName());
+				rMap.put("user", groupMember.getMemberName());
+				rMap.put("statisticResult", statisticResult);
+				rList.add(rMap);
 			}
-			rMap.put("user", username);
-			rMap.put("statisticResult", statisticResult);
-			rList.add(rMap);
 		}
 		putContext("cyear", year);
 		putContext("cmonth", month);
@@ -219,19 +219,13 @@ public class CostRecordAction extends BaseAction {
 	// 图形报表
 	public String graphic() {
 		List<Map<String, Object>> rList = new ArrayList<Map<String, Object>>();
-		for (int i = 1; i <= 3; i++) {
+		List<GroupMember> members = memberService.findByGroupId(Long.valueOf(groupId));
+		for (GroupMember groupMember : members) {
+			String username = groupMember.getMemberName();
 			Map<String, Object> rMap = new HashMap<String, Object>();
-			String username = "";
-			if (i == 1) {
-				username = "韩晓军";
-			} else if (i == 2) {
-				username = "胡丰盛";
-			} else if (i == 3) {
-				username = "李洪亮";
-			}
 			Object[] data = new Object[12];
 			for(int j = 1; j <= 12; j++){
-				Map<String, Object> statisticResult = recordService.dailyCosyByPerson(year, j+"", i + "");
+				Map<String, Object> statisticResult = recordService.dailyCosyByPerson(year, j+"", username);
 				Map<String, Object> costTotal = (Map<String, Object>) statisticResult.get("costTotal");
 				Object total = costTotal.get("csum");
 				if(total == null){
@@ -258,7 +252,7 @@ public class CostRecordAction extends BaseAction {
 	public String add() {
 		// 保存
 		CostGroup group = new CostGroup();
-		group.setId(groupId);
+		group.setId(Long.valueOf(groupId));
 		record.setCostGroup(group);
 		recordService.addRecord(record);
 		return "redirectList";
@@ -376,11 +370,11 @@ public class CostRecordAction extends BaseAction {
 		this.currentPage = currentPage;
 	}
 
-	public Long getGroupId() {
+	public String getGroupId() {
 		return groupId;
 	}
 
-	public void setGroupId(Long groupId) {
+	public void setGroupId(String groupId) {
 		this.groupId = groupId;
 	}
 

@@ -8,8 +8,8 @@
 <jsp:include page="/view/context.jsp" />
 <link href="/css/homepage.css" rel="stylesheet">
  <%@taglib prefix="s" uri="/struts-tags"%> 
-<link rel="stylesheet" type="text/css" href="/css/default.css">
-<link rel="stylesheet" type="text/css" href="/css/styles.css">
+<!-- <link rel="stylesheet" type="text/css" href="/css/default.css"> -->
+<!-- <link rel="stylesheet" type="text/css" href="/css/styles.css"> -->
 <style type="text/css">
 	/*手机*/
 	@media screen and (max-width:600px){
@@ -57,16 +57,16 @@
 				<div style="width: 100%; text-align: center;font-size: 20px; font-family: cursive; font-weight: bold;  padding-bottom: 15px; padding-top: 10px;">找回密码</div>
 				<div id="baseInfo">
 					<div class="form-group">
-					    <input required="required" id="email" name="email" class="form-control"/>
 					    <label class="form-label">注册邮箱    </label>
+					    <input required="required" id="email" name="email" class="form-control"/>
 					  </div>
 					  <div class="form-group">
-					    <input required="required" id="phone" name="phone" class="form-control"/>
 					    <label class="form-label">注册手机 </label>
+					    <input required="required" id="phone" name="phone" class="form-control"/>
 					  </div>
 					  <div class="form-group">
-					    <input required="required" id="trueName" name="trueName" class="form-control"/>
 					    <label class="form-label">真实姓名</label>
+					    <input required="required" id="trueName" name="trueName" class="form-control"/>
 					   </div>
 					   <div style="color: green; font-size: x-small;margin-top: 30px;" align="left">
 					   	* <font color="blue">邮箱必须提供</font>，手机与真实姓名提供一项即可。
@@ -77,12 +77,12 @@
 				  </div>
 				  <div id="resetPasswd" style="display: none;">
 				  	<div class="form-group">
-					    <input required="required" id="newPassword" type="password" name="newPasswd" onblur="validatePwd()" class="form-control"/>
 					    <label class="form-label">设置新密码    </label>
+					    <input required="required" id="newPassword" type="password" name="newPasswd" onblur="validatePwd()" class="form-control"/>
 					  </div>
 					  <div class="form-group">
-					    <input required="required" id="reNewPassword" type="password" name="reNewPasswd" onblur="validatePwd()" class="form-control"/>
 					    <label class="form-label">重复新密码 </label>
+					    <input required="required" id="reNewPassword" type="password" name="reNewPasswd" onblur="validatePwd()" class="form-control"/>
 					  </div>
 					  <div align="center" style="margin-top: 30px;">
 							<a href="javascript:void(0)" onclick="resetPassword()" class="btn btn-default disabled" id="confirmBtn">确认修改</a>

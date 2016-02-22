@@ -8,8 +8,8 @@
 <jsp:include page="/view/context.jsp" />
 <link href="/css/homepage.css" rel="stylesheet">
  <%@taglib prefix="s" uri="/struts-tags"%> 
-<link rel="stylesheet" type="text/css" href="/css/default.css">
-<link rel="stylesheet" type="text/css" href="/css/styles.css">
+<!-- <link rel="stylesheet" type="text/css" href="/css/default.css"> -->
+<!-- <link rel="stylesheet" type="text/css" href="/css/styles.css"> -->
 <style type="text/css">
 	/*手机*/
 	@media screen and (max-width:600px){
@@ -65,12 +65,12 @@
 <%-- 					<s:password required="true" name="user.password"  cssClass="form-control lock" placeholder="密码"/> --%>
 <!-- 				</div> -->
 				<div class="form-group">
-				    <input required="required" name="email" class="form-control"/>
 				    <label class="form-label">邮　箱    </label>
+				    <input required="required" name="email" class="form-control"/>
 				  </div>
 				  <div class="form-group">
-				    <input type="password" name="password" required="required" class="form-control"/>
 				    <label class="form-label">密　码</label>
+				    <input type="password" name="password" required="required" class="form-control"/>
 				   </div>
 				<div style="color: red; font-size: x-small;margin-top: 30px;" align="center">
 					<s:actionerror/>
