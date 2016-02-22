@@ -47,11 +47,11 @@ public class CostRecordDao extends BaseDao<CostRecord> {
 		Map<String, Object> rMap = new HashMap<String, Object>();
 		String byYearAndMonth = " and tc.group_id = "+groupId+" and year(tc.costdate) = "+year+" and month(tc.costdate) = "+month +" and tc.deleted = 0";
 		//月消费总额
-		String totalCostPerMonthSql = "select sum(cost) from t_costrecord tc where 1 = 1 "+byYearAndMonth;
+		String totalCostPerMonthSql = "select round(sum(cost),2) from t_costrecord tc where 1 = 1 "+byYearAndMonth;
 		SQLQuery totalCostPerMonth = getSession().createSQLQuery(totalCostPerMonthSql);
 		rMap.put("monthTotal", totalCostPerMonth.uniqueResult());
 		//月消费总额扣除已结算
-		String totalCostPerMonthExceptSettledSql = "select sum(cost) from t_costrecord tc where tc.status = 0 "+byYearAndMonth;
+		String totalCostPerMonthExceptSettledSql = "select round(sum(cost),2) from t_costrecord tc where tc.status = 0 "+byYearAndMonth;
 		SQLQuery totalCostPerMonthExceptSettled = getSession().createSQLQuery(totalCostPerMonthExceptSettledSql);
 		rMap.put("monthTotalExceptSettled", totalCostPerMonthExceptSettled.uniqueResult());
 		return rMap;
@@ -66,7 +66,7 @@ public class CostRecordDao extends BaseDao<CostRecord> {
 		SQLQuery costTimes = getSession().createSQLQuery(costTimesSql);
 		rMap.put("costTimes", costTimes.uniqueResult());//消费次数
 		
-		String costTotalSql = "select sum(cost) csum,avg(cost) cavg from t_costrecord tc where tc.user = '"+user+"'"+byYearAndMonth;
+		String costTotalSql = "select round(sum(cost),2) csum,round(avg(cost),2) cavg from t_costrecord tc where tc.user = '"+user+"'"+byYearAndMonth;
 		Query costTotal = getSession().createSQLQuery(costTotalSql).setResultTransformer(CriteriaSpecification.ALIAS_TO_ENTITY_MAP);
 		rMap.put("costTotal", costTotal.uniqueResult());//消费总金额 
 		
@@ -75,13 +75,13 @@ public class CostRecordDao extends BaseDao<CostRecord> {
 		String unsettledSql = "select count(*) from t_costrecord tc where tc.status = 0 and tc.user = '"+user+"'"+byYearAndMonth;
 		rMap.put("unsettled", getSession().createSQLQuery(unsettledSql).uniqueResult());//未结消费数
 		
-		String settledCostSql = "select sum(cost) from t_costrecord tc where tc.status = 1 and tc.user = '"+user+"'"+byYearAndMonth;
+		String settledCostSql = "select round(sum(cost),2) from t_costrecord tc where tc.status = 1 and tc.user = '"+user+"'"+byYearAndMonth;
 		Object result1 = getSession().createSQLQuery(settledCostSql).uniqueResult();
 		if(result1 == null || "".equals(result1)){
 			result1 = 0;
 		}
 		rMap.put("settledCost", result1);//已结消费金额
-		String unsettledCostSql = "select sum(cost) from t_costrecord tc where tc.status = 0 and tc.user = '"+user+"'"+byYearAndMonth;
+		String unsettledCostSql = "select round(sum(cost),2) from t_costrecord tc where tc.status = 0 and tc.user = '"+user+"'"+byYearAndMonth;
 		Object result2 = getSession().createSQLQuery(unsettledCostSql).uniqueResult();
 		if(result2 == null || "".equals(result2)){
 			result2 = 0;
